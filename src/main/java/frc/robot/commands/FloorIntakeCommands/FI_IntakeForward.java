@@ -11,10 +11,9 @@ public class FI_IntakeForward extends Command{
         this.floorIntake = floorIntake;
     }
 
+    @Override
     public void execute(){ 
         floorIntake.intakeForward();
-   
-        
     }
 
     @Override
