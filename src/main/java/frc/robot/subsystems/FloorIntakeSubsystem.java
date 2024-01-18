@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class FloorIntakeSubsystem extends SubsystemBase {
     /** Creates a new FloorIntakeSubsystem. */
-    private CANSparkMax m_floorIntake = new CANSparkMax(99, MotorType.kBrushless);
+    private CANSparkMax m_floorIntake = new CANSparkMax(31, MotorType.kBrushless);
     
 
 
