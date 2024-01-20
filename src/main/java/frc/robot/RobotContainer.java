@@ -6,8 +6,10 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.ArmCommands.ArmPositions;
+import frc.robot.commands.ConveyorCommands.ConveyInwardCommand;
 import frc.robot.commands.FloorIntakeCommands.FI_IntakeForward;
 import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.ConveyorSubsystem;
 import frc.robot.subsystems.FloorIntakeSubsystem;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.RobotBase;
@@ -30,10 +32,11 @@ public class RobotContainer
   // The robot's subsystems and commands are defined here...
   private final FloorIntakeSubsystem floorIntake = new FloorIntakeSubsystem();
   private final ArmSubsystem arm = new ArmSubsystem();
+  private final ConveyorSubsystem conveyor = new ConveyorSubsystem();
 
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  private final CommandXboxController m_driverController =
+  private final CommandXboxController m_driverController=
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
   
   private final SwerveSubsystem drivebase = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
@@ -76,9 +79,10 @@ public class RobotContainer
   private void configureBindings() {
    
     m_driverController.x().onTrue((new InstantCommand(drivebase::zeroGyro)));
-   
+
     m_driverController.a().whileTrue(new FI_IntakeForward(floorIntake));
     m_driverController.b().debounce(.1).onTrue(new ArmPositions(arm));
+    m_driverController.y().whileTrue(new ConveyInwardCommand(conveyor));
 
   }
 
