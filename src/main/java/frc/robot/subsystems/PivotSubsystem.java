@@ -28,9 +28,6 @@ public class PivotSubsystem extends SubsystemBase {
         m_PidController = m_pivot.getPIDController();
         m_PidController.setFeedbackDevice(encoder);
 
-        //new line of code from the refrence link https://www.chiefdelphi.com/t/cansparkmax-pid-loop-driven-by-thru-bore-absolute-encoder/426422/3 
-        m_pivot.getPIDController().setFeedbackDevice(m_pivot.getAbsoluteEncoder(SparkAbsoluteEncoder.Type.kDutyCycle));
-
         m_PidController.setP(kP);
         m_PidController.setI(kI);
         m_PidController.setD(kD);
@@ -40,10 +37,7 @@ public class PivotSubsystem extends SubsystemBase {
 
     }
 
-    private void getPosition(){
-      //  SmartDashboard.getNumber("Position", m_pivot);
-        
-    }
+    
 
 
 
