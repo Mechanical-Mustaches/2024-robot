@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class PivotSubsystem extends SubsystemBase {
     
-    private final CANSparkMax m_pivot = new CANSparkMax(0, MotorType.kBrushless);
+    private final CANSparkMax m_pivot = new CANSparkMax(13, MotorType.kBrushless);
     private final SparkAbsoluteEncoder encoder = m_pivot.getAbsoluteEncoder(SparkAbsoluteEncoder.Type.kDutyCycle); 
     private final SparkPIDController m_PidController;
 
