@@ -33,6 +33,12 @@ public final class Constants
     public static final double MAX_ACCELERATION = 2;
   }
 
+  public static final class OIConstants {
+    public static final int kDriverControllerPort = 0;
+    public static final int kCoDriverControllerPort = 1;
+ 
+  }
+
   public static final class Drivebase
   {
 
@@ -48,5 +54,6 @@ public final class Constants
     public static final double LEFT_Y_DEADBAND = 0.01;
     public static final double RIGHT_X_DEADBAND = 0.01;
     public static final double TURN_CONSTANT = 6;
+
   }
 }
