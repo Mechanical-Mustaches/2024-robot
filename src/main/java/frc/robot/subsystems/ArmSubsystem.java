@@ -10,8 +10,8 @@ public class ArmSubsystem extends SubsystemBase {
      /** Creates a new ArmSubsystem. */
 
      //Left arm has an absolute encoder
-    private CANSparkMax m_leftArm = new CANSparkMax(31, MotorType.kBrushless);
-    private CANSparkMax m_rightArm = new CANSparkMax(2, MotorType.kBrushless);
+    private CANSparkMax m_leftArm = new CANSparkMax(15, MotorType.kBrushless);
+    private CANSparkMax m_rightArm = new CANSparkMax(16, MotorType.kBrushless);
 
     private final SparkAbsoluteEncoder encoder = m_leftArm.getAbsoluteEncoder(SparkAbsoluteEncoder.Type.kDutyCycle); 
     private final SparkPIDController m_PidController;

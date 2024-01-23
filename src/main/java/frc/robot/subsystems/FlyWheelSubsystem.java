@@ -7,8 +7,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class FlyWheelSubsystem extends SubsystemBase {    
  /** Creates a new FlyWheelSubsystem. */
-    private CANSparkMax m_leftWheel = new CANSparkMax(98, MotorType.kBrushless);
-    private CANSparkMax m_rightWheel = new CANSparkMax(97, MotorType.kBrushless);
+    private CANSparkMax m_leftWheel = new CANSparkMax(11, MotorType.kBrushless);
+    private CANSparkMax m_rightWheel = new CANSparkMax(12, MotorType.kBrushless);
 
 
   public FlyWheelSubsystem() {
