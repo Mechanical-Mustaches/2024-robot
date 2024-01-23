@@ -132,6 +132,7 @@ public class SwerveSubsystem extends SubsystemBase
     }
 
     // Create a path following command using AutoBuilder. This will also trigger event markers.
+    //return AutoBuilder.buildAuto(pathName);
     return AutoBuilder.followPath(path);
   }
 
