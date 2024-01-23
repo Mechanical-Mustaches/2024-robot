@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ConveyorSubsystem;
 
 public class ConveyInwardCommand extends Command{
-    ConveyorSubsystem conveyor = new ConveyorSubsystem();
+    ConveyorSubsystem conveyor; 
 
     public ConveyInwardCommand(ConveyorSubsystem conveyor){
         this.conveyor = conveyor;
