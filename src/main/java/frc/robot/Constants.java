@@ -45,6 +45,12 @@ public final class Constants
     // Hold time on motor brakes when disabled
     public static final double WHEEL_LOCK_TIME = 10; // seconds
   }
+  
+  public static final class OIConstants {
+    public static final int kDriverControllerPort = 0;
+    public static final int kCoDriverControllerPort = 1;
+ 
+  }
 
   public static class OperatorConstants
   {
