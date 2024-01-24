@@ -37,12 +37,17 @@ public class ElevatorSubsystem extends SubsystemBase {
 
 
     /*
-     * Three States: (Least amout of movement)
+     * Five States: (Least amout of movement)
+     *  Base (start) Position
      *  Amp Position 
      *  Trap Position 
      *  Initial Speaker Position 
      *  Defense Position (Last resort use w/ limelight maybe?) 
      */
+
+     public void basePosition(){
+        elevatorEncoder.setPosition(0);
+     }
 
      public void ampPosition(){
         elevatorEncoder.setPosition(1);
@@ -52,13 +57,11 @@ public class ElevatorSubsystem extends SubsystemBase {
         elevatorEncoder.setPosition(5);
      }
 
-     public void stagePosition(){
-        elevatorEncoder.setPosition(2);
-     }
-
      public void defensePosition(){
         elevatorEncoder.setPosition(3);
      }
+
+    
 
      
 
