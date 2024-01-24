@@ -12,8 +12,8 @@ public class FlyWheelSubsystem extends SubsystemBase {
     private CANSparkMax m_leftWheel = new CANSparkMax(11, MotorType.kBrushless);
     private CANSparkMax m_rightWheel = new CANSparkMax(12, MotorType.kBrushless);
 
-    private final SparkPIDController m_PidController;
-    private RelativeEncoder flyWheelEncoder;
+    private final SparkPIDController m_PidController = m_leftWheel.getPIDController();  
+    private RelativeEncoder flyWheelEncoder = m_leftWheel.getEncoder();
 
     private double kP = 0.1;
     private double kI = 0;
@@ -24,9 +24,8 @@ public class FlyWheelSubsystem extends SubsystemBase {
     private double kMinOutput = -.1;
 
   public FlyWheelSubsystem() {
-    m_PidController = m_leftWheel.getPIDController();
     m_PidController.setFeedbackDevice(flyWheelEncoder);
-
+    
     m_PidController.setP(kP);
     m_PidController.setI(kI);
     m_PidController.setD(kD);
