@@ -44,21 +44,25 @@ public class ElevatorSubsystem extends SubsystemBase {
      *  Defense Position (Last resort use w/ limelight maybe?) 
      */
 
+     private void setElevatorHight(double heightInchs){
+         m_PidController.setReference(heightInchs, CANSparkMax.ControlType.kPosition);
+     }
+
      public void basePosition(){
-        elevatorEncoder.setPosition(0);
+        setElevatorHight(0.0);
      }
 
      public void ampPosition(){
-        elevatorEncoder.setPosition(1);
+        setElevatorHight(2.5);
      }
 
      public void trapPosition(){
-        elevatorEncoder.setPosition(5);
-     }
+        setElevatorHight(5.5);
+   }
 
      public void defensePosition(){
-        elevatorEncoder.setPosition(3);
-     }
+        setElevatorHight(3.5);
+   }
 
     
 
