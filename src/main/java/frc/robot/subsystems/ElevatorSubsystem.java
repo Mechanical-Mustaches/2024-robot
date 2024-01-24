@@ -41,7 +41,6 @@ public class ElevatorSubsystem extends SubsystemBase {
      *  Base (start) Position
      *  Amp Position 
      *  Trap Position 
-     *  Initial Speaker Position 
      *  Defense Position (Last resort use w/ limelight maybe?) 
      */
 
