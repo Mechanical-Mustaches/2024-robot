@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class PivotSubsystem extends SubsystemBase {
     
-    private final CANSparkMax m_pivot = new CANSparkMax(13, MotorType.kBrushless);
+    private final CANSparkMax m_pivot = new CANSparkMax(14, MotorType.kBrushless);
     private final SparkAbsoluteEncoder encoder = m_pivot.getAbsoluteEncoder(SparkAbsoluteEncoder.Type.kDutyCycle); 
     private final SparkPIDController m_PidController;
 
@@ -36,6 +36,35 @@ public class PivotSubsystem extends SubsystemBase {
         m_PidController.setOutputRange(kMinOutput, kMaxOutput);
 
     }
+
+     /*
+     * Four States: (Least amout of movement)
+     *  Base (start) Position
+     *  Amp Position 
+     *  Trap Position 
+     *  Defense Position (Last resort use w/ limelight maybe?) 
+     */
+
+     private void setArmPosition(float deg){
+        m_PidController.setReference(deg / 360, CANSparkMax.ControlType.kPosition);
+     }
+
+     public void pivotBasePosition(){
+        setArmPosition(0f);
+     }
+
+     public void pivotAmpPosition(){
+        setArmPosition(30f);
+     }
+
+     public void pivotTrapPosition(){
+        setArmPosition(50f);
+     }
+
+   
+
+     
+
 
     
 
