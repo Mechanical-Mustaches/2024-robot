@@ -10,7 +10,8 @@ public class ShootNoteCommand extends Command {
         this.flyWheel = flyWheel;
     }
 
-    public void initialize(){
+    @Override
+    public void execute(){
         flyWheel.rampUp();
     }
 
