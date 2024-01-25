@@ -16,9 +16,14 @@ public class AmpPosition extends Command{
     }
 
     @Override
-    public void execute(){
+    public void initialize(){
         pivot.pivotAmpPosition();
         elevator.ampPosition();
+    }
+
+    @Override
+    public boolean isFinished(){
+        return true;
     }
 
     

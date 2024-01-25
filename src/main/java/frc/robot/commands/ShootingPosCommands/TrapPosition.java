@@ -19,5 +19,10 @@ public class TrapPosition extends Command {
         pivot.pivotTrapPosition();
         elevator.trapPosition();
     }
+
+    @Override
+    public boolean isFinished(){
+        return true;
+    }
     
 }

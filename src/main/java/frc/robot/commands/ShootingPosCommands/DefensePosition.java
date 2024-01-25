@@ -14,8 +14,13 @@ public class DefensePosition extends Command{
     }
 
     @Override
-    public void execute(){
+    public void initialize(){
         elevator.defensePosition();
+    }
+
+    @Override
+    public boolean isFinished(){
+        return true;
     }
     
     
