@@ -5,8 +5,8 @@ import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.PivotSubsystem;
 
 public class DefensePosition extends Command{
-    PivotSubsystem pivot;
-    ElevatorSubsystem elevator;
+    private final PivotSubsystem pivot;
+    private final ElevatorSubsystem elevator;
 
     public DefensePosition(PivotSubsystem pivot, ElevatorSubsystem elevator){
         this.pivot = pivot;

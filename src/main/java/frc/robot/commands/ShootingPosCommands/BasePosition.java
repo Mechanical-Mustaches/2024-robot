@@ -5,8 +5,8 @@ import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.PivotSubsystem;
 
 public class BasePosition extends Command{
-    PivotSubsystem pivot;
-    ElevatorSubsystem elevator;
+    private final PivotSubsystem pivot;
+    private final ElevatorSubsystem elevator;
 
 
     public BasePosition(PivotSubsystem pivot, ElevatorSubsystem elevator){
@@ -15,14 +15,14 @@ public class BasePosition extends Command{
     }
 
     @Override
-    public void execute(){
+    public void initialize(){
         pivot.pivotBasePosition();
         elevator.basePosition();
     }
 
     @Override
-    public void end(boolean i){
-        
+    public boolean isFinished(){
+        return true;
     }
     
 }
