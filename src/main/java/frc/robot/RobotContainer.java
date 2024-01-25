@@ -39,6 +39,9 @@ public class RobotContainer
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
       new CommandXboxController(OIConstants.kDriverControllerPort);
+
+  private final CommandXboxController m_coDriverController =
+      new CommandXboxController(OIConstants.kCoDriverControllerPort);
   
   private final SwerveSubsystem drivebase = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
                                                                        "swerve/neo"));
@@ -79,10 +82,25 @@ public class RobotContainer
 
   private void configureBindings() {
    
+    //Driver Controls
+    /*
+     * Moves:
+     *  - Swerve
+     *  - Floor Intake + conveyor maybe? 
+     *  - Climb?
+     */
     m_driverController.x().onTrue((new InstantCommand(drivebase::zeroGyro)));
     m_driverController.y().whileTrue(new ConveyInwardCommand(conveyor));
     m_driverController.a().whileTrue(new FI_IntakeForward(floorIntake));
     m_driverController.b().debounce(.1).onTrue(new ArmPositions(arm));
+
+    //Gunner Controls
+    /*
+     *  Moves:
+     *   - Fly Wheel
+     *   - Pivot 
+     */
+    m_coDriverController.button(1); 
    
 
   }
