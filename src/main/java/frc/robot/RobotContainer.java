@@ -12,6 +12,7 @@ import frc.robot.commands.FloorIntakeCommands.FI_IntakeForward;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ConveyorSubsystem;
 import frc.robot.subsystems.FloorIntakeSubsystem;
+import frc.robot.subsystems.FlyWheelSubsystem;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -34,6 +35,7 @@ public class RobotContainer
   private final FloorIntakeSubsystem floorIntake = new FloorIntakeSubsystem();
   private final ArmSubsystem arm = new ArmSubsystem();
   private final ConveyorSubsystem conveyor = new ConveyorSubsystem();
+  private final FlyWheelSubsystem flyWheel = new FlyWheelSubsystem();
 
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
