@@ -100,7 +100,6 @@ public class RobotContainer
      *   - Fly Wheel
      *   - Pivot 
      */
-    m_coDriverController.button(1); 
    
 
   }
