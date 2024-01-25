@@ -13,7 +13,7 @@ public class FlyWheelSubsystem extends SubsystemBase {
     private CANSparkMax m_rightWheel = new CANSparkMax(12, MotorType.kBrushless);
 
     private final SparkPIDController m_PidController = m_leftWheel.getPIDController();  
-    private RelativeEncoder flyWheelEncoder = m_leftWheel.getEncoder();
+    private final RelativeEncoder flyWheelEncoder = m_leftWheel.getEncoder();
 
     private double kP = 0.1;
     private double kI = 0;
