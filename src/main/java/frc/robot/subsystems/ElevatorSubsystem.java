@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ElevatorSubsystem extends SubsystemBase {
     //Created an Elevator Subsystem
-    private final CANSparkMax m_elevator = new CANSparkMax(14, MotorType.kBrushless);
+    private final CANSparkMax m_elevator = new CANSparkMax(13, MotorType.kBrushless);
     private final RelativeEncoder elevatorEncoder = m_elevator.getEncoder();
     private final SparkPIDController m_PidController = m_elevator.getPIDController();
 
