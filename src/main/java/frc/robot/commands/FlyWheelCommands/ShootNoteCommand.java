@@ -4,20 +4,19 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.FlyWheelSubsystem;
 
 public class ShootNoteCommand extends Command {
-    FlyWheelSubsystem flyWheel;
+    private final FlyWheelSubsystem flyWheel;
 
     public ShootNoteCommand(FlyWheelSubsystem flyWheel){
         this.flyWheel = flyWheel;
     }
 
-    @Override
-    public void execute(){
+    public void initialize(){
         flyWheel.rampUp();
     }
 
-    @Override
-    public void end(boolean i){
+    public boolean isFinsihed(){
         flyWheel.rampDown();
+        return true;
     }
 
     
