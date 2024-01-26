@@ -86,12 +86,10 @@ public class RobotContainer
     m_driverController.x().onTrue((new InstantCommand(drivebase::zeroGyro)));
     m_driverController.y().whileTrue(new ConveyInwardCommand(conveyor));
     m_driverController.a().whileTrue(new FI_IntakeForward(floorIntake));
-    m_driverController.b().debounce(.1).onTrue(new ArmPositions(arm));
-<<<<<<< HEAD
    
-=======
+    m_driverController.button(6).whileTrue(new FI_IntakeForward(floorIntake));
+    m_driverController.b().debounce(.1).onTrue(new ArmPositions(arm));
     m_driverController.button(4).onTrue((new InstantCommand(drivebase::zeroGyro)));
->>>>>>> 1b67504 (added pathplanner and new PID controls to robot)
 
   }
 
