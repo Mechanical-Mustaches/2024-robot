@@ -16,13 +16,12 @@ import swervelib.SwerveController;
 /**
  * An example command that uses an example subsystem.
  */
-public class TeleopDrive extends Command
+public class Lime extends Command
 {
 
   private final SwerveSubsystem  swerve;
   private final DoubleSupplier   vX;
   private final DoubleSupplier   vY;
-  private final DoubleSupplier   omega;
   private final BooleanSupplier  driveMode;
   private final SwerveController controller;
 
@@ -31,14 +30,12 @@ public class TeleopDrive extends Command
    *
    * @param swerve The subsystem used by this command.
    */
-  public TeleopDrive(SwerveSubsystem swerve, DoubleSupplier vX, DoubleSupplier vY, DoubleSupplier omega,
+  public Lime(SwerveSubsystem swerve, DoubleSupplier vX, DoubleSupplier vY,
                      BooleanSupplier driveMode)
   {
     this.swerve = swerve;
     this.vX = vX;
-    this.vY = vY;
-    this.omega = omega;
-    this.driveMode = driveMode;
+    this.vY = vY;    this.driveMode = driveMode;
     this.controller = swerve.getSwerveController();
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(swerve);
@@ -56,16 +53,14 @@ public class TeleopDrive extends Command
   {
     double xVelocity   = Math.pow(vX.getAsDouble(), 3);
     double yVelocity   = Math.pow(vY.getAsDouble(), 3);
-    double angVelocity = Math.pow(omega.getAsDouble(), 3);
+    double lime = LimelightHelpers.getTX("limelight");
     SmartDashboard.putNumber("vX", xVelocity);
     SmartDashboard.putNumber("vY", yVelocity);
-    SmartDashboard.putNumber("omega", angVelocity);
 
     // Drive using raw values.
     swerve.drive(new Translation2d(xVelocity * swerve.maximumSpeed, yVelocity * swerve.maximumSpeed),
-                 angVelocity * controller.config.maxAngularVelocity,
+                 lime*3,
                  driveMode.getAsBoolean());
-    SmartDashboard.putNumber("TXXX", LimelightHelpers.getTX("limelight"));
 
   }
   

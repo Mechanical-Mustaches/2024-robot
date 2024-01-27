@@ -14,9 +14,12 @@ import frc.robot.subsystems.ConveyorSubsystem;
 import frc.robot.subsystems.FloorIntakeSubsystem;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.RobotBase;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.swervedrive.drivebase.TeleopDrive;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
@@ -53,6 +56,7 @@ public class RobotContainer
   {
     // Configure the trigger bindings
     configureBindings();
+    initializeAutoChooser();
 
     TeleopDrive simClosedFieldRel = new TeleopDrive(
       drivebase,
@@ -76,14 +80,16 @@ public class RobotContainer
    * {@link CommandXboxController Xbox}/{@link edu.wpi.first.wpilibj2.command.button.CommandPS4Controller PS4}
    * controllers or {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight joysticks}.
    */
-
+  
   private void configureBindings() {
    
     m_driverController.x().onTrue((new InstantCommand(drivebase::zeroGyro)));
     m_driverController.y().whileTrue(new ConveyInwardCommand(conveyor));
     m_driverController.a().whileTrue(new FI_IntakeForward(floorIntake));
-    m_driverController.b().debounce(.1).onTrue(new ArmPositions(arm));
    
+    m_driverController.button(6).whileTrue(new FI_IntakeForward(floorIntake));
+    m_driverController.b().debounce(.1).onTrue(new ArmPositions(arm));
+    m_driverController.button(4).onTrue((new InstantCommand(drivebase::zeroGyro)));
 
   }
 
@@ -94,10 +100,20 @@ public class RobotContainer
    *
    * @return the command to run in autonomous
    */
+
+     private final SendableChooser<String> autoChooser = new SendableChooser<String>();
+  
+  private String initializeAutoChooser() {
+    autoChooser.setDefaultOption("New Path", "New Path");
+    autoChooser.addOption("path2", "SamplePath");
+    SmartDashboard.putData("Auto Selector", autoChooser);
+    return autoChooser.getSelected();
+  }
+
   public Command getAutonomousCommand()
   {
     // An example command will be run in autonomous
-    return drivebase.getAutonomousCommand("New Path", true);
+    return drivebase.getAutonomousCommand(initializeAutoChooser(), true);
   }
 
   public void setDriveMode()
