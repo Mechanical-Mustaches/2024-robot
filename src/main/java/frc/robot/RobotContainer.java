@@ -15,6 +15,7 @@ import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ConveyorSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.FloorIntakeSubsystem;
+import frc.robot.subsystems.FlyWheelSubsystem;
 import frc.robot.subsystems.PivotSubsystem;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.RobotBase;
@@ -43,8 +44,10 @@ public class RobotContainer
   private final FloorIntakeSubsystem floorIntake = new FloorIntakeSubsystem();
   private final ArmSubsystem arm = new ArmSubsystem();
   private final ConveyorSubsystem conveyor = new ConveyorSubsystem();
+  private final FlyWheelSubsystem flyWheel = new FlyWheelSubsystem();
   private final PivotSubsystem pivot = new PivotSubsystem();
   private final ElevatorSubsystem elevator = new ElevatorSubsystem();
+
 
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
