@@ -20,13 +20,15 @@ public class ElevatorSubsystem extends SubsystemBase {
     private double kD = 0;
     private double kIz = 0;
     private double kFF = 0.001;
-    private double kMaxOutput = .3;
-    private double kMinOutput = -.3;
+    private double kMaxOutput = 0.3;
+    private double kMinOutput = -0.3;
+
     
 
     public ElevatorSubsystem(){
         elevatorEncoder.setPosition(0);
         m_PidController.setFeedbackDevice(elevatorEncoder);
+        m_elevator.setIdleMode(IdleMode.kBrake);
         
         m_PidController.setP(kP);
         m_PidController.setI(kI);
