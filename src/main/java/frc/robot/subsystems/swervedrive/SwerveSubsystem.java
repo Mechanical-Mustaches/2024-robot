@@ -18,8 +18,11 @@ import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.LimelightHelpers;
+
 import java.io.File;
 import swervelib.SwerveController;
 import swervelib.SwerveDrive;
@@ -132,6 +135,7 @@ public class SwerveSubsystem extends SubsystemBase
     }
 
     // Create a path following command using AutoBuilder. This will also trigger event markers.
+    //return AutoBuilder.buildAuto(pathName);
     return AutoBuilder.followPath(path);
   }
 

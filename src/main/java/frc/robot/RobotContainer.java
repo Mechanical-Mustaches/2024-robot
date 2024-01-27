@@ -9,17 +9,26 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.ArmCommands.ArmPositions;
 import frc.robot.commands.ConveyorCommands.ConveyInwardCommand;
 import frc.robot.commands.FloorIntakeCommands.FI_IntakeForward;
+import frc.robot.commands.ShootingPosCommands.AmpPosition;
+import frc.robot.commands.ShootingPosCommands.BasePosition;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ConveyorSubsystem;
+import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.FloorIntakeSubsystem;
+import frc.robot.subsystems.PivotSubsystem;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.RobotBase;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RepeatCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.swervedrive.drivebase.TeleopDrive;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
+import frc.robot.commands.swervedrive.drivebase.Lime; 
 import java.io.File;
 
 /**
@@ -34,6 +43,8 @@ public class RobotContainer
   private final FloorIntakeSubsystem floorIntake = new FloorIntakeSubsystem();
   private final ArmSubsystem arm = new ArmSubsystem();
   private final ConveyorSubsystem conveyor = new ConveyorSubsystem();
+  private final PivotSubsystem pivot = new PivotSubsystem();
+  private final ElevatorSubsystem elevator = new ElevatorSubsystem();
 
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -56,6 +67,7 @@ public class RobotContainer
   {
     // Configure the trigger bindings
     configureBindings();
+    initializeAutoChooser();
 
     TeleopDrive simClosedFieldRel = new TeleopDrive(
       drivebase,
@@ -79,7 +91,7 @@ public class RobotContainer
    * {@link CommandXboxController Xbox}/{@link edu.wpi.first.wpilibj2.command.button.CommandPS4Controller PS4}
    * controllers or {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight joysticks}.
    */
-
+  
   private void configureBindings() {
    
     //Driver Controls
@@ -92,6 +104,7 @@ public class RobotContainer
     m_driverController.x().onTrue((new InstantCommand(drivebase::zeroGyro)));
     m_driverController.y().whileTrue(new ConveyInwardCommand(conveyor));
     m_driverController.a().whileTrue(new FI_IntakeForward(floorIntake));
+
     m_driverController.b().debounce(.1).onTrue(new ArmPositions(arm));
 
     //Gunner Controls
@@ -100,8 +113,24 @@ public class RobotContainer
      *   - Fly Wheel
      *   - Pivot 
      */
-   
 
+    
+    m_driverController.button(7).onTrue(new AmpPosition(pivot, elevator));
+    m_driverController.button(7).onFalse(new BasePosition(pivot, elevator));
+    //button 5 --> human player 
+   
+    m_driverController.button(6).whileTrue(new FI_IntakeForward(floorIntake));
+    m_driverController.b().debounce(.1).onTrue(new ArmPositions(arm));
+    m_driverController.button(4).onTrue((new InstantCommand(drivebase::zeroGyro)));
+
+    m_driverController.button(8).whileTrue(new RepeatCommand(new Lime(
+      drivebase,
+        () -> -m_driverController.getRawAxis(1),
+        () -> -m_driverController.getRawAxis(0),
+        () -> -m_driverController.getRawAxis(4))
+        ));
+
+    
   }
 
 
@@ -111,10 +140,20 @@ public class RobotContainer
    *
    * @return the command to run in autonomous
    */
+
+     private final SendableChooser<String> autoChooser = new SendableChooser<String>();
+  
+  private String initializeAutoChooser() {
+    autoChooser.setDefaultOption("New Path", "New Path");
+    autoChooser.addOption("path2", "SamplePath");
+    SmartDashboard.putData("Auto Selector", autoChooser);
+    return autoChooser.getSelected();
+  }
+
   public Command getAutonomousCommand()
   {
     // An example command will be run in autonomous
-    return drivebase.getAutonomousCommand("New Path", true);
+    return drivebase.getAutonomousCommand(initializeAutoChooser(), true);
   }
 
   public void setDriveMode()
