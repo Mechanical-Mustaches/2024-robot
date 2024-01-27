@@ -7,6 +7,8 @@ import com.revrobotics.SparkPIDController;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ElevatorSubsystem extends SubsystemBase {
@@ -14,6 +16,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     private final CANSparkMax m_elevator = new CANSparkMax(13, MotorType.kBrushless);
     private final RelativeEncoder elevatorEncoder = m_elevator.getEncoder();
     private final SparkPIDController m_PidController = m_elevator.getPIDController();
+    
 
     private double kP = 0.1;
     private double kI = 0;
@@ -36,7 +39,7 @@ public class ElevatorSubsystem extends SubsystemBase {
         m_PidController.setIZone(kIz);
         m_PidController.setFF(kFF);
         m_PidController.setOutputRange(kMinOutput, kMaxOutput);
-
+        SmartDashboard.putNumber("eleRot", 0.0);
     }
 
 
@@ -59,8 +62,10 @@ public class ElevatorSubsystem extends SubsystemBase {
      }
 
      public void ampPosition(){
-        setElevatorHight(25);
-     }
+        setElevatorHight(SmartDashboard.getNumber("eleRot", 0.0));
+        //Amp: 15
+        //Human: 3
+      }
 
      public void trapPosition(){
         setElevatorHight(5.5);

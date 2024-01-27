@@ -36,6 +36,8 @@ public class PivotSubsystem extends SubsystemBase {
         m_PidController.setIZone(kIz);
         m_PidController.setFF(kFF);
         m_PidController.setOutputRange(kMinOutput, kMaxOutput);
+        SmartDashboard.putNumber("pivRot", 73.08);
+
 
     }
          @Override
@@ -60,8 +62,9 @@ public class PivotSubsystem extends SubsystemBase {
      }
 
      public void pivotAmpPosition(){
-        setArmPosition(140f);
-
+        setArmPosition((float)SmartDashboard.getNumber("pivRot", 73.08));
+         //Amp: 170
+         //Human: 85
      }
 
      public void pivotTrapPosition(){
