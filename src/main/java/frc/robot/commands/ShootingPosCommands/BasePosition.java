@@ -13,7 +13,7 @@ public class BasePosition extends Command{
         this.pivot = pivot;
         this.elevator = elevator;
     }
-
+ 
     @Override
     public void initialize(){
         pivot.pivotBasePosition();

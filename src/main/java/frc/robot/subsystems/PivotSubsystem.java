@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.SparkAbsoluteEncoder;
 import com.revrobotics.SparkPIDController;
@@ -14,17 +15,18 @@ public class PivotSubsystem extends SubsystemBase {
     private final SparkAbsoluteEncoder encoder = m_pivot.getAbsoluteEncoder(SparkAbsoluteEncoder.Type.kDutyCycle); 
     private final SparkPIDController m_PidController;
 
-    private double kP = 0;
+    private double kP = 4;
     private double kI = 0;
     private double kD = 0;
     private double kIz = 0;
     private double kFF = 0;
-    private double kMaxOutput = 1;
-    private double kMinOutput = -1;
+    private double kMaxOutput = 0.3;
+    private double kMinOutput = -0.15;
 
 
     public PivotSubsystem(){
         m_pivot.restoreFactoryDefaults();
+        m_pivot.setIdleMode(IdleMode.kBrake);
         m_PidController = m_pivot.getPIDController();
         m_PidController.setFeedbackDevice(encoder);
 
@@ -36,7 +38,11 @@ public class PivotSubsystem extends SubsystemBase {
         m_PidController.setOutputRange(kMinOutput, kMaxOutput);
 
     }
-
+         @Override
+      public void periodic()
+      {
+         SmartDashboard.putNumber("encoder", encoder.getPosition());
+      }
      /*
      * Four States: (Least amout of movement)
      *  Base (start) Position
@@ -47,33 +53,21 @@ public class PivotSubsystem extends SubsystemBase {
 
      private void setArmPosition(float deg){
         m_PidController.setReference(deg / 360, CANSparkMax.ControlType.kPosition);
+        SmartDashboard.putNumber("currentRef", deg / 360);
      }
 
      public void pivotBasePosition(){
-        setArmPosition(0f);
+        setArmPosition(73.08f);
+        System.out.println("im here guys!");
      }
 
      public void pivotAmpPosition(){
-        setArmPosition(30f);
+        setArmPosition(140f);
+        System.out.println("im here guys!2");
+
      }
 
      public void pivotTrapPosition(){
         setArmPosition(50f);
      }
-
-   
-
-     
-
-
-    
-
-
-
-    
-
-
-
-
-
 }

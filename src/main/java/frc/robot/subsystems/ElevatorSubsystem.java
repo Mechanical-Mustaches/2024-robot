@@ -1,8 +1,10 @@
 package frc.robot.subsystems;
 
+import com.revrobotics.CANSparkBase;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
+import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -17,9 +19,9 @@ public class ElevatorSubsystem extends SubsystemBase {
     private double kI = 0;
     private double kD = 0;
     private double kIz = 0;
-    private double kFF = 0;
-    private double kMaxOutput = .1;
-    private double kMinOutput = -.1;
+    private double kFF = 0.001;
+    private double kMaxOutput = .3;
+    private double kMinOutput = -.3;
     
 
     public ElevatorSubsystem(){
@@ -42,10 +44,12 @@ public class ElevatorSubsystem extends SubsystemBase {
      *  Amp Position 
      *  Trap Position 
      *  Defense Position (Last resort use w/ limelight maybe?) 
+     * 
+     *   Max Pos --> -44 
      */
 
      private void setElevatorHight(double heightInchs){
-         m_PidController.setReference(heightInchs, CANSparkMax.ControlType.kPosition);
+         m_PidController.setReference(heightInchs * -1, CANSparkMax.ControlType.kPosition);
      }
 
      public void basePosition(){
@@ -53,16 +57,16 @@ public class ElevatorSubsystem extends SubsystemBase {
      }
 
      public void ampPosition(){
-        setElevatorHight(2.5);
+        setElevatorHight(25);
      }
 
      public void trapPosition(){
         setElevatorHight(5.5);
-   }
+      }
 
      public void defensePosition(){
         setElevatorHight(3.5);
-   }
+      }
 
     
 
