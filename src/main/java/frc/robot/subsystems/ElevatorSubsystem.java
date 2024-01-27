@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
+import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -25,6 +26,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     public ElevatorSubsystem(){
         elevatorEncoder.setPosition(0);
         m_PidController.setFeedbackDevice(elevatorEncoder);
+        m_elevator.setIdleMode(IdleMode.kBrake);
         
         m_PidController.setP(kP);
         m_PidController.setI(kI);
