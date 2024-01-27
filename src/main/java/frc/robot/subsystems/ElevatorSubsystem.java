@@ -17,9 +17,9 @@ public class ElevatorSubsystem extends SubsystemBase {
     private double kI = 0;
     private double kD = 0;
     private double kIz = 0;
-    private double kFF = 0;
-    private double kMaxOutput = .1;
-    private double kMinOutput = -.1;
+    private double kFF = 0.001;
+    private double kMaxOutput = 0.3;
+    private double kMinOutput = -0.3;
     
 
     public ElevatorSubsystem(){
