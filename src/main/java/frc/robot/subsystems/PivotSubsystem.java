@@ -41,7 +41,7 @@ public class PivotSubsystem extends SubsystemBase {
          @Override
       public void periodic()
       {
-         SmartDashboard.putNumber("encoder", encoder.getPosition());
+         SmartDashboard.putNumber("pivotEncoder", encoder.getPosition());
       }
      /*
      * Four States: (Least amout of movement)
@@ -53,17 +53,14 @@ public class PivotSubsystem extends SubsystemBase {
 
      private void setArmPosition(float deg){
         m_PidController.setReference(deg / 360, CANSparkMax.ControlType.kPosition);
-        SmartDashboard.putNumber("currentRef", deg / 360);
      }
 
      public void pivotBasePosition(){
         setArmPosition(73.08f);
-        System.out.println("im here guys!");
      }
 
      public void pivotAmpPosition(){
         setArmPosition(140f);
-        System.out.println("im here guys!2");
 
      }
 
