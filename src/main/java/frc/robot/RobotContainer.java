@@ -22,11 +22,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RepeatCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.swervedrive.drivebase.TeleopDrive;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
+import frc.robot.commands.swervedrive.drivebase.Lime; 
 import java.io.File;
 
 /**
@@ -104,6 +106,14 @@ public class RobotContainer
     m_driverController.b().debounce(.1).onTrue(new ArmPositions(arm));
     m_driverController.button(4).onTrue((new InstantCommand(drivebase::zeroGyro)));
 
+    m_driverController.button(8).whileTrue(new RepeatCommand(new Lime(
+      drivebase,
+        () -> -m_driverController.getRawAxis(1),
+        () -> -m_driverController.getRawAxis(0),
+        () -> -m_driverController.getRawAxis(4))
+        ));
+
+    
   }
 
 
