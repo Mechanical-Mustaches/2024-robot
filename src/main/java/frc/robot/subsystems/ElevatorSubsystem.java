@@ -46,7 +46,8 @@ public class ElevatorSubsystem extends SubsystemBase {
     /*
      * Five States: (Least amout of movement)
      *  Base (start) Position
-     *  Amp Position 
+     *  Amp Position = 15
+     *  Human Position = 3
      *  Trap Position 
      *  Defense Position (Last resort use w/ limelight maybe?) 
      * 
@@ -62,18 +63,20 @@ public class ElevatorSubsystem extends SubsystemBase {
      }
 
      public void ampPosition(){
-        setElevatorHight(SmartDashboard.getNumber("eleRot", 0.0));
-        //Amp: 15
-        //Human: 3
-      }
+        setElevatorHight(15.0);
+     }
+
+     public void humanPosition(){
+        setElevatorHight(3.0);
+     }
 
      public void trapPosition(){
         setElevatorHight(5.5);
-      }
+     }
 
      public void defensePosition(){
         setElevatorHight(3.5);
-      }
+     }
 
     
 

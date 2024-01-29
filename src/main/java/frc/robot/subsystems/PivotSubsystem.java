@@ -48,7 +48,8 @@ public class PivotSubsystem extends SubsystemBase {
      /*
      * Four States: (Least amout of movement)
      *  Base (start) Position
-     *  Amp Position 
+     *  Amp Position = 170
+     *  Human Position = 85
      *  Trap Position 
      *  Defense Position (Last resort use w/ limelight maybe?) 
      */
@@ -62,12 +63,18 @@ public class PivotSubsystem extends SubsystemBase {
      }
 
      public void pivotAmpPosition(){
-        setArmPosition((float)SmartDashboard.getNumber("pivRot", 73.08));
-         //Amp: 170
-         //Human: 85
+        setArmPosition(170f);
+     }
+
+     public void pivotHumanPosition(){
+         setArmPosition(85f);
      }
 
      public void pivotTrapPosition(){
         setArmPosition(50f);
+     }
+
+     public void pivotDefencePosition(){
+         setArmPosition(73.08f);
      }
 }
