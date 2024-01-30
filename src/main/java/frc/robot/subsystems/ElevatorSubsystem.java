@@ -46,12 +46,13 @@ public class ElevatorSubsystem extends SubsystemBase {
      *  Amp Position 
      *  Trap Position 
      *  Defense Position (Last resort use w/ limelight maybe?) 
+     *  Podium Position 
      * 
      *   Max Pos --> -44 
      */
 
      private void setElevatorHight(double heightInchs){
-         m_PidController.setReference(heightInchs * -1, CANSparkMax.ControlType.kPosition);
+        m_PidController.setReference(heightInchs * -1, CANSparkMax.ControlType.kPosition);
      }
 
      public void basePosition(){
@@ -70,6 +71,9 @@ public class ElevatorSubsystem extends SubsystemBase {
         setElevatorHight(3.5);
       }
 
+      public void podiumPosition(){
+        setElevatorHight(9.5);
+      }
     
 
      

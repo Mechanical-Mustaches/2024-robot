@@ -9,8 +9,10 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.ArmCommands.ArmPositions;
 import frc.robot.commands.ConveyorCommands.ConveyInwardCommand;
 import frc.robot.commands.FloorIntakeCommands.FI_IntakeForward;
+import frc.robot.commands.FlyWheelCommands.ShootNoteCommand;
 import frc.robot.commands.ShootingPosCommands.AmpPosition;
 import frc.robot.commands.ShootingPosCommands.BasePosition;
+import frc.robot.commands.ShootingPosCommands.PodiumPosition;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ConveyorSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
@@ -99,16 +101,20 @@ public class RobotContainer
    
     //Driver Controls
     /*
-     * Moves:
+     * Moves: 
      *  - Swerve
      *  - Floor Intake + conveyor maybe? 
      *  - Climb?
      */
-    m_driverController.x().onTrue((new InstantCommand(drivebase::zeroGyro)));
-    m_driverController.y().whileTrue(new ConveyInwardCommand(conveyor));
-    m_driverController.a().whileTrue(new FI_IntakeForward(floorIntake));
+   // m_driverController.x().onTrue((new InstantCommand(drivebase::zeroGyro)));
+    m_driverController.y().whileTrue(new FI_IntakeForward(floorIntake));
+    m_driverController.b().whileTrue(new ConveyInwardCommand(conveyor));
+    m_driverController.a().onTrue(new PodiumPosition(pivot, elevator));
+    m_driverController.a().onFalse(new BasePosition(pivot, elevator));
+    m_driverController.x().whileTrue(new ShootNoteCommand(flyWheel));
 
-    m_driverController.b().debounce(.1).onTrue(new ArmPositions(arm));
+
+    //m_driverController.b().debounce(.1).onTrue(new ArmPositions(arm));
 
     //Gunner Controls
     /*

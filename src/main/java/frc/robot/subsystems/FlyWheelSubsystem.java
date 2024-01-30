@@ -20,8 +20,8 @@ public class FlyWheelSubsystem extends SubsystemBase {
     private double kD = 0;
     private double kIz = 0;
     private double kFF = 0;
-    private double kMaxOutput = .1;
-    private double kMinOutput = -.1;
+    private double kMaxOutput = 1;
+    private double kMinOutput = -1;
 
   public FlyWheelSubsystem() {
     m_PidController.setFeedbackDevice(flyWheelEncoder);
@@ -46,10 +46,14 @@ public class FlyWheelSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run during simulation
   }
 
+  /*
+   * Subwoofer Speed: 40% straight on, side
+   *  Podium Speed: 70%
+   *  193in Speed: 
+   */
   
   public void rampUp(){
-    m_PidController.setReference(0.5, CANSparkMax.ControlType.kVelocity);
-
+   m_PidController.setReference(0.5, CANSparkMax.ControlType.kVelocity);
   }
 
   public void rampDown(){
