@@ -49,6 +49,8 @@ public class PivotSubsystem extends SubsystemBase {
      *  Amp Position 
      *  Trap Position 
      *  Defense Position (Last resort use w/ limelight maybe?) 
+     *  
+     *  Wing Position (193 in, toughest shot)
      */
 
      private void setArmPosition(float deg){
@@ -66,5 +68,10 @@ public class PivotSubsystem extends SubsystemBase {
 
      public void pivotTrapPosition(){
         setArmPosition(50f);
+     }
+
+     public void pivotWingPosition(){
+         setArmPosition(108f);
+         //110
      }
 }

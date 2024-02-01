@@ -48,12 +48,14 @@ public class FlyWheelSubsystem extends SubsystemBase {
 
   
   public void rampUp(){
-    m_PidController.setReference(0.5, CANSparkMax.ControlType.kVelocity);
+   // m_PidController.setReference(0.5, CANSparkMax.ControlType.kVelocity);
+   m_leftWheel.set(0.80);
 
   }
 
   public void rampDown(){
-    m_PidController.setReference(0, CANSparkMax.ControlType.kVelocity);
+   // m_PidController.setReference(0, CANSparkMax.ControlType.kVelocity);
+   m_leftWheel.set(0);
   }
 
 

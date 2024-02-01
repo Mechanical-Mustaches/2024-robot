@@ -47,6 +47,7 @@ public class ElevatorSubsystem extends SubsystemBase {
      *  Trap Position 
      *  Defense Position (Last resort use w/ limelight maybe?) 
      * 
+     *  Wing Position
      *   Max Pos --> -44 
      */
 
@@ -69,6 +70,10 @@ public class ElevatorSubsystem extends SubsystemBase {
      public void defensePosition(){
         setElevatorHight(3.5);
       }
+
+     public void wingPosition(){
+      setElevatorHight(16);
+     }
 
     
 
