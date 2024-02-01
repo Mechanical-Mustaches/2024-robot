@@ -7,8 +7,6 @@ import com.revrobotics.SparkPIDController;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ElevatorSubsystem extends SubsystemBase {
@@ -16,7 +14,6 @@ public class ElevatorSubsystem extends SubsystemBase {
     private final CANSparkMax m_elevator = new CANSparkMax(13, MotorType.kBrushless);
     private final RelativeEncoder elevatorEncoder = m_elevator.getEncoder();
     private final SparkPIDController m_PidController = m_elevator.getPIDController();
-    
 
     private double kP = 0.1;
     private double kI = 0;
@@ -39,7 +36,7 @@ public class ElevatorSubsystem extends SubsystemBase {
         m_PidController.setIZone(kIz);
         m_PidController.setFF(kFF);
         m_PidController.setOutputRange(kMinOutput, kMaxOutput);
-        SmartDashboard.putNumber("eleRot", 0.0);
+
     }
 
 
@@ -47,7 +44,7 @@ public class ElevatorSubsystem extends SubsystemBase {
      * Five States: (Least amout of movement)
      *  Base (start) Position
      *  Amp Position = 15
-     *  Human Position = 3
+     *  Human Position = 3 
      *  Trap Position 
      *  Defense Position (Last resort use w/ limelight maybe?) 
      * 
@@ -72,11 +69,13 @@ public class ElevatorSubsystem extends SubsystemBase {
 
      public void trapPosition(){
         setElevatorHight(5.5);
-     }
+      }
 
      public void defensePosition(){
         setElevatorHight(3.5);
-     }
+      }
+
+   
 
     
 
