@@ -15,9 +15,9 @@ public class ShootNoteCommand extends Command {
         flyWheel.rampUp();
     }
 
-    public boolean isFinsihed(){
+    @Override
+    public void end(boolean i){
         flyWheel.rampDown();
-        return true;
     }
 
     
