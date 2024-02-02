@@ -22,7 +22,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     private double kMinOutput = -.1;
     
 
-    public ElevatorSubsystem(){
+    public ElevatorSubsystem(){ 
         elevatorEncoder.setPosition(0);
         m_PidController.setFeedbackDevice(elevatorEncoder);
         

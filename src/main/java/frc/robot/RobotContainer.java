@@ -8,10 +8,12 @@ import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.ArmCommands.ArmPositions;
 import frc.robot.commands.ConveyorCommands.ConveyInwardCommand;
+import frc.robot.commands.ConveyorCommands.ConveyLineBreak;
 import frc.robot.commands.FloorIntakeCommands.FI_IntakeForward;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ConveyorSubsystem;
 import frc.robot.subsystems.FloorIntakeSubsystem;
+import frc.robot.subsystems.FlyWheelSubsystem;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -34,6 +36,7 @@ public class RobotContainer
   private final FloorIntakeSubsystem floorIntake = new FloorIntakeSubsystem();
   private final ArmSubsystem arm = new ArmSubsystem();
   private final ConveyorSubsystem conveyor = new ConveyorSubsystem();
+  private final FlyWheelSubsystem flywheel = new FlyWheelSubsystem();
 
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -80,7 +83,7 @@ public class RobotContainer
   private void configureBindings() {
    
     m_driverController.x().onTrue((new InstantCommand(drivebase::zeroGyro)));
-    m_driverController.y().whileTrue(new ConveyInwardCommand(conveyor));
+    m_driverController.y().onTrue(new ConveyLineBreak(conveyor, flywheel));
     m_driverController.a().whileTrue(new FI_IntakeForward(floorIntake));
     m_driverController.b().debounce(.1).onTrue(new ArmPositions(arm));
    

@@ -1,10 +1,14 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkLowLevel.MotorType;
+import com.revrobotics.CANSparkBase;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkLimitSwitch;
+import com.revrobotics.SparkMaxLimitSwitch;
 import com.revrobotics.SparkPIDController;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class FlyWheelSubsystem extends SubsystemBase {    
@@ -14,6 +18,8 @@ public class FlyWheelSubsystem extends SubsystemBase {
 
     private final SparkPIDController m_PidController = m_leftWheel.getPIDController();  
     private final RelativeEncoder flyWheelEncoder = m_leftWheel.getEncoder();
+
+    private final SparkLimitSwitch lineBreak = m_leftWheel.getForwardLimitSwitch(SparkLimitSwitch.Type.kNormallyOpen); 
 
     private double kP = 0.1;
     private double kI = 0;
@@ -34,6 +40,9 @@ public class FlyWheelSubsystem extends SubsystemBase {
     m_PidController.setOutputRange(kMinOutput, kMaxOutput);
 
     m_rightWheel.follow(m_leftWheel, true);
+
+
+    
   }
 
   @Override
@@ -54,6 +63,10 @@ public class FlyWheelSubsystem extends SubsystemBase {
 
   public void rampDown(){
     m_PidController.setReference(0, CANSparkMax.ControlType.kVelocity);
+  }
+
+  public boolean isNoteSeen(){
+    return lineBreak.isPressed();
   }
 
 
