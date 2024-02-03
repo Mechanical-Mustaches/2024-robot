@@ -25,7 +25,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     
 
-    public ElevatorSubsystem(){
+    public ElevatorSubsystem(){ 
         elevatorEncoder.setPosition(0);
         m_PidController.setFeedbackDevice(elevatorEncoder);
         m_elevator.setIdleMode(IdleMode.kBrake);
@@ -47,12 +47,13 @@ public class ElevatorSubsystem extends SubsystemBase {
      *  Human Position = 3 
      *  Trap Position 
      *  Defense Position (Last resort use w/ limelight maybe?) 
+     *  Podium Position 
      * 
      *   Max Pos --> -44 
      */
 
      private void setElevatorHight(double heightInchs){
-         m_PidController.setReference(heightInchs * -1, CANSparkMax.ControlType.kPosition);
+        m_PidController.setReference(heightInchs * -1, CANSparkMax.ControlType.kPosition);
      }
 
      public void basePosition(){
@@ -74,8 +75,10 @@ public class ElevatorSubsystem extends SubsystemBase {
      public void defensePosition(){
         setElevatorHight(3.5);
       }
-
    
+      public void podiumPosition(){
+        setElevatorHight(9.5);
+      }
 
     
 
