@@ -21,7 +21,7 @@ public class FlyWheelSubsystem extends SubsystemBase {
 
     private final SparkLimitSwitch lineBreak = m_leftWheel.getForwardLimitSwitch(SparkLimitSwitch.Type.kNormallyOpen); 
 
-    private double kP = 0.1;
+    private double kP = 0.0001;
     private double kI = 0;
     private double kD = 0;
     private double kIz = 0;
