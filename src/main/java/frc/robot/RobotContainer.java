@@ -25,6 +25,8 @@ import frc.robot.commands.swervedrive.drivebase.TeleopDrive;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.io.File;
 
+import com.pathplanner.lib.auto.NamedCommands;
+
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a "declarative" paradigm, very
  * little robot logic should actually be handled in the {@link Robot} periodic methods (other than the scheduler calls).
@@ -42,11 +44,12 @@ public class RobotContainer
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
       new CommandXboxController(OIConstants.kDriverControllerPort);
-  
+
   private final SwerveSubsystem drivebase = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
                                                                        "swerve/neo"));
   
 
+  
   
 
   /**
@@ -54,6 +57,9 @@ public class RobotContainer
    */
   public RobotContainer()
   {
+    // Register Named Commands
+      NamedCommands.registerCommand("spin", new FI_IntakeForward(floorIntake));
+      NamedCommands.registerCommand("stop", new FI_IntakeForward(floorIntake));
     // Configure the trigger bindings
     configureBindings();
     initializeAutoChooser();
