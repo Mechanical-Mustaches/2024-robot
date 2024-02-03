@@ -25,7 +25,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     
 
-    public ElevatorSubsystem(){
+    public ElevatorSubsystem(){ 
         elevatorEncoder.setPosition(0);
         m_PidController.setFeedbackDevice(elevatorEncoder);
         m_elevator.setIdleMode(IdleMode.kBrake);
