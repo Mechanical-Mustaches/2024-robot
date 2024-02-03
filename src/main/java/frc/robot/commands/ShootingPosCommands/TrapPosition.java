@@ -11,11 +11,10 @@ public class TrapPosition extends Command {
     public TrapPosition(PivotSubsystem pivot, ElevatorSubsystem elevator){
         this.pivot = pivot;
         this.elevator = elevator;
-
     }
 
     @Override
-    public void execute(){
+    public void initialize(){
         pivot.pivotTrapPosition();
         elevator.trapPosition();
     }
