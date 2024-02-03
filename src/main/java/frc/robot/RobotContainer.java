@@ -68,7 +68,7 @@ public class RobotContainer
         drivebase,
         () -> -m_driverController.getRawAxis(1),
         () -> -m_driverController.getRawAxis(0),
-        () -> -m_driverController.getRawAxis(4), () -> true);
+        () -> m_driverController.getRawAxis(4), () -> true);
 
     drivebase.setDefaultCommand(!RobotBase.isSimulation() ? closedFieldRel : simClosedFieldRel);
   }
@@ -104,8 +104,8 @@ public class RobotContainer
      private final SendableChooser<String> autoChooser = new SendableChooser<String>();
   
   private String initializeAutoChooser() {
-    autoChooser.setDefaultOption("New Path", "New Path");
-    autoChooser.addOption("path2", "SamplePath");
+    autoChooser.setDefaultOption("path1", "path1");
+    autoChooser.addOption("path2", "path2");
     SmartDashboard.putData("Auto Selector", autoChooser);
     return autoChooser.getSelected();
   }
