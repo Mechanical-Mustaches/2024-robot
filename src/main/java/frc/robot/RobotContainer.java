@@ -5,9 +5,6 @@
 package frc.robot;
 
 import frc.robot.Constants.OIConstants;
-import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.ArmCommands.ArmPositions;
-import frc.robot.commands.ConveyorCommands.ConveyInwardCommand;
 import frc.robot.commands.ConveyorCommands.ConveyLineBreak;
 import frc.robot.commands.FloorIntakeCommands.FI_IntakeForward;
 import frc.robot.commands.FlyWheelCommands.ShootNoteCommand;
@@ -29,14 +26,12 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RepeatCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.swervedrive.drivebase.TeleopDrive;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import frc.robot.commands.swervedrive.drivebase.Lime; 
 import java.io.File;
 
-import com.fasterxml.jackson.databind.JsonSerializable.Base;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a "declarative" paradigm, very
@@ -127,7 +122,7 @@ public class RobotContainer
 
       m_coDriverController.button(4).debounce(0.1).whileTrue(new ShootNoteCommand(flyWheel));
 
-      m_coDriverController.button(5).whileTrue(new ConveyInwardCommand(conveyor));
+      m_coDriverController.button(5).onTrue(new ConveyLineBreak(conveyor, flyWheel));
 
 
 
