@@ -43,7 +43,8 @@ public class ElevatorSubsystem extends SubsystemBase {
     /*
      * Five States: (Least amout of movement)
      *  Base (start) Position
-     *  Amp Position 
+     *  Amp Position = 15
+     *  Human Position = 3 
      *  Trap Position 
      *  Defense Position (Last resort use w/ limelight maybe?) 
      *  Podium Position 
@@ -60,7 +61,11 @@ public class ElevatorSubsystem extends SubsystemBase {
      }
 
      public void ampPosition(){
-        setElevatorHight(25);
+        setElevatorHight(15.0);
+     }
+
+     public void humanPosition(){
+        setElevatorHight(3.0);
      }
 
      public void trapPosition(){
@@ -70,10 +75,11 @@ public class ElevatorSubsystem extends SubsystemBase {
      public void defensePosition(){
         setElevatorHight(3.5);
       }
-
+   
       public void podiumPosition(){
         setElevatorHight(9.5);
       }
+
     
 
      

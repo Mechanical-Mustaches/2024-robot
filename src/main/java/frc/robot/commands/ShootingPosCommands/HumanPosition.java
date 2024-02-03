@@ -4,24 +4,24 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.PivotSubsystem;
 
-public class TrapPosition extends Command {
-    private final PivotSubsystem pivot;
-    private final ElevatorSubsystem elevator;
+public class HumanPosition extends Command {
+    PivotSubsystem pivot;
+    ElevatorSubsystem elevator;
 
-    public TrapPosition(PivotSubsystem pivot, ElevatorSubsystem elevator){
+    public HumanPosition(PivotSubsystem pivot, ElevatorSubsystem elevator){
         this.pivot = pivot;
         this.elevator = elevator;
     }
 
-    @Override
+    @Override 
     public void initialize(){
-        pivot.pivotTrapPosition();
-        elevator.trapPosition();
+        pivot.pivotHumanPosition();
+        elevator.humanPosition();
     }
 
     @Override
     public boolean isFinished(){
         return true;
     }
-    
+
 }

@@ -41,12 +41,12 @@ public class PivotSubsystem extends SubsystemBase {
          @Override
       public void periodic()
       {
-         SmartDashboard.putNumber("pivotEncoder", encoder.getPosition());
       }
      /*
      * Four States: (Least amout of movement)
      *  Base (start) Position
-     *  Amp Position 
+     *  Amp Position = 170
+     *  Human Position = 85 
      *  Trap Position 
      *  Defense Position (Last resort use w/ limelight maybe?) 
      *  Podium Position
@@ -61,8 +61,11 @@ public class PivotSubsystem extends SubsystemBase {
      }
 
      public void pivotAmpPosition(){
-        setArmPosition(140f);
+        setArmPosition(170f);
+}
 
+public void pivotHumanPosition(){
+         setArmPosition(85f);
      }
 
      public void pivotTrapPosition(){
@@ -71,6 +74,10 @@ public class PivotSubsystem extends SubsystemBase {
 
      public void pivotPodiumPosition(){
          setArmPosition(105f);
+     }
+
+    public void pivotDefencePosition(){
+         setArmPosition(73.08f);
      }
 }
  
