@@ -14,6 +14,7 @@ import frc.robot.commands.FlyWheelCommands.ShootNoteCommand;
 import frc.robot.commands.ShootingPosCommands.AmpPosition;
 import frc.robot.commands.ShootingPosCommands.BasePosition;
 import frc.robot.commands.ShootingPosCommands.PodiumPosition;
+import frc.robot.commands.ShootingPosCommands.TrapPosition;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ConveyorSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
@@ -34,6 +35,8 @@ import frc.robot.commands.swervedrive.drivebase.TeleopDrive;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import frc.robot.commands.swervedrive.drivebase.Lime; 
 import java.io.File;
+
+import com.fasterxml.jackson.databind.JsonSerializable.Base;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a "declarative" paradigm, very
@@ -101,44 +104,32 @@ public class RobotContainer
   private void configureBindings() {
    
 
-    //Driver Controls
-    /*
-     * Moves: 
-     *  - Swerve
-     *  - Floor Intake + conveyor maybe? 
-     *  - Climb?
-     */
-   // m_driverController.x().onTrue((new InstantCommand(drivebase::zeroGyro)));
-    m_driverController.y().whileTrue(new FI_IntakeForward(floorIntake));
-    m_driverController.b().whileTrue(new ConveyInwardCommand(conveyor));
-    m_driverController.a().onTrue(new PodiumPosition(pivot, elevator));
-    m_driverController.a().onFalse(new BasePosition(pivot, elevator));
-    m_driverController.x().whileTrue(new ShootNoteCommand(flyWheel));
-
-
-    //m_driverController.b().debounce(.1).onTrue(new ArmPositions(arm));
-
-    //Gunner Controls
-    /*
-     *  Moves:
-     *   - Fly Wheel
-     *   - Pivot 
-     */
-
-    
-    m_driverController.button(7).onTrue(new AmpPosition(pivot, elevator));
-    m_driverController.button(7).onFalse(new BasePosition(pivot, elevator));
-    //button 5 --> human player 
-    m_driverController.button(6).whileTrue(new FI_IntakeForward(floorIntake));
-    m_driverController.b().debounce(.1).onTrue(new ArmPositions(arm));
+    //Driver Controls   
     m_driverController.button(4).onTrue((new InstantCommand(drivebase::zeroGyro)));
-
+    m_driverController.button(6).whileTrue(new FI_IntakeForward(floorIntake));
     m_driverController.button(8).whileTrue(new RepeatCommand(new Lime(
       drivebase,
         () -> -m_driverController.getRawAxis(1),
         () -> -m_driverController.getRawAxis(0),
         () -> -m_driverController.getRawAxis(4))
         ));
+
+    //Gunner Controls 
+    //Human Player position code
+      m_coDriverController.button(1).onTrue(new AmpPosition(pivot, elevator));
+      m_coDriverController.button(1).onFalse(new BasePosition(pivot, elevator));
+
+      m_coDriverController.button(2).onTrue(new TrapPosition(pivot, elevator));
+      m_coDriverController.button(2).onFalse(new BasePosition(pivot, elevator));
+
+      m_coDriverController.button(3).onTrue(new PodiumPosition(pivot, elevator));
+      m_coDriverController.button(3).onFalse(new BasePosition(pivot, elevator));
+
+      m_coDriverController.button(4).debounce(0.1).whileTrue(new ShootNoteCommand(flyWheel));
+
+      m_coDriverController.button(5).whileTrue(new ConveyInwardCommand(conveyor));
+
+
 
     
   }

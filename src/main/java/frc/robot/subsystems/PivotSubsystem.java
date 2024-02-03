@@ -66,7 +66,7 @@ public class PivotSubsystem extends SubsystemBase {
      }
 
      public void pivotTrapPosition(){
-        setArmPosition(50f);
+        setArmPosition(150f);
      }
 
      public void pivotPodiumPosition(){
