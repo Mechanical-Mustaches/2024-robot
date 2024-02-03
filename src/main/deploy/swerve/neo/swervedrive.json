@@ -1,7 +1,9 @@
 {
-  "imu": {
-    "type": "navx_usb"
-  },
+    "imu": {
+      "type": "pigeon2",
+      "id": 30,
+      "canbus": null
+    },
   "invertedIMU": false,
   "modules": [
     "frontleft.json",
