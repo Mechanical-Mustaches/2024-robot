@@ -19,6 +19,10 @@ public class ConveyorSubsystem extends SubsystemBase {
         m_conveyor.set(0);
     }
 
+    public void conveyFromSource(){
+        m_conveyor.set(0.4);
+    }
+
 
     
 }

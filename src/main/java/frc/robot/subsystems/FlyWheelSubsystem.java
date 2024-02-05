@@ -63,12 +63,10 @@ public class FlyWheelSubsystem extends SubsystemBase {
    */
   
   public void rampUp(){
-  // m_PidController.setReference(0.5, CANSparkMax.ControlType.kVelocity);
-    m_leftWheel.set(SmartDashboard.getNumber("flywheel", 0));
+    m_leftWheel.set(0.5);
   }
 
   public void rampDown(){
-   // m_PidController.setReference(0, CANSparkMax.ControlType.kVelocity);
    m_leftWheel.set(0);
   }
 
@@ -76,5 +74,20 @@ public class FlyWheelSubsystem extends SubsystemBase {
     return lineBreak.isPressed();
   }
 
+  public void ampShot(){
+    m_leftWheel.set(0.2);
+  }
+
+  public void subWoofShot(){
+    m_leftWheel.set(0.4);
+  }
+
+  public void podiumShot(){
+    m_leftWheel.set(0.8);
+  }
+
+  public void sourceNomNom(){
+    m_leftWheel.set(-0.3);
+  }
 
 }

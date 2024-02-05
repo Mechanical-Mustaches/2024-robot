@@ -5,26 +5,30 @@ import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.FlyWheelSubsystem;
 import frc.robot.subsystems.PivotSubsystem;
 
-public class PodiumPosition extends Command {
-    private final PivotSubsystem pivot;
-    private final ElevatorSubsystem elevator;
-    private final FlyWheelSubsystem flywheel;
+public class subWOOFCommand extends Command {
+    PivotSubsystem pivot;
+    ElevatorSubsystem elevator;
+    FlyWheelSubsystem flywheel;
 
-    public PodiumPosition(PivotSubsystem pivot, ElevatorSubsystem elevator, FlyWheelSubsystem flywheel){
+    public subWOOFCommand(PivotSubsystem pivot, ElevatorSubsystem elevator, FlyWheelSubsystem flywheel){
         this.pivot = pivot;
         this.elevator = elevator;
         this.flywheel = flywheel;
+
     }
 
     @Override
-    public void execute(){
-        pivot.pivotPodiumPosition();
-        elevator.podiumPosition();
-        flywheel.podiumShot();
+    public void initialize(){
+        pivot.pivotSubWooferPosition();
+        elevator.subWooferPosition();
+        flywheel.subWoofShot();
     }
 
     @Override
     public boolean isFinished(){
         return true;
     }
+
+
+
 }
