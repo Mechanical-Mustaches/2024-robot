@@ -4,6 +4,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.SparkAbsoluteEncoder;
+import com.revrobotics.SparkLimitSwitch;
 import com.revrobotics.SparkPIDController;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -14,6 +15,8 @@ public class PivotSubsystem extends SubsystemBase {
     private final CANSparkMax m_pivot = new CANSparkMax(14, MotorType.kBrushless);
     private final SparkAbsoluteEncoder encoder = m_pivot.getAbsoluteEncoder(SparkAbsoluteEncoder.Type.kDutyCycle); 
     private final SparkPIDController m_PidController;
+
+
 
     private double kP = 4;
     private double kI = 0;
@@ -37,7 +40,6 @@ public class PivotSubsystem extends SubsystemBase {
         m_PidController.setFF(kFF);
         m_PidController.setOutputRange(kMinOutput, kMaxOutput);
 
-        SmartDashboard.putNumber("pivotPOS", 73.08);
 
     }
          @Override
@@ -63,8 +65,7 @@ public class PivotSubsystem extends SubsystemBase {
      }
 
      public void pivotAmpPosition(){
-        setArmPosition((float)SmartDashboard.getNumber("pivotPOS", 73.08));
-      // 170f
+        setArmPosition(170);
       }
 
    public void pivotHumanPosition(){
