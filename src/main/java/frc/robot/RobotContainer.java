@@ -5,6 +5,7 @@
 package frc.robot;
 
 import frc.robot.Constants.OIConstants;
+import frc.robot.commands.ConveyorCommands.ConveyInwardCommand;
 import frc.robot.commands.ConveyorCommands.ConveyLineBreak;
 import frc.robot.commands.FloorIntakeCommands.FI_IntakeForward;
 import frc.robot.commands.FlyWheelCommands.ShootNoteCommand;
@@ -101,7 +102,7 @@ public class RobotContainer
 
     //Driver Controls   
     m_driverController.button(4).onTrue((new InstantCommand(drivebase::zeroGyro)));
-    m_driverController.button(6).whileTrue(new FI_IntakeForward(floorIntake));
+   // m_driverController.button(6).whileTrue(new FI_IntakeForward(floorIntake));
     m_driverController.button(8).whileTrue(new RepeatCommand(new Lime(
       drivebase,
         () -> -m_driverController.getRawAxis(1),
@@ -122,7 +123,10 @@ public class RobotContainer
 
       m_coDriverController.button(4).debounce(0.1).whileTrue(new ShootNoteCommand(flyWheel));
 
-      m_coDriverController.button(5).onTrue(new ConveyLineBreak(conveyor, flyWheel));
+      //m_coDriverController.button(5).onTrue(new ConveyLineBreak(conveyor, flyWheel));
+      m_coDriverController.button(5).whileTrue(new ConveyInwardCommand(conveyor));
+
+      m_coDriverController.button(6).whileTrue(new FI_IntakeForward(floorIntake));
 
 
 

@@ -9,6 +9,7 @@ import com.revrobotics.SparkMaxLimitSwitch;
 import com.revrobotics.SparkPIDController;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class FlyWheelSubsystem extends SubsystemBase {    
@@ -41,7 +42,7 @@ public class FlyWheelSubsystem extends SubsystemBase {
 
     m_rightWheel.follow(m_leftWheel, true);
 
-
+    SmartDashboard.putNumber("flywheel", 0);
     
   }
 
@@ -62,11 +63,13 @@ public class FlyWheelSubsystem extends SubsystemBase {
    */
   
   public void rampUp(){
-   m_PidController.setReference(0.5, CANSparkMax.ControlType.kVelocity);
+  // m_PidController.setReference(0.5, CANSparkMax.ControlType.kVelocity);
+    m_leftWheel.set(SmartDashboard.getNumber("flywheel", 0));
   }
 
   public void rampDown(){
-    m_PidController.setReference(0, CANSparkMax.ControlType.kVelocity);
+   // m_PidController.setReference(0, CANSparkMax.ControlType.kVelocity);
+   m_leftWheel.set(0);
   }
 
   public boolean isNoteSeen(){

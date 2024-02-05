@@ -37,6 +37,8 @@ public class PivotSubsystem extends SubsystemBase {
         m_PidController.setFF(kFF);
         m_PidController.setOutputRange(kMinOutput, kMaxOutput);
 
+        SmartDashboard.putNumber("pivotPOS", 73.08);
+
     }
          @Override
       public void periodic()
@@ -61,10 +63,11 @@ public class PivotSubsystem extends SubsystemBase {
      }
 
      public void pivotAmpPosition(){
-        setArmPosition(170f);
-}
+        setArmPosition((float)SmartDashboard.getNumber("pivotPOS", 73.08));
+      // 170f
+      }
 
-public void pivotHumanPosition(){
+   public void pivotHumanPosition(){
          setArmPosition(85f);
      }
 

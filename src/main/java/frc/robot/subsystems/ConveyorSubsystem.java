@@ -12,7 +12,7 @@ public class ConveyorSubsystem extends SubsystemBase {
     }
 
     public void conveyInward(){
-        m_conveyor.set(-0.5);
+        m_conveyor.set(-0.8);
     }
 
     public void stopConvey(){

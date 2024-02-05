@@ -18,7 +18,7 @@ public class AmpPosition extends Command{
     @Override
     public void initialize(){
         pivot.pivotAmpPosition();
-        elevator.ampPosition();
+       // elevator.ampPosition();
     }
 
     @Override
