@@ -1,15 +1,17 @@
 package frc.robot.subsystems;
 
+import com.revrobotics.CANSparkBase;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
+import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ElevatorSubsystem extends SubsystemBase {
     //Created an Elevator Subsystem
-    private final CANSparkMax m_elevator = new CANSparkMax(14, MotorType.kBrushless);
+    private final CANSparkMax m_elevator = new CANSparkMax(13, MotorType.kBrushless);
     private final RelativeEncoder elevatorEncoder = m_elevator.getEncoder();
     private final SparkPIDController m_PidController = m_elevator.getPIDController();
 
@@ -17,14 +19,16 @@ public class ElevatorSubsystem extends SubsystemBase {
     private double kI = 0;
     private double kD = 0;
     private double kIz = 0;
-    private double kFF = 0;
-    private double kMaxOutput = .1;
-    private double kMinOutput = -.1;
+    private double kFF = 0.001;
+    private double kMaxOutput = 0.3;
+    private double kMinOutput = -0.3;
+
     
 
-    public ElevatorSubsystem(){
+    public ElevatorSubsystem(){ 
         elevatorEncoder.setPosition(0);
         m_PidController.setFeedbackDevice(elevatorEncoder);
+        m_elevator.setIdleMode(IdleMode.kBrake);
         
         m_PidController.setP(kP);
         m_PidController.setI(kI);
@@ -39,13 +43,17 @@ public class ElevatorSubsystem extends SubsystemBase {
     /*
      * Five States: (Least amout of movement)
      *  Base (start) Position
-     *  Amp Position 
+     *  Amp Position = 15
+     *  Human Position = 3 
      *  Trap Position 
      *  Defense Position (Last resort use w/ limelight maybe?) 
+     *  Podium Position 
+     * 
+     *   Max Pos --> -44 
      */
 
      private void setElevatorHight(double heightInchs){
-         m_PidController.setReference(heightInchs, CANSparkMax.ControlType.kPosition);
+        m_PidController.setReference(heightInchs * -1, CANSparkMax.ControlType.kPosition);
      }
 
      public void basePosition(){
@@ -53,16 +61,24 @@ public class ElevatorSubsystem extends SubsystemBase {
      }
 
      public void ampPosition(){
-        setElevatorHight(2.5);
+        setElevatorHight(15.0);
+     }
+
+     public void humanPosition(){
+        setElevatorHight(3.0);
      }
 
      public void trapPosition(){
         setElevatorHight(5.5);
-   }
+      }
 
      public void defensePosition(){
         setElevatorHight(3.5);
-   }
+      }
+   
+      public void podiumPosition(){
+        setElevatorHight(9.5);
+      }
 
     
 

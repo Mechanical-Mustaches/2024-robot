@@ -4,6 +4,7 @@
 
 package frc.robot.commands.swervedrive.drivebase;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -11,6 +12,8 @@ import frc.robot.LimelightHelpers;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
+
+
 import swervelib.SwerveController;
 
 /**
@@ -20,9 +23,10 @@ public class Lime extends Command
 {
 
   private final SwerveSubsystem  swerve;
+  private final PIDController pidController = new PIDController(0.025, 0, 0);
   private final DoubleSupplier   vX;
   private final DoubleSupplier   vY;
-  private final BooleanSupplier  driveMode;
+  private final DoubleSupplier   omega;
   private final SwerveController controller;
 
   /**
@@ -30,12 +34,12 @@ public class Lime extends Command
    *
    * @param swerve The subsystem used by this command.
    */
-  public Lime(SwerveSubsystem swerve, DoubleSupplier vX, DoubleSupplier vY,
-                     BooleanSupplier driveMode)
+  public Lime(SwerveSubsystem swerve, DoubleSupplier vX, DoubleSupplier vY, DoubleSupplier omega)
   {
     this.swerve = swerve;
     this.vX = vX;
-    this.vY = vY;    this.driveMode = driveMode;
+    this.vY = vY;    
+    this.omega = omega;
     this.controller = swerve.getSwerveController();
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(swerve);
@@ -45,6 +49,7 @@ public class Lime extends Command
   @Override
   public void initialize()
   {
+    SmartDashboard.putBoolean("seeNote", false);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -53,14 +58,27 @@ public class Lime extends Command
   {
     double xVelocity   = Math.pow(vX.getAsDouble(), 3);
     double yVelocity   = Math.pow(vY.getAsDouble(), 3);
+    double angVelocity = Math.pow(omega.getAsDouble(), 3);
     double lime = LimelightHelpers.getTX("limelight");
     SmartDashboard.putNumber("vX", xVelocity);
     SmartDashboard.putNumber("vY", yVelocity);
 
-    // Drive using raw values.
-    swerve.drive(new Translation2d(xVelocity * swerve.maximumSpeed, yVelocity * swerve.maximumSpeed),
-                 lime*3,
-                 driveMode.getAsBoolean());
+    
+
+    if(LimelightHelpers.getTV("limelight")){
+      SmartDashboard.putBoolean("seeNote", true);
+      double rotation = pidController.calculate(LimelightHelpers.getTX("limelight"), 0.0);
+
+      swerve.drive(new Translation2d(xVelocity * swerve.maximumSpeed, yVelocity * swerve.maximumSpeed),
+                 rotation*3,
+                 false);
+    }
+    else{
+      SmartDashboard.putBoolean("seeNote", false);
+      swerve.drive(new Translation2d(xVelocity * swerve.maximumSpeed, yVelocity * swerve.maximumSpeed),
+                 angVelocity * controller.config.maxAngularVelocity,
+                 true);
+    } 
 
   }
   
