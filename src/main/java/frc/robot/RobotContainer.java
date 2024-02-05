@@ -33,6 +33,8 @@ import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import frc.robot.commands.swervedrive.drivebase.Lime; 
 import java.io.File;
 
+import com.pathplanner.lib.auto.NamedCommands;
+
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a "declarative" paradigm, very
@@ -58,11 +60,12 @@ public class RobotContainer
 
   private final CommandXboxController m_coDriverController =
       new CommandXboxController(OIConstants.kCoDriverControllerPort);
-  
+
   private final SwerveSubsystem drivebase = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
                                                                        "swerve/neo"));
   
 
+  
   
 
   /**
@@ -70,6 +73,9 @@ public class RobotContainer
    */
   public RobotContainer()
   {
+    // Register Named Commands
+      NamedCommands.registerCommand("spin", new FI_IntakeForward(floorIntake));
+      NamedCommands.registerCommand("stop", new FI_IntakeForward(floorIntake));
     // Configure the trigger bindings
     configureBindings();
     initializeAutoChooser();
@@ -84,7 +90,7 @@ public class RobotContainer
         drivebase,
         () -> -m_driverController.getRawAxis(1),
         () -> -m_driverController.getRawAxis(0),
-        () -> -m_driverController.getRawAxis(4), () -> true);
+        () -> m_driverController.getRawAxis(4), () -> true);
 
     drivebase.setDefaultCommand(!RobotBase.isSimulation() ? closedFieldRel : simClosedFieldRel);
   }
@@ -144,8 +150,8 @@ public class RobotContainer
      private final SendableChooser<String> autoChooser = new SendableChooser<String>();
   
   private String initializeAutoChooser() {
-    autoChooser.setDefaultOption("New Path", "New Path");
-    autoChooser.addOption("path2", "SamplePath");
+    autoChooser.setDefaultOption("path1", "path1");
+    autoChooser.addOption("path2", "path2");
     SmartDashboard.putData("Auto Selector", autoChooser);
     return autoChooser.getSelected();
   }
