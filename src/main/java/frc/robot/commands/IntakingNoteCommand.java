@@ -15,21 +15,10 @@ import frc.robot.commands.FloorIntakeCommands.FI_LinebreakCommand;
 import frc.robot.commands.ShootingPosCommands.BasePosition;
 
 public class IntakingNoteCommand extends SequentialCommandGroup{
-    FloorIntakeSubsystem floorIntake;
-    ConveyorSubsystem conveyor;
-    ElevatorSubsystem elevator;
-    PivotSubsystem pivot;
-    FlyWheelSubsystem flyWheel;
 
     public IntakingNoteCommand(FloorIntakeSubsystem floorIntake, ConveyorSubsystem conveyor,
         ElevatorSubsystem elevator, PivotSubsystem pivot, FlyWheelSubsystem flywheel){
         
-        this.floorIntake = floorIntake;
-        this.conveyor = conveyor;
-        this.elevator = elevator;
-        this.pivot = pivot;
-        this.flyWheel = flywheel;
-
         addCommands(
             new ParallelCommandGroup(
                 new FI_LinebreakCommand(floorIntake)
