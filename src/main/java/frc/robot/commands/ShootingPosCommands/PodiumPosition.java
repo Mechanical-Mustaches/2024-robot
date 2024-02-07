@@ -27,4 +27,11 @@ public class PodiumPosition extends Command {
     public boolean isFinished(){
         return true;
     }
+
+    @Override
+    public void end(boolean i){
+        pivot.pivotBasePosition();
+        elevator.basePosition();
+        flywheel.rampDown();
+    }
 }

@@ -30,6 +30,12 @@ public class AmpPosition extends Command{
         return true;
     }
 
+    @Override
+    public void end(boolean i){
+        pivot.pivotBasePosition();
+        flywheel.rampDown();
+    }
+
     
     
 }
