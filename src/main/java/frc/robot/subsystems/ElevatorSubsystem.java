@@ -53,7 +53,7 @@ public class ElevatorSubsystem extends SubsystemBase {
      */
 
      private void setElevatorHight(double heightInchs){
-        m_PidController.setReference(heightInchs * -1, CANSparkMax.ControlType.kPosition);
+        m_PidController.setReference(heightInchs, CANSparkMax.ControlType.kPosition);
      }
 
      public void basePosition(){
@@ -69,7 +69,7 @@ public class ElevatorSubsystem extends SubsystemBase {
      }
 
      public void trapPosition(){
-        setElevatorHight(5.5);
+        setElevatorHight(20);
       }
 
      public void defensePosition(){
