@@ -98,6 +98,7 @@ public class Robot extends TimedRobot
   public void autonomousInit()
   {
     m_robotContainer.setMotorBrake(true);
+    m_robotContainer.initialize();
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     // schedule the autonomous command (example)
@@ -126,6 +127,7 @@ public class Robot extends TimedRobot
     {
       m_autonomousCommand.cancel();
     }
+    m_robotContainer.initialize();
     m_robotContainer.setDriveMode();
     m_robotContainer.setMotorBrake(true);
   }
