@@ -139,6 +139,10 @@ public class RobotContainer
     
   }
 
+  public void initialize(){
+    new BasePosition(pivot, elevator);
+  }
+
 
 
   /**
