@@ -3,8 +3,9 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.SparkAbsoluteEncoder;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
+import com.revrobotics.CANSparkBase.IdleMode;
 
 public class ArmSubsystem extends SubsystemBase {
      /** Creates a new ArmSubsystem. */
@@ -13,8 +14,8 @@ public class ArmSubsystem extends SubsystemBase {
     private CANSparkMax m_leftArm = new CANSparkMax(15, MotorType.kBrushless);
     private CANSparkMax m_rightArm = new CANSparkMax(16, MotorType.kBrushless);
 
-    private final SparkAbsoluteEncoder encoder = m_leftArm.getAbsoluteEncoder(SparkAbsoluteEncoder.Type.kDutyCycle); 
-    private final SparkPIDController m_PidController;
+    private final RelativeEncoder m_Encoder = m_leftArm.getEncoder();
+    private final SparkPIDController m_PidController = m_leftArm.getPIDController();
 
     private double kP = 0.1;
     private double kI = 0;
@@ -28,8 +29,8 @@ public class ArmSubsystem extends SubsystemBase {
 
   public ArmSubsystem() {
     m_leftArm.restoreFactoryDefaults();
-    m_PidController = m_leftArm.getPIDController();
-    m_PidController.setFeedbackDevice(encoder);
+    m_PidController.setFeedbackDevice(m_Encoder);
+    m_leftArm.setIdleMode(IdleMode.kBrake);
 
     m_PidController.setP(kP);
     m_PidController.setI(kI);
@@ -63,6 +64,14 @@ public class ArmSubsystem extends SubsystemBase {
     }
    
   } 
+
+  public void armUp(){
+    m_PidController.setReference(0.5, CANSparkMax.ControlType.kPosition);
+  }
+
+  public void armDown(){
+    m_PidController.setReference(0, CANSparkMax.ControlType.kPosition);
+  }
 
 
 
