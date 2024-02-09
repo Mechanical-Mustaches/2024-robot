@@ -42,13 +42,15 @@ public class FlyWheelSubsystem extends SubsystemBase {
 
     m_rightWheel.follow(m_leftWheel, true);
 
-    SmartDashboard.putNumber("flywheel", 0);
+   SmartDashboard.putNumber("flywheel", 0);
+    SmartDashboard.putBoolean("flywheelLB", false);
     
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    System.out.println(this.isNoteSeen());
   }
 
   @Override
@@ -74,7 +76,8 @@ public class FlyWheelSubsystem extends SubsystemBase {
 
   public boolean isNoteSeen(){
     return lineBreak.isPressed();
+    //return SmartDashboard.getBoolean("flywheelLB", true);
   }
 
 
-}
+} 

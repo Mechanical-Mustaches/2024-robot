@@ -5,9 +5,12 @@
 package frc.robot;
 
 import frc.robot.Constants.OIConstants;
+import frc.robot.commands.IntakingNoteCommand;
 import frc.robot.commands.ConveyorCommands.ConveyInwardCommand;
 import frc.robot.commands.ConveyorCommands.ConveyLineBreak;
 import frc.robot.commands.FloorIntakeCommands.FI_IntakeForward;
+import frc.robot.commands.FloorIntakeCommands.FI_IntakeStop;
+import frc.robot.commands.FloorIntakeCommands.FI_LinebreakCommand;
 import frc.robot.commands.FlyWheelCommands.ShootNoteCommand;
 import frc.robot.commands.ShootingPosCommands.AmpPosition;
 import frc.robot.commands.ShootingPosCommands.BasePosition;
@@ -129,10 +132,14 @@ public class RobotContainer
 
       m_coDriverController.button(4).debounce(0.1).whileTrue(new ShootNoteCommand(flyWheel));
 
-      //m_coDriverController.button(5).onTrue(new ConveyLineBreak(conveyor, flyWheel));
-      m_coDriverController.button(5).whileTrue(new ConveyInwardCommand(conveyor));
+      m_coDriverController.button(5).whileTrue(new IntakingNoteCommand(floorIntake, conveyor, elevator, pivot, flyWheel));
 
-      m_coDriverController.button(6).whileTrue(new FI_IntakeForward(floorIntake));
+      m_coDriverController.button(7).whileTrue(new FI_LinebreakCommand(floorIntake));
+      
+      m_coDriverController.button(8).whileTrue(new FI_IntakeForward(floorIntake));
+
+      m_coDriverController.button(6).whileTrue(new ConveyInwardCommand(conveyor));
+
 
 
 
