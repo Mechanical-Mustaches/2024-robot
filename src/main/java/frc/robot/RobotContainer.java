@@ -128,7 +128,8 @@ public class RobotContainer
 
       m_coDriverController.button(5).whileTrue(new IntakingNoteCommand(floorIntake, conveyor, elevator, pivot, flyWheel));
 
-      m_coDriverController.button(7).onTrue(new FI_LinebreakCommand(floorIntake));
+      m_coDriverController.button(7).whileTrue(new FI_LinebreakCommand(floorIntake));
+      
       m_coDriverController.button(8).whileTrue(new FI_IntakeForward(floorIntake));
 
       m_coDriverController.button(6).whileTrue(new ConveyInwardCommand(conveyor));

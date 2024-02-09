@@ -75,9 +75,9 @@ public class FlyWheelSubsystem extends SubsystemBase {
   }
 
   public boolean isNoteSeen(){
-    //return lineBreak.isPressed();
-    return SmartDashboard.getBoolean("flywheelLB", true);
+    return lineBreak.isPressed();
+    //return SmartDashboard.getBoolean("flywheelLB", true);
   }
 
 
-}
+} 

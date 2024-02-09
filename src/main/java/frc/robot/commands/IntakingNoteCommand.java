@@ -23,13 +23,11 @@ public class IntakingNoteCommand extends SequentialCommandGroup{
         addCommands(
                 (new BasePosition(pivot, elevator)),   
                 (new FI_LinebreakCommand(floorIntake)),
-               
                 new ParallelCommandGroup(
                     (new ConveyLineBreak(conveyor, flywheel)),
                     (new FI_IntakeForward(floorIntake))
                 )
                 
-            
         );
        
     }

@@ -40,8 +40,8 @@ public class FloorIntakeSubsystem extends SubsystemBase {
   }
 
   public boolean isNotePresent(){
-    //return lineBreak.isPressed();
-    return SmartDashboard.getBoolean("intakeLB", true);
+    return lineBreak.isPressed();
+    //return SmartDashboard.getBoolean("intakeLB", true);
   }
 
 }
