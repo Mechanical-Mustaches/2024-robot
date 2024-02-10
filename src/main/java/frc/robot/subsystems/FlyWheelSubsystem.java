@@ -87,7 +87,8 @@ public class FlyWheelSubsystem extends SubsystemBase {
   }
 
   public void sourceNomNom(){
-    m_leftWheel.set(-0.3);
+    m_leftWheel.set(-0.6);
+    // -0.2
   }
 
 }

@@ -59,32 +59,32 @@ public class PivotSubsystem extends SubsystemBase {
      }
 
      public void pivotBasePosition(){
-        setArmPosition(73.08f);
+        setArmPosition(206f);
      }
 
      public void pivotAmpPosition(){
-        setArmPosition((float)SmartDashboard.getNumber("pivotPOS", 73.08));
+        setArmPosition((float)SmartDashboard.getNumber("pivotPOS", 295.2));
       // 170f
       }
 
       public void pivotHumanPosition(){
-         setArmPosition(85f);
+         setArmPosition(210f);
       }
 
      public void pivotTrapPosition(){
-        setArmPosition(150f);
+        setArmPosition(230f);
      }
 
      public void pivotPodiumPosition(){
-         setArmPosition(105f);
+         setArmPosition(240f);
      }
 
      public void pivotDefencePosition(){
-         setArmPosition(73.08f);
+         setArmPosition(240f);
      }
 
      public void pivotSubWooferPosition(){
-         setArmPosition(73.08f);
+         setArmPosition(206f);
      }
 }
  

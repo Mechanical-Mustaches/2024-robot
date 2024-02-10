@@ -1,6 +1,7 @@
 package frc.robot.commands.ShootingPosCommands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.commands.ConveyorCommands.ConveyHumanPlayer;
 import frc.robot.subsystems.ConveyorSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.FlyWheelSubsystem;
@@ -29,14 +30,20 @@ public class HumanPosition extends Command {
 
     @Override
     public void execute(){
-        if(flywheel.isNoteSeen()){
+        if(!flywheel.isNoteSeen()){
             conveyor.conveyFromSource();
+        }
+        else{
+            conveyor.stopConvey();
         }
     }
 
     @Override
     public boolean isFinished(){
-        return !flywheel.isNoteSeen();
+        if(flywheel.isNoteSeen()){
+            return true;
+        }
+        return false;
     }
 
     @Override

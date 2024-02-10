@@ -123,7 +123,7 @@ public class RobotContainer
       m_coDriverController.button(1).onTrue(new AmpPosition(pivot, elevator, flyWheel));
       m_coDriverController.button(1).onFalse(new BasePosition(pivot, elevator));
 
-      m_coDriverController.button(2).onTrue(new TrapPosition(pivot, elevator));
+      m_coDriverController.button(2).onTrue(new HumanPosition(pivot, elevator, flyWheel, conveyor));
       m_coDriverController.button(2).onFalse(new BasePosition(pivot, elevator));
 
       m_coDriverController.button(3).onTrue(new PodiumPosition(pivot, elevator, flyWheel));
