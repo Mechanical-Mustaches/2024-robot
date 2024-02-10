@@ -14,6 +14,7 @@ import frc.robot.commands.FloorIntakeCommands.FI_LinebreakCommand;
 import frc.robot.commands.FlyWheelCommands.ShootNoteCommand;
 import frc.robot.commands.ShootingPosCommands.AmpPosition;
 import frc.robot.commands.ShootingPosCommands.BasePosition;
+import frc.robot.commands.ShootingPosCommands.HumanPosition;
 import frc.robot.commands.ShootingPosCommands.PodiumPosition;
 import frc.robot.commands.ShootingPosCommands.TrapPosition;
 import frc.robot.subsystems.ArmSubsystem;
@@ -63,12 +64,12 @@ public class RobotContainer
 
   private final CommandXboxController m_coDriverController =
       new CommandXboxController(OIConstants.kCoDriverControllerPort);
-
+  
   private final SwerveSubsystem drivebase = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
                                                                        "swerve/neo"));
-  
 
   
+
   
 
   /**
@@ -76,7 +77,7 @@ public class RobotContainer
    */
   public RobotContainer()
   {
-    // Register Named Commands
+// Register Named Commands
       NamedCommands.registerCommand("spin", new FI_IntakeForward(floorIntake));
       NamedCommands.registerCommand("stop", new FI_IntakeForward(floorIntake));
     // Configure the trigger bindings
@@ -93,7 +94,7 @@ public class RobotContainer
         drivebase,
         () -> -m_driverController.getRawAxis(1),
         () -> -m_driverController.getRawAxis(0),
-        () -> m_driverController.getRawAxis(4), () -> true);
+        () -> -m_driverController.getRawAxis(4), () -> true);
 
     drivebase.setDefaultCommand(!RobotBase.isSimulation() ? closedFieldRel : simClosedFieldRel);
   }
@@ -118,7 +119,7 @@ public class RobotContainer
         () -> -m_driverController.getRawAxis(0),
         () -> -m_driverController.getRawAxis(4))
         ));
-  
+
     //Gunner Controls 
     //Human Player position code
       m_coDriverController.button(1).onTrue(new AmpPosition(pivot, elevator));
@@ -135,7 +136,7 @@ public class RobotContainer
       m_coDriverController.button(5).whileTrue(new IntakingNoteCommand(floorIntake, conveyor, elevator, pivot, flyWheel));
 
       m_coDriverController.button(7).whileTrue(new FI_LinebreakCommand(floorIntake));
-      
+
       m_coDriverController.button(8).whileTrue(new FI_IntakeForward(floorIntake));
 
       m_coDriverController.button(6).whileTrue(new ConveyInwardCommand(conveyor));
@@ -146,7 +147,7 @@ public class RobotContainer
     
   }
 
-  public void initialize(){
+public void initialize(){
     new BasePosition(pivot, elevator);
   }
 
