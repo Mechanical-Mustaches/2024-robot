@@ -23,6 +23,7 @@ public class AmpPosition extends Command{
         pivot.pivotAmpPosition();
        // elevator.ampPosition();
        flywheel.ampShot();
+        elevator.ampPosition();
     }
 
     @Override

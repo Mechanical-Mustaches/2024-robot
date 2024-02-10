@@ -19,8 +19,8 @@ public class ElevatorSubsystem extends SubsystemBase {
     private double kI = 0;
     private double kD = 0;
     private double kIz = 0;
-    private double kFF = 0.001;
-    private double kMaxOutput = 0.3;
+    private double kFF = 0;
+    private double kMaxOutput = 0.5;
     private double kMinOutput = -0.3;
 
     
@@ -53,7 +53,7 @@ public class ElevatorSubsystem extends SubsystemBase {
      */
 
      private void setElevatorHight(double heightInchs){
-        m_PidController.setReference(heightInchs * -1, CANSparkMax.ControlType.kPosition);
+        m_PidController.setReference(heightInchs, CANSparkMax.ControlType.kPosition);
      }
 
      public void basePosition(){
@@ -69,7 +69,7 @@ public class ElevatorSubsystem extends SubsystemBase {
      }
 
      public void trapPosition(){
-        setElevatorHight(5.5);
+        setElevatorHight(20);
       }
 
      public void defensePosition(){

@@ -65,8 +65,6 @@ public class TeleopDrive extends Command
     swerve.drive(new Translation2d(xVelocity * swerve.maximumSpeed, yVelocity * swerve.maximumSpeed),
                  angVelocity * controller.config.maxAngularVelocity,
                  driveMode.getAsBoolean());
-    SmartDashboard.putNumber("TXXX", LimelightHelpers.getTX("limelight"));
-
   }
   
   // Called once the command ends or is interrupted.
