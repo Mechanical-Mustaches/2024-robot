@@ -17,6 +17,7 @@ import frc.robot.commands.ShootingPosCommands.BasePosition;
 import frc.robot.commands.ShootingPosCommands.HumanPosition;
 import frc.robot.commands.ShootingPosCommands.PodiumPosition;
 import frc.robot.commands.ShootingPosCommands.TrapPosition;
+import frc.robot.commands.ShootingPosCommands.subWOOFCommand;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ConveyorSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
@@ -122,13 +123,13 @@ public class RobotContainer
 
     //Gunner Controls 
     //Human Player position code
-      m_coDriverController.button(1).onTrue(new AmpPosition(pivot, elevator));
+      m_coDriverController.button(1).onTrue(new AmpPosition(pivot, elevator, flyWheel));
       m_coDriverController.button(1).onFalse(new BasePosition(pivot, elevator));
 
-      m_coDriverController.button(2).onTrue(new TrapPosition(pivot, elevator));
+      m_coDriverController.button(2).onTrue(new HumanPosition(pivot, elevator, flyWheel, conveyor));
       m_coDriverController.button(2).onFalse(new BasePosition(pivot, elevator));
 
-      m_coDriverController.button(3).onTrue(new PodiumPosition(pivot, elevator));
+      m_coDriverController.button(3).onTrue(new PodiumPosition(pivot, elevator, flyWheel));
       m_coDriverController.button(3).onFalse(new BasePosition(pivot, elevator));
 
       m_coDriverController.button(4).debounce(0.1).whileTrue(new ShootNoteCommand(flyWheel));
@@ -142,7 +143,10 @@ public class RobotContainer
       m_coDriverController.button(6).whileTrue(new ConveyInwardCommand(conveyor));
 
 
+      m_coDriverController.button(7).onTrue(new subWOOFCommand(pivot, elevator, flyWheel));
+      m_coDriverController.button(7).onFalse(new BasePosition(pivot, elevator));
 
+      m_coDriverController.button(8).whileTrue(new HumanPosition(pivot, elevator, flyWheel, conveyor));
 
     
   }

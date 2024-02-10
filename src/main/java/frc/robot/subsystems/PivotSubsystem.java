@@ -71,7 +71,7 @@ public class PivotSubsystem extends SubsystemBase {
         setArmPosition(295.2f);
       }
 
-   public void pivotHumanPosition(){
+     public void pivotHumanPosition(){
          setArmPosition(210f);
      }
 
@@ -83,8 +83,17 @@ public class PivotSubsystem extends SubsystemBase {
          setArmPosition(240f);
      }
 
+     public void pivotDefencePosition(){
+         setArmPosition(240f);
+     }
+
+     public void pivotSubWooferPosition(){
+         setArmPosition(206f);
+     }
+
     public void pivotDefencePosition(){
          setArmPosition(210f);
+
      }
 }
  
