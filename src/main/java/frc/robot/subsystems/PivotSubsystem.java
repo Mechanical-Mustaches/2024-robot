@@ -83,10 +83,6 @@ public class PivotSubsystem extends SubsystemBase {
          setArmPosition(240f);
      }
 
-     public void pivotDefencePosition(){
-         setArmPosition(240f);
-     }
-
      public void pivotSubWooferPosition(){
          setArmPosition(206f);
      }
