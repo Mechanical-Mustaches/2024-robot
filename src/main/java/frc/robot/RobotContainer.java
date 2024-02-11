@@ -18,7 +18,6 @@ import frc.robot.commands.ShootingPosCommands.HumanPosition;
 import frc.robot.commands.ShootingPosCommands.PodiumPosition;
 import frc.robot.commands.ShootingPosCommands.TrapPosition;
 import frc.robot.commands.ShootingPosCommands.subWOOFCommand;
-import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ConveyorSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.FloorIntakeSubsystem;
@@ -51,7 +50,6 @@ public class RobotContainer
 
   // The robot's subsystems and commands are defined here...
   private final FloorIntakeSubsystem floorIntake = new FloorIntakeSubsystem();
-  private final ArmSubsystem arm = new ArmSubsystem();
   private final ConveyorSubsystem conveyor = new ConveyorSubsystem();
   private final FlyWheelSubsystem flyWheel = new FlyWheelSubsystem();
   private final PivotSubsystem pivot = new PivotSubsystem();
@@ -79,9 +77,13 @@ public class RobotContainer
   public RobotContainer()
   {
 // Register Named Commands
-      NamedCommands.registerCommand("spin", new FI_IntakeForward(floorIntake));
-      NamedCommands.registerCommand("stop", new FI_IntakeForward(floorIntake));
-    // Configure the trigger bindings
+      NamedCommands.registerCommand("intake", new FI_IntakeForward(floorIntake));
+      NamedCommands.registerCommand("stopintakeifnotstopped", new FI_IntakeForward(floorIntake));
+      NamedCommands.registerCommand("spinRPMX", new FI_IntakeForward(floorIntake));
+      NamedCommands.registerCommand("spinRPMY", new FI_IntakeForward(floorIntake));
+      NamedCommands.registerCommand("fire", new FI_IntakeForward(floorIntake));
+
+// Configure the trigger bindings
     configureBindings();
     initializeAutoChooser();
 
