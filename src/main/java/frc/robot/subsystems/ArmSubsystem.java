@@ -53,7 +53,6 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   public void togglePosition(){
-    System.out.println("position: " + isArmRaised);
     if(isArmRaised){
       m_PidController.setReference(0, CANSparkMax.ControlType.kPosition);
       isArmRaised = false;

@@ -9,6 +9,7 @@ public class PodiumPosition extends Command {
     private final PivotSubsystem pivot;
     private final ElevatorSubsystem elevator;
     private final FlyWheelSubsystem flywheel;
+    private boolean isAtPodium = false;
 
     public PodiumPosition(PivotSubsystem pivot, ElevatorSubsystem elevator, FlyWheelSubsystem flywheel){
         this.pivot = pivot;
@@ -21,11 +22,12 @@ public class PodiumPosition extends Command {
         pivot.pivotPodiumPosition();
         elevator.podiumPosition();
         flywheel.podiumShot();
+        isAtPodium = true;
     }
 
     @Override
     public boolean isFinished(){
-        return true;
+        return isAtPodium;
     }
 
     @Override

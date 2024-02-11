@@ -6,9 +6,10 @@ import frc.robot.subsystems.FlyWheelSubsystem;
 import frc.robot.subsystems.PivotSubsystem;
 
 public class subWOOFCommand extends Command {
-    PivotSubsystem pivot;
-    ElevatorSubsystem elevator;
-    FlyWheelSubsystem flywheel;
+    private final PivotSubsystem pivot;
+    private final ElevatorSubsystem elevator;
+    private final FlyWheelSubsystem flywheel;
+    private boolean isAtSubWoof = false;
 
     public subWOOFCommand(PivotSubsystem pivot, ElevatorSubsystem elevator, FlyWheelSubsystem flywheel){
         this.pivot = pivot;
@@ -22,11 +23,12 @@ public class subWOOFCommand extends Command {
         pivot.pivotSubWooferPosition();
         elevator.subWooferPosition();
         flywheel.subWoofShot();
+        isAtSubWoof = true;
     }
 
     @Override
     public boolean isFinished(){
-        return true;
+        return isAtSubWoof;
     }
 
 

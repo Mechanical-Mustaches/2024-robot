@@ -7,16 +7,11 @@ package frc.robot;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.IntakingNoteCommand;
 import frc.robot.commands.ConveyorCommands.ConveyInwardCommand;
-import frc.robot.commands.ConveyorCommands.ConveyLineBreak;
 import frc.robot.commands.FloorIntakeCommands.FI_IntakeForward;
-import frc.robot.commands.FloorIntakeCommands.FI_IntakeStop;
-import frc.robot.commands.FloorIntakeCommands.FI_LinebreakCommand;
-import frc.robot.commands.FlyWheelCommands.ShootNoteCommand;
 import frc.robot.commands.ShootingPosCommands.AmpPosition;
 import frc.robot.commands.ShootingPosCommands.BasePosition;
 import frc.robot.commands.ShootingPosCommands.HumanPosition;
 import frc.robot.commands.ShootingPosCommands.PodiumPosition;
-import frc.robot.commands.ShootingPosCommands.TrapPosition;
 import frc.robot.commands.ShootingPosCommands.subWOOFCommand;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ConveyorSubsystem;
@@ -34,8 +29,9 @@ import edu.wpi.first.wpilibj2.command.RepeatCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.swervedrive.drivebase.TeleopDrive;
+import frc.robot.commands.swervedrive.drivebase.aprilTrack;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
-import frc.robot.commands.swervedrive.drivebase.Lime; 
+import frc.robot.commands.swervedrive.drivebase.noteTrack; 
 import java.io.File;
 
 import com.pathplanner.lib.auto.NamedCommands;
@@ -113,46 +109,67 @@ public class RobotContainer
 
     //Driver Controls   
     m_driverController.button(4).onTrue((new InstantCommand(drivebase::zeroGyro)));
+    m_driverController.button(5).onTrue((new InstantCommand(drivebase::lock)));
    // m_driverController.button(6).whileTrue(new FI_IntakeForward(floorIntake));
-    m_driverController.button(8).whileTrue(new RepeatCommand(new Lime(
+    
+  
+
+    //Gunner Controls 
+      //Close Shot:
+      m_coDriverController.button(1).onTrue(new subWOOFCommand(pivot, elevator, flyWheel));
+      m_coDriverController.button(1).onFalse(new BasePosition(pivot, elevator));
+
+      //Source:
+      m_coDriverController.button(2).whileTrue(new HumanPosition(pivot, elevator, flyWheel, conveyor));
+      m_coDriverController.button(2).onFalse(new BasePosition(pivot, elevator));
+
+      //Climb:
+      m_coDriverController.button(3);
+
+      //Far Shot:
+      m_coDriverController.button(4).onTrue(new PodiumPosition(pivot, elevator, flyWheel));
+      m_coDriverController.button(4).onFalse(new BasePosition(pivot, elevator));
+
+      //Reserved for Future Implementation
+      m_coDriverController.button(5);
+  
+      //Reserved for Future Implementation
+      m_coDriverController.button(6);
+      
+      //Amp Shot
+      m_coDriverController.button(7).onTrue(new AmpPosition(pivot, elevator, flyWheel));
+      m_coDriverController.button(7).onFalse(new BasePosition(pivot, elevator));
+
+      //Reserved for Future Implementation
+      m_coDriverController.button(8);
+
+      //Intake (no limelight)
+      m_coDriverController.button(9).whileTrue(new IntakingNoteCommand(floorIntake, conveyor, elevator, pivot, flyWheel));
+      
+      //Fire
+      m_coDriverController.button(10).whileTrue(new ConveyInwardCommand(conveyor));
+
+      //Track April (back limelight)
+      m_coDriverController.button(11).whileTrue(new RepeatCommand(new aprilTrack(
       drivebase,
         () -> -m_driverController.getRawAxis(1),
         () -> -m_driverController.getRawAxis(0),
         () -> -m_driverController.getRawAxis(4))
         ));
 
-    //Gunner Controls 
-    //Human Player position code
-      m_coDriverController.button(1).onTrue(new AmpPosition(pivot, elevator, flyWheel));
-      m_coDriverController.button(1).onFalse(new BasePosition(pivot, elevator));
-
-      m_coDriverController.button(2).onTrue(new HumanPosition(pivot, elevator, flyWheel, conveyor));
-      m_coDriverController.button(2).onFalse(new BasePosition(pivot, elevator));
-
-      m_coDriverController.button(3).onTrue(new PodiumPosition(pivot, elevator, flyWheel));
-      m_coDriverController.button(3).onFalse(new BasePosition(pivot, elevator));
-
-      m_coDriverController.button(4).debounce(0.1).whileTrue(new ShootNoteCommand(flyWheel));
-
-      m_coDriverController.button(5).whileTrue(new IntakingNoteCommand(floorIntake, conveyor, elevator, pivot, flyWheel));
-
-      m_coDriverController.button(7).whileTrue(new FI_LinebreakCommand(floorIntake));
-
-      m_coDriverController.button(8).whileTrue(new FI_IntakeForward(floorIntake));
-
-      m_coDriverController.button(6).whileTrue(new ConveyInwardCommand(conveyor));
-
-
-      m_coDriverController.button(7).onTrue(new subWOOFCommand(pivot, elevator, flyWheel));
-      m_coDriverController.button(7).onFalse(new BasePosition(pivot, elevator));
-
-      m_coDriverController.button(8).whileTrue(new HumanPosition(pivot, elevator, flyWheel, conveyor));
-
+      //Track Note (front limelight)
+      m_coDriverController.button(12).whileTrue(new RepeatCommand(new noteTrack(
+      drivebase,
+        () -> -m_driverController.getRawAxis(1),
+        () -> -m_driverController.getRawAxis(0),
+        () -> -m_driverController.getRawAxis(4))
+        ));
     
   }
 
-public void initialize(){
+  public void initialize(){
     new BasePosition(pivot, elevator);
+    flyWheel.rampDown();
   }
 
 

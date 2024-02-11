@@ -5,6 +5,8 @@ import frc.robot.subsystems.ConveyorSubsystem;
 
 public class ConveyInwardCommand extends Command{
     ConveyorSubsystem conveyor; 
+    private boolean isConveying = false;
+
 
     public ConveyInwardCommand(ConveyorSubsystem conveyor){
         this.conveyor = conveyor;
@@ -13,6 +15,12 @@ public class ConveyInwardCommand extends Command{
     @Override
     public void execute(){
         conveyor.conveyInward();
+        isConveying = true;
+    }
+
+    @Override
+    public boolean isFinished(){
+        return isConveying;
     }
 
     @Override

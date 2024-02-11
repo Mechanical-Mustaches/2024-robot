@@ -19,7 +19,7 @@ import swervelib.SwerveController;
 /**
  * An example command that uses an example subsystem.
  */
-public class Lime extends Command
+public class noteTrack extends Command
 {
 
   private final SwerveSubsystem  swerve;
@@ -34,7 +34,7 @@ public class Lime extends Command
    *
    * @param swerve The subsystem used by this command.
    */
-  public Lime(SwerveSubsystem swerve, DoubleSupplier vX, DoubleSupplier vY, DoubleSupplier omega)
+  public noteTrack(SwerveSubsystem swerve, DoubleSupplier vX, DoubleSupplier vY, DoubleSupplier omega)
   {
     this.swerve = swerve;
     this.vX = vX;
@@ -59,15 +59,14 @@ public class Lime extends Command
     double xVelocity   = Math.pow(vX.getAsDouble(), 3);
     double yVelocity   = Math.pow(vY.getAsDouble(), 3);
     double angVelocity = Math.pow(omega.getAsDouble(), 3);
-    double lime = LimelightHelpers.getTX("limelight");
     SmartDashboard.putNumber("vX", xVelocity);
     SmartDashboard.putNumber("vY", yVelocity);
 
     
 
-    if(LimelightHelpers.getTV("limelight")){
+    if(LimelightHelpers.getTV("note")){
       SmartDashboard.putBoolean("seeNote", true);
-      double rotation = pidController.calculate(LimelightHelpers.getTX("limelight"), 0.0);
+      double rotation = pidController.calculate(LimelightHelpers.getTX("note"), 0.0);
 
       swerve.drive(new Translation2d(xVelocity * swerve.maximumSpeed, yVelocity * swerve.maximumSpeed),
                  rotation*3,
