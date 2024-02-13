@@ -31,7 +31,7 @@ public class FloorIntakeSubsystem extends SubsystemBase {
   }
 
   public void intakeForward(){
-    m_floorIntake.set(0.6);
+    m_floorIntake.set(0.9);
   
   }
 

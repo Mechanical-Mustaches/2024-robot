@@ -75,7 +75,7 @@ public class ElevatorSubsystem extends SubsystemBase {
         setElevatorHight(3.5);
       }
    
-      public void podiumPosition(){
+      public void podiumPosition(){ 
         setElevatorHight(9.5);
       }
 
