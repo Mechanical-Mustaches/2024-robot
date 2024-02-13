@@ -19,7 +19,7 @@ import swervelib.SwerveController;
 /**
  * An example command that uses an example subsystem.
  */
-public class aprilTrack extends Command
+public class AprilTrack extends Command
 {
 
   private final SwerveSubsystem  swerve;
@@ -34,7 +34,7 @@ public class aprilTrack extends Command
    *
    * @param swerve The subsystem used by this command.
    */
-  public aprilTrack(SwerveSubsystem swerve, DoubleSupplier vX, DoubleSupplier vY, DoubleSupplier omega)
+  public AprilTrack(SwerveSubsystem swerve, DoubleSupplier vX, DoubleSupplier vY, DoubleSupplier omega)
   {
     this.swerve = swerve;
     this.vX = vX;

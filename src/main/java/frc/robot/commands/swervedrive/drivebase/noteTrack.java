@@ -19,7 +19,7 @@ import swervelib.SwerveController;
 /**
  * An example command that uses an example subsystem.
  */
-public class noteTrack extends Command
+public class NoteTrack extends Command
 {
 
   private final SwerveSubsystem  swerve;
@@ -34,7 +34,7 @@ public class noteTrack extends Command
    *
    * @param swerve The subsystem used by this command.
    */
-  public noteTrack(SwerveSubsystem swerve, DoubleSupplier vX, DoubleSupplier vY, DoubleSupplier omega)
+  public NoteTrack(SwerveSubsystem swerve, DoubleSupplier vX, DoubleSupplier vY, DoubleSupplier omega)
   {
     this.swerve = swerve;
     this.vX = vX;

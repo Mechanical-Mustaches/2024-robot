@@ -29,9 +29,9 @@ import edu.wpi.first.wpilibj2.command.RepeatCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.swervedrive.drivebase.TeleopDrive;
-import frc.robot.commands.swervedrive.drivebase.aprilTrack;
+import frc.robot.commands.swervedrive.drivebase.AprilTrack;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
-import frc.robot.commands.swervedrive.drivebase.noteTrack; 
+import frc.robot.commands.swervedrive.drivebase.NoteTrack; 
 import java.io.File;
 
 import com.pathplanner.lib.auto.NamedCommands;
@@ -150,7 +150,7 @@ public class RobotContainer
       m_coDriverController.button(10).whileTrue(new ConveyInwardCommand(conveyor));
 
       //Track April (back limelight)
-      m_coDriverController.button(11).whileTrue(new RepeatCommand(new aprilTrack(
+      m_coDriverController.button(11).whileTrue(new RepeatCommand(new AprilTrack(
       drivebase,
         () -> -m_driverController.getRawAxis(1),
         () -> -m_driverController.getRawAxis(0),
@@ -158,7 +158,7 @@ public class RobotContainer
         ));
 
       //Track Note (front limelight)
-      m_coDriverController.button(12).whileTrue(new RepeatCommand(new noteTrack(
+      m_coDriverController.button(12).whileTrue(new RepeatCommand(new NoteTrack(
       drivebase,
         () -> -m_driverController.getRawAxis(1),
         () -> -m_driverController.getRawAxis(0),
