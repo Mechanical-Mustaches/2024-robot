@@ -15,7 +15,7 @@ public class FlyWheelSubsystem extends SubsystemBase {
   public FlyWheelSubsystem() {
     m_rightWheel.follow(m_leftWheel, true);
 
-    SmartDashboard.putNumber("flywheel", 0);
+    SmartDashboard.putBoolean("flywheelLB", false);
     
   }
 
@@ -45,7 +45,8 @@ public class FlyWheelSubsystem extends SubsystemBase {
   }
 
   public boolean isNoteSeen(){
-    return lineBreak.isPressed();
+    //return lineBreak.isPressed();
+    return SmartDashboard.getBoolean("flywheelLB", false);
   }
 
   public void ampShot(){

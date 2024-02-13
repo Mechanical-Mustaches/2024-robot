@@ -7,7 +7,7 @@ import frc.robot.subsystems.FloorIntakeSubsystem;
 import frc.robot.subsystems.FlyWheelSubsystem;
 import frc.robot.subsystems.PivotSubsystem;
 import frc.robot.commands.ConveyorCommands.ConveyLineBreak;
-
+import frc.robot.commands.ConveyorCommands.ConveyorMoveBack;
 import frc.robot.commands.ShootingPosCommands.BasePosition;
 
 public class IntakingNoteCommand extends SequentialCommandGroup{
@@ -17,7 +17,8 @@ public class IntakingNoteCommand extends SequentialCommandGroup{
         
         addCommands(
                 (new BasePosition(pivot, elevator)),   
-                (new ConveyLineBreak(conveyor, flywheel, floorIntake))
+                (new ConveyLineBreak(conveyor, flywheel, floorIntake)),
+                (new ConveyorMoveBack(conveyor, flywheel))
                 
         );
        
