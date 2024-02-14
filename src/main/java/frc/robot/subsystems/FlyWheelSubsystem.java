@@ -53,11 +53,11 @@ public class FlyWheelSubsystem extends SubsystemBase {
     m_leftWheel.set(0.2);
   }
 
-  public void subWoofShot(){
+  public void closeShot(){
     m_leftWheel.set(0.4);
   }
 
-  public void podiumShot(){
+  public void farShot(){
     m_leftWheel.set(0.8);
   }
 

@@ -6,13 +6,15 @@ package frc.robot;
 
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.IntakingNoteCommand;
-import frc.robot.commands.ConveyorCommands.ConveyInwardCommand;
+import frc.robot.commands.ConveyorCommands.ConveyFireCommand;
 import frc.robot.commands.FloorIntakeCommands.FI_IntakeForward;
+import frc.robot.commands.FlyWheelCommands.CloseShotCommand;
+import frc.robot.commands.FlyWheelCommands.FarShotCommand;
 import frc.robot.commands.ShootingPosCommands.AmpPosition;
 import frc.robot.commands.ShootingPosCommands.BasePosition;
 import frc.robot.commands.ShootingPosCommands.HumanPosition;
-import frc.robot.commands.ShootingPosCommands.PodiumPosition;
-import frc.robot.commands.ShootingPosCommands.subWOOFCommand;
+import frc.robot.commands.ShootingPosCommands.FarPOSCommand;
+import frc.robot.commands.ShootingPosCommands.ClosePOSCommand;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ConveyorSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
@@ -25,6 +27,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.RepeatCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -77,6 +80,7 @@ public class RobotContainer
 // Register Named Commands
       NamedCommands.registerCommand("spin", new FI_IntakeForward(floorIntake));
       NamedCommands.registerCommand("stop", new FI_IntakeForward(floorIntake));
+      
     // Configure the trigger bindings
     configureBindings();
     initializeAutoChooser();
@@ -116,8 +120,10 @@ public class RobotContainer
 
     //Gunner Controls 
       //Close Shot:
-      m_coDriverController.button(1).onTrue(new subWOOFCommand(pivot, elevator, flyWheel));
-      m_coDriverController.button(1).onFalse(new BasePosition(pivot, elevator));
+      m_coDriverController.button(1).whileTrue(new ParallelCommandGroup(
+        new CloseShotCommand(flyWheel),
+        new ClosePOSCommand(pivot, elevator))
+      );
 
       //Source:
       m_coDriverController.button(2).whileTrue(new HumanPosition(pivot, elevator, flyWheel, conveyor));
@@ -127,9 +133,11 @@ public class RobotContainer
       m_coDriverController.button(3);
 
       //Far Shot:
-      m_coDriverController.button(4).onTrue(new PodiumPosition(pivot, elevator, flyWheel));
-      m_coDriverController.button(4).onFalse(new BasePosition(pivot, elevator));
-
+      m_coDriverController.button(4).whileTrue(new ParallelCommandGroup(
+        new FarShotCommand(flyWheel),
+        new FarPOSCommand(pivot, elevator))
+      );
+     
       //Reserved for Future Implementation
       m_coDriverController.button(5);
   
@@ -147,7 +155,7 @@ public class RobotContainer
       m_coDriverController.button(9).whileTrue(new IntakingNoteCommand(floorIntake, conveyor, elevator, pivot, flyWheel));
       
       //Fire
-      m_coDriverController.button(10).whileTrue(new ConveyInwardCommand(conveyor));
+      m_coDriverController.button(10).whileTrue(new ConveyFireCommand(conveyor));
 
       //Track April (back limelight)
       m_coDriverController.button(11).whileTrue(new RepeatCommand(new AprilTrack(

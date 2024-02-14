@@ -5,7 +5,6 @@ import frc.robot.subsystems.FlyWheelSubsystem;
 
 public class ShootNoteCommand extends Command {
     private final FlyWheelSubsystem flyWheel;
-    private boolean isRampedUp = false;
 
     public ShootNoteCommand(FlyWheelSubsystem flyWheel){
         this.flyWheel = flyWheel;
@@ -14,12 +13,11 @@ public class ShootNoteCommand extends Command {
     @Override
     public void execute(){
         flyWheel.rampUp();
-        isRampedUp = true;
     }
 
     @Override
     public boolean isFinished(){
-        return isRampedUp;
+        return true;
     }
 
     @Override
