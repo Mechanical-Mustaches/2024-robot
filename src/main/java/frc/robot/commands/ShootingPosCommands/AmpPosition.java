@@ -27,7 +27,7 @@ public class AmpPosition extends Command{
 
     @Override
     public boolean isFinished(){
-        return true;
+        return false;
     }
 
     @Override
@@ -35,7 +35,4 @@ public class AmpPosition extends Command{
         pivot.pivotBasePosition();
         flywheel.rampDown();
     }
-
-    
-    
 }

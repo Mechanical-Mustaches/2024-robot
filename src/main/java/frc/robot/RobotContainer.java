@@ -5,6 +5,7 @@
 package frc.robot;
 
 import frc.robot.Constants.OIConstants;
+import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.IntakingNoteCommand;
 import frc.robot.commands.ConveyorCommands.ConveyFireCommand;
 import frc.robot.commands.FloorIntakeCommands.FI_IntakeForward;
@@ -13,6 +14,7 @@ import frc.robot.commands.FlyWheelCommands.FarShotCommand;
 import frc.robot.commands.ShootingPosCommands.AmpPosition;
 import frc.robot.commands.ShootingPosCommands.BasePosition;
 import frc.robot.commands.ShootingPosCommands.HumanPosition;
+import frc.robot.commands.ShootingPosCommands.TrapPosition;
 import frc.robot.commands.ShootingPosCommands.FarPOSCommand;
 import frc.robot.commands.ShootingPosCommands.ClosePOSCommand;
 import frc.robot.subsystems.ArmSubsystem;
@@ -21,6 +23,7 @@ import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.FloorIntakeSubsystem;
 import frc.robot.subsystems.FlyWheelSubsystem;
 import frc.robot.subsystems.PivotSubsystem;
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -93,9 +96,9 @@ public class RobotContainer
 
     TeleopDrive closedFieldRel = new TeleopDrive(
         drivebase,
-        () -> -m_driverController.getRawAxis(1),
-        () -> -m_driverController.getRawAxis(0),
-        () -> -m_driverController.getRawAxis(4), () -> true);
+        () -> MathUtil.applyDeadband(m_driverController.getRawAxis(1), OperatorConstants.LEFT_Y_DEADBAND),
+        () -> MathUtil.applyDeadband(m_driverController.getRawAxis(0), OperatorConstants.LEFT_X_DEADBAND),
+        () -> m_driverController.getRawAxis(4), () -> true);
 
     drivebase.setDefaultCommand(!RobotBase.isSimulation() ? closedFieldRel : simClosedFieldRel);
   }
@@ -130,7 +133,8 @@ public class RobotContainer
       m_coDriverController.button(2).onFalse(new BasePosition(pivot, elevator));
 
       //Climb:
-      m_coDriverController.button(3);
+      m_coDriverController.button(3).whileTrue(new TrapPosition(pivot, elevator));
+      m_coDriverController.button(3).onFalse(new BasePosition(pivot, elevator));
 
       //Far Shot:
       m_coDriverController.button(4).whileTrue(new ParallelCommandGroup(
@@ -145,7 +149,7 @@ public class RobotContainer
       m_coDriverController.button(6);
       
       //Amp Shot
-      m_coDriverController.button(7).onTrue(new AmpPosition(pivot, elevator, flyWheel));
+      m_coDriverController.button(7).whileTrue(new AmpPosition(pivot, elevator, flyWheel));
       m_coDriverController.button(7).onFalse(new BasePosition(pivot, elevator));
 
       //Reserved for Future Implementation
@@ -160,18 +164,20 @@ public class RobotContainer
       //Track April (back limelight)
       m_coDriverController.button(11).whileTrue(new RepeatCommand(new AprilTrack(
       drivebase,
-        () -> -m_driverController.getRawAxis(1),
-        () -> -m_driverController.getRawAxis(0),
-        () -> -m_driverController.getRawAxis(4))
+        () -> m_driverController.getRawAxis(1),
+        () -> m_driverController.getRawAxis(0),
+        () -> m_driverController.getRawAxis(4))
         ));
 
       //Track Note (front limelight)
       m_coDriverController.button(12).whileTrue(new RepeatCommand(new NoteTrack(
       drivebase,
-        () -> -m_driverController.getRawAxis(1),
-        () -> -m_driverController.getRawAxis(0),
-        () -> -m_driverController.getRawAxis(4))
+        () -> m_driverController.getRawAxis(1),
+        () -> m_driverController.getRawAxis(0),
+        () -> m_driverController.getRawAxis(4))
         ));
+      m_coDriverController.button(12).whileTrue(new IntakingNoteCommand(floorIntake, conveyor, elevator, pivot, flyWheel));
+
     
   }
 

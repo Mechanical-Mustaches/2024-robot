@@ -19,8 +19,8 @@ public class ElevatorSubsystem extends SubsystemBase {
     private double kD = 0;
     private double kIz = 0;
     private double kFF = 0;
-    private double kMaxOutput = 0.5;
-    private double kMinOutput = -0.3;
+    private double kMaxOutput = 0.9;
+    private double kMinOutput = -0.7;
 
     
 
@@ -60,15 +60,15 @@ public class ElevatorSubsystem extends SubsystemBase {
      }
 
      public void ampPosition(){
-        setElevatorHight(15.0);
+        setElevatorHight(50.0);
      }
 
      public void humanPosition(){
-        setElevatorHight(3.0);
+        setElevatorHight(6.0);//3
      }
 
      public void trapPosition(){
-        setElevatorHight(20);
+        setElevatorHight(150);
       }
 
      public void defensePosition(){
