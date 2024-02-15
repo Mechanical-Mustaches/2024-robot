@@ -59,17 +59,15 @@ public class NoteTrack extends Command
     double yVelocity   = Math.pow(vY.getAsDouble(), 3);
     double angVelocity = Math.pow(omega.getAsDouble(), 3);
     SmartDashboard.putNumber("vX", xVelocity);
-    SmartDashboard.putNumber("vY", yVelocity);
+    SmartDashboard.putNumber("vY", yVelocity);    
 
-    
-
-    if(LimelightHelpers.getTV("note")){
+    if(LimelightHelpers.getTV("limelight-note")){
       SmartDashboard.putBoolean("seeNote", true);
-      double rotation = pidController.calculate(LimelightHelpers.getTX("note"), 0.0);
+      double rotation = pidController.calculate(LimelightHelpers.getTX("limelight-note"), 0.0);
 
       swerve.drive(new Translation2d(xVelocity * swerve.maximumSpeed, yVelocity * swerve.maximumSpeed),
-                 rotation*3,
-                 false);
+                 rotation*-3,
+                 true);
     }
     else{
       SmartDashboard.putBoolean("seeNote", false);

@@ -63,12 +63,12 @@ public class AprilTrack extends Command
 
     
 
-    if(LimelightHelpers.getTV("april")){
+    if(LimelightHelpers.getTV("limelight-april")){
       SmartDashboard.putBoolean("seeNote", true);
-      double rotation = pidController.calculate(LimelightHelpers.getTX("april"), 0.0);
+      double rotation = pidController.calculate(LimelightHelpers.getTX("limelight-april"), 0.0);
 
       swerve.drive(new Translation2d(xVelocity * swerve.maximumSpeed, yVelocity * swerve.maximumSpeed),
-                 rotation*3,
+                 rotation*-3,
                  true);
     }
     else{

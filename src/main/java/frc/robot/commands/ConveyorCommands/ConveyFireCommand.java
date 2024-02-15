@@ -5,8 +5,7 @@ import frc.robot.subsystems.ConveyorSubsystem;
 
 public class ConveyFireCommand extends Command{
     ConveyorSubsystem conveyor; 
-
-
+  
     public ConveyFireCommand(ConveyorSubsystem conveyor){
         this.conveyor = conveyor;
     }
