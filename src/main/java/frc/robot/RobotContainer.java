@@ -149,7 +149,7 @@ public class RobotContainer
         new FarPOSCommand(pivot, elevator))
       );
      
-      //Reserved for Future Implementation
+      //Skip Shot
       m_coDriverController.button(5).whileTrue(new SkipPosition(pivot, elevator, flyWheel));
       m_coDriverController.button(5).onFalse(new BasePosition(pivot, elevator));
   
