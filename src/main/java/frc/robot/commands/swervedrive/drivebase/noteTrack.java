@@ -66,7 +66,7 @@ public class NoteTrack extends Command
       double rotation = pidController.calculate(LimelightHelpers.getTX("limelight-note"), 0.0);
 
       swerve.drive(new Translation2d(xVelocity * swerve.maximumSpeed, yVelocity * swerve.maximumSpeed),
-                 rotation*-3,
+                 rotation*3,
                  true);
     }
     else{

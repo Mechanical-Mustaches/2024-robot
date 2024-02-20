@@ -14,7 +14,12 @@ public class CloseShotCommand extends Command {
     public void initialize(){
         flywheel.closeShot();
     }
-
+    
+    @Override
+    public boolean isFinished(){
+        return false;
+    }
+    
     @Override
     public void end(boolean i){
         flywheel.rampDown();

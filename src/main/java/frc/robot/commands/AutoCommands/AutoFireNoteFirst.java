@@ -4,15 +4,15 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ConveyorSubsystem;
 import frc.robot.subsystems.FlyWheelSubsystem;
 
-public class AutoFireNote extends Command{
+public class AutoFireNoteFirst extends Command{
     ConveyorSubsystem convey;
     FlyWheelSubsystem flywheel;
     boolean seen = false;
     boolean done = false;
     int timer = 0;
-    int waitTimer = 15; //in theory a 1.5 second timer
+    int waitTimer = 75; //in theory a 1.5 second timer
 
-    public AutoFireNote(ConveyorSubsystem convey, FlyWheelSubsystem flywheel){
+    public AutoFireNoteFirst(ConveyorSubsystem convey, FlyWheelSubsystem flywheel){
         this.convey = convey;
         this.flywheel = flywheel;
     }
@@ -31,7 +31,9 @@ public class AutoFireNote extends Command{
     public void execute(){
         System.out.println(timer);
             timer++;
-            convey.conveyInward();
+            if(timer>50) {
+                convey.conveyInward();
+            }
             if(flywheel.isNoteSeen()) {
                 seen = true;
             }

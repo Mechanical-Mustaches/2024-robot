@@ -1,4 +1,4 @@
-package frc.robot.commands.ShootingPosCommands;
+package frc.robot.commands.PositionCommands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ConveyorSubsystem;

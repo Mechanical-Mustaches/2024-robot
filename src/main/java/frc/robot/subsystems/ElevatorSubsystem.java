@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class ElevatorSubsystem extends SubsystemBase {
     //Created an Elevator Subsystem
     private final CANSparkMax m_elevator = new CANSparkMax(13, MotorType.kBrushless);
+    private final CANSparkMax m_elevator_helper = new CANSparkMax(15, MotorType.kBrushless);
     private final RelativeEncoder elevatorEncoder = m_elevator.getEncoder();
     private final SparkPIDController m_PidController = m_elevator.getPIDController();
 
@@ -25,9 +26,12 @@ public class ElevatorSubsystem extends SubsystemBase {
     
 
     public ElevatorSubsystem(){ 
+        m_elevator.setInverted(true);
+        m_elevator_helper.setInverted(true);
         elevatorEncoder.setPosition(0);
         m_PidController.setFeedbackDevice(elevatorEncoder);
         m_elevator.setIdleMode(IdleMode.kBrake);
+        m_elevator_helper.setIdleMode(IdleMode.kBrake);
         
         m_PidController.setP(kP);
         m_PidController.setI(kI);
@@ -35,6 +39,7 @@ public class ElevatorSubsystem extends SubsystemBase {
         m_PidController.setIZone(kIz);
         m_PidController.setFF(kFF);
         m_PidController.setOutputRange(kMinOutput, kMaxOutput);
+        m_elevator_helper.follow(m_elevator, false);
 
     }
 
@@ -60,23 +65,23 @@ public class ElevatorSubsystem extends SubsystemBase {
      }
 
      public void ampPosition(){
-        setElevatorHight(50.0);
+        setElevatorHight(16.0);
      }
 
      public void humanPosition(){
-        setElevatorHight(6.0);//3
+        setElevatorHight(2.0);//3
      }
 
      public void trapPosition(){
-        setElevatorHight(150);
+        setElevatorHight(55);
       }
 
      public void defensePosition(){
-        setElevatorHight(3.5);
+        setElevatorHight(1);
       }
    
       public void podiumPosition(){ 
-        setElevatorHight(9.5);
+        setElevatorHight(0);
       }
 
       public void subWooferPosition(){
