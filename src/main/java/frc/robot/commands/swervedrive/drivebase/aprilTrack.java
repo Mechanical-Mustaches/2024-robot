@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.LimelightHelpers;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
-import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
 
@@ -19,7 +18,7 @@ import swervelib.SwerveController;
 /**
  * An example command that uses an example subsystem.
  */
-public class Lime extends Command
+public class AprilTrack extends Command
 {
 
   private final SwerveSubsystem  swerve;
@@ -34,7 +33,7 @@ public class Lime extends Command
    *
    * @param swerve The subsystem used by this command.
    */
-  public Lime(SwerveSubsystem swerve, DoubleSupplier vX, DoubleSupplier vY, DoubleSupplier omega)
+  public AprilTrack(SwerveSubsystem swerve, DoubleSupplier vX, DoubleSupplier vY, DoubleSupplier omega)
   {
     this.swerve = swerve;
     this.vX = vX;
@@ -59,19 +58,18 @@ public class Lime extends Command
     double xVelocity   = Math.pow(vX.getAsDouble(), 3);
     double yVelocity   = Math.pow(vY.getAsDouble(), 3);
     double angVelocity = Math.pow(omega.getAsDouble(), 3);
-    double lime = LimelightHelpers.getTX("limelight");
     SmartDashboard.putNumber("vX", xVelocity);
     SmartDashboard.putNumber("vY", yVelocity);
 
     
 
-    if(LimelightHelpers.getTV("limelight")){
+    if(LimelightHelpers.getTV("limelight-april")){
       SmartDashboard.putBoolean("seeNote", true);
-      double rotation = pidController.calculate(LimelightHelpers.getTX("limelight"), 0.0);
+      double rotation = pidController.calculate(LimelightHelpers.getTX("limelight-april"), 0.0);
 
       swerve.drive(new Translation2d(xVelocity * swerve.maximumSpeed, yVelocity * swerve.maximumSpeed),
                  rotation*3,
-                 false);
+                 true);
     }
     else{
       SmartDashboard.putBoolean("seeNote", false);

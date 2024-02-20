@@ -4,29 +4,30 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ConveyorSubsystem;
 import frc.robot.subsystems.FlyWheelSubsystem;
 
-public class ConveyHumanPlayer extends Command {
-    FlyWheelSubsystem flywheel;
+public class ConveyorMoveBack extends Command {
     ConveyorSubsystem conveyor;
+    FlyWheelSubsystem flywheel;
 
-    public ConveyHumanPlayer(FlyWheelSubsystem flywheel, ConveyorSubsystem conveyor){
-        this.flywheel = flywheel;
+    public ConveyorMoveBack(ConveyorSubsystem conveyor, FlyWheelSubsystem flywheel){
         this.conveyor = conveyor;
+        this.flywheel = flywheel;
     }
 
     @Override
     public void initialize(){
-      conveyor.conveyInward();   
+        conveyor.conveyMoveBack();
     }
 
     @Override
     public boolean isFinished(){
-        return flywheel.isNoteSeen();
+        return !flywheel.isNoteSeen();
     }
 
     @Override
     public void end(boolean i){
         conveyor.stopConvey();
     }
-    
+
+
     
 }

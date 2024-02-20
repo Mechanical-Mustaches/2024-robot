@@ -16,6 +16,11 @@ public class ShootNoteCommand extends Command {
     }
 
     @Override
+    public boolean isFinished(){
+        return true;
+    }
+
+    @Override
     public void end(boolean i){
         flyWheel.rampDown();
     }

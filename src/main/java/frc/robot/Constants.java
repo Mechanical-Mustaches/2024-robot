@@ -9,7 +9,6 @@ import com.pathplanner.lib.util.PIDConstants;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
 import swervelib.math.Matter;
-import swervelib.parser.PIDFConfig;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean constants. This
@@ -29,8 +28,8 @@ public final class Constants
     public static final class AutonConstants
   {
 
-    public static final PIDConstants TRANSLATION_PID = new PIDConstants(0.7, 0, 0);
-    public static final PIDConstants ANGLE_PID   = new PIDConstants(0.4, 0, 0.01);
+    public static final PIDConstants TRANSLATION_PID = new PIDConstants(6, 0, 0); //4
+    public static final PIDConstants ANGLE_PID   = new PIDConstants(2.5, 0, 0); //3
   }
 
   public static final class OIConstants {
