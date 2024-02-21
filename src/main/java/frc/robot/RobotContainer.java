@@ -161,7 +161,7 @@ public class RobotContainer
       m_coDriverController.button(7).whileTrue(new AmpPosition(pivot, elevator, flyWheel));
       m_coDriverController.button(7).onFalse(new BasePosition(pivot, elevator));
 
-      //Reserved for Future Implementation
+      //Spit Note
       m_coDriverController.button(8).whileTrue(new ConveySpitNote(conveyor));
 
       //Intake (no limelight)
