@@ -42,7 +42,7 @@ public class PivotSubsystem extends SubsystemBase {
         //SmartDashboard.putNumber("pivotPOS", 161.64);
 
     }
-         @Override
+      @Override
       public void periodic()
       {
          SmartDashboard.putNumber("pivot Encoer", encoder.getPosition()*360);
@@ -94,7 +94,10 @@ public class PivotSubsystem extends SubsystemBase {
 
     public void pivotDefencePosition(){
          setArmPosition(162f);
-
      }
+
+     public void pivotPOS(float POS){
+         setArmPosition(POS);
+     } 
 }
  
