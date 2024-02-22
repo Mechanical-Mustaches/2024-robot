@@ -45,7 +45,7 @@ public class SwerveSubsystem extends SubsystemBase
   /**
    * Maximum speed of the robot in meters per second, used to limit acceleration.
    */
-  public        double      maximumSpeed = Units.feetToMeters(14.5);
+  public        double      maximumSpeed = Units.feetToMeters(17.6);
 
   /**
    * Initialize {@link SwerveDrive} with the directory provided.
@@ -117,7 +117,7 @@ public class SwerveSubsystem extends SubsystemBase
                                          new ReplanningConfig()
                                          // Default path replanning config. See the API for the options here
         ),
-        () -> {
+        () -> { 
           // Boolean supplier that controls when the path will be mirrored for the red alliance
           // This will flip the path being followed to the red side of the field.
           // THE ORIGIN WILL REMAIN ON THE BLUE SIDE
