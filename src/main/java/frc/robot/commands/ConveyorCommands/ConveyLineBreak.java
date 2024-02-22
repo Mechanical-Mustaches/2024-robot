@@ -12,10 +12,11 @@ public class ConveyLineBreak extends Command{
     FloorIntakeSubsystem intake;
     BlinkinSubsystem blinkin;
 
-    public ConveyLineBreak(ConveyorSubsystem conveyor, FlyWheelSubsystem flywheel, FloorIntakeSubsystem intake){
+    public ConveyLineBreak(ConveyorSubsystem conveyor, FlyWheelSubsystem flywheel, FloorIntakeSubsystem intake, BlinkinSubsystem blinkin){
         this.conveyor = conveyor;
         this.flywheel = flywheel;
         this.intake = intake;
+        this.blinkin = blinkin;
     }
 
     @Override
@@ -34,6 +35,7 @@ public class ConveyLineBreak extends Command{
     public void end(boolean i){
         conveyor.stopConvey();
         intake.intakeStop();
+        blinkin.setWhite();
     }
     
-}
+} 

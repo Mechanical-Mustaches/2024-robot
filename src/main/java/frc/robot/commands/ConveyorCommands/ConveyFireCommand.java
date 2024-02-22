@@ -8,19 +8,21 @@ public class ConveyFireCommand extends Command{
     ConveyorSubsystem conveyor; 
     BlinkinSubsystem blinkin;
   
-    public ConveyFireCommand(ConveyorSubsystem conveyor){
+    public ConveyFireCommand(ConveyorSubsystem conveyor, BlinkinSubsystem blinkin){
         this.conveyor = conveyor;
+        this.blinkin = blinkin;
     }
 
     @Override
     public void initialize(){
         conveyor.conveyInward();
+        blinkin.setPurple();
     }
 
     @Override
     public void end(boolean i){
         conveyor.stopConvey();
-        blinkin.setLights(-0.99);
+        blinkin.setWhite();
     }
     
 

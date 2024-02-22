@@ -10,9 +10,10 @@ public class ConveyorMoveBack extends Command {
     FlyWheelSubsystem flywheel;
     BlinkinSubsystem blinkin;
 
-    public ConveyorMoveBack(ConveyorSubsystem conveyor, FlyWheelSubsystem flywheel){
+    public ConveyorMoveBack(ConveyorSubsystem conveyor, FlyWheelSubsystem flywheel, BlinkinSubsystem blinkin){
         this.conveyor = conveyor;
         this.flywheel = flywheel;
+        this.blinkin = blinkin;
     }
 
     @Override
@@ -29,6 +30,7 @@ public class ConveyorMoveBack extends Command {
     @Override
     public void end(boolean i){
         conveyor.stopConvey();
+        blinkin.setGreen();
     }
 
 

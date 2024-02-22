@@ -7,13 +7,11 @@ public class BlinkinSubsystem extends SubsystemBase {
     Spark Blinkin = new Spark(0);
 
     public BlinkinSubsystem(){
-
     }
 
     @Override
     public void periodic(){
-        //Rainbows
-        Blinkin.set(-0.99);
+        
     }
 
     public void setLights(double colorData){

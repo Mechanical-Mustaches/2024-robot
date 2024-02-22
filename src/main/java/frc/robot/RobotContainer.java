@@ -22,6 +22,7 @@ import frc.robot.commands.PositionCommands.FarPOSCommand;
 import frc.robot.commands.PositionCommands.HumanPosition;
 import frc.robot.commands.PositionCommands.SkipPosition;
 import frc.robot.commands.PositionCommands.TrapPosition;
+import frc.robot.subsystems.BlinkinSubsystem;
 import frc.robot.subsystems.ConveyorSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.FloorIntakeSubsystem;
@@ -61,6 +62,7 @@ public class RobotContainer
   private final FlyWheelSubsystem flyWheel = new FlyWheelSubsystem();
   private final PivotSubsystem pivot = new PivotSubsystem();
   private final ElevatorSubsystem elevator = new ElevatorSubsystem();
+  private final BlinkinSubsystem blinkin = new BlinkinSubsystem();
 
 
 
@@ -137,11 +139,11 @@ public class RobotContainer
 
       //Source
       m_coDriverController.button(2).whileTrue(new HumanPosition(pivot, elevator, flyWheel, conveyor));
-      m_coDriverController.button(2).onFalse(new BasePosition(pivot, elevator));
+      m_coDriverController.button(2).onFalse(new BasePosition(pivot, elevator, blinkin));
 
       //Climb
       m_coDriverController.button(3).whileTrue(new ClimbPosition(pivot, elevator));
-      m_coDriverController.button(3).onFalse(new BasePosition(pivot, elevator));
+      m_coDriverController.button(3).onFalse(new BasePosition(pivot, elevator, blinkin));
 
       //Far Shot
       m_coDriverController.button(4).whileTrue(new ParallelCommandGroup(
@@ -151,24 +153,24 @@ public class RobotContainer
      
       //Skip Shot
       m_coDriverController.button(5).whileTrue(new SkipPosition(pivot, elevator, flyWheel));
-      m_coDriverController.button(5).onFalse(new BasePosition(pivot, elevator));
+      m_coDriverController.button(5).onFalse(new BasePosition(pivot, elevator, blinkin));
   
       //Trap Score
       m_coDriverController.button(6).whileTrue(new TrapPosition(pivot, elevator));
-      m_coDriverController.button(6).onFalse(new BasePosition(pivot, elevator));
+      m_coDriverController.button(6).onFalse(new BasePosition(pivot, elevator, blinkin));
       
       //Amp Shot
       m_coDriverController.button(7).whileTrue(new AmpPosition(pivot, elevator, flyWheel));
-      m_coDriverController.button(7).onFalse(new BasePosition(pivot, elevator));
+      m_coDriverController.button(7).onFalse(new BasePosition(pivot, elevator, blinkin));
 
       //Spit Note
       m_coDriverController.button(8).whileTrue(new ConveySpitNote(conveyor));
 
       //Intake (no limelight)
-      m_coDriverController.button(9).whileTrue(new IntakingNoteCommand(floorIntake, conveyor, elevator, pivot, flyWheel));
+      m_coDriverController.button(9).whileTrue(new IntakingNoteCommand(floorIntake, conveyor, elevator, pivot, flyWheel, blinkin));
       
       //Fire
-      m_coDriverController.button(10).whileTrue(new ConveyFireCommand(conveyor));
+      m_coDriverController.button(10).whileTrue(new ConveyFireCommand(conveyor, blinkin));
 
       //Track April (back limelight) 
       m_coDriverController.button(11).whileTrue(new RepeatCommand(new AprilTrack(
@@ -185,12 +187,12 @@ public class RobotContainer
         () -> -MathUtil.applyDeadband(m_driverController.getRawAxis(0), OperatorConstants.LEFT_X_DEADBAND),
         () -> -m_driverController.getRawAxis(4)
         )));
-      m_coDriverController.button(12).whileTrue(new IntakingNoteCommand(floorIntake, conveyor, elevator, pivot, flyWheel));
+      m_coDriverController.button(12).whileTrue(new IntakingNoteCommand(floorIntake, conveyor, elevator, pivot, flyWheel, blinkin));
     
   }
 
   public void initialize(){
-    new BasePosition(pivot, elevator);
+    new BasePosition(pivot, elevator, blinkin);
     flyWheel.rampDown();
   }
 
@@ -198,7 +200,7 @@ public class RobotContainer
   private void inititalizePathPlannerCommands() {
     NamedCommands.registerCommand("Fire", new AutoFireNote(conveyor, flyWheel));
     NamedCommands.registerCommand("FireFirst", new AutoFireNoteFirst(conveyor, flyWheel));
-    NamedCommands.registerCommand("Intake", new AutoIntakeCommand(floorIntake, conveyor, elevator, pivot, flyWheel));
+    NamedCommands.registerCommand("Intake", new AutoIntakeCommand(floorIntake, conveyor, elevator, pivot, flyWheel, blinkin));
   }
 
   /**
