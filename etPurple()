@@ -1,0 +1,394 @@
+[33mcommit 74e568a1af642f23b556948b27cf03bcbc893746[m[33m ([m[1;36mHEAD -> [m[1;32mAIM[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m
+Author: aebill14 <97410781+aebill14@users.noreply.github.com>
+Date:   Thu Feb 22 09:20:32 2024 -0600
+
+    ajaxs swerve things (#39)
+
+[33mcommit 846010d84224a243c4e47c9472fa3b42a2a5ea62[m
+Author: aebill14 <97410781+aebill14@users.noreply.github.com>
+Date:   Tue Feb 20 17:15:21 2024 -0600
+
+    saving pathplanner data (#36)
+
+[33mcommit 1064337d607bddfbd2539e90d7ebdecd8b103bfe[m
+Author: aebill14 <97410781+aebill14@users.noreply.github.com>
+Date:   Tue Feb 20 17:06:46 2024 -0600
+
+    AIM programming changes, (theres a lot, sorry jj) (#34)
+    
+    * AIM programming changes, (theres a lot, sorry jj)
+    
+    * updated some module and source code
+    
+    * fixed file names
+    
+    * got working move back coded
+    
+    * worked on flywheel and sweeped up some code
+    
+    * ajax changes
+    
+    * woo more updates
+    
+    * ajax's pathplanner commit
+
+[33mcommit 8ddf639078bf47865ad882e65503031ffe8b23b2[m
+Author: aebill14 <97410781+aebill14@users.noreply.github.com>
+Date:   Sat Feb 10 10:39:04 2024 -0600
+
+    sweeped up some trash
+
+[33mcommit 6ba2ad705f545ac52d6e0e730db9e62ef4d6c5fe[m
+Author: aebill14 <97410781+aebill14@users.noreply.github.com>
+Date:   Sat Feb 10 10:38:00 2024 -0600
+
+    Flywheel (#30)
+    
+    * added flywheel code in the pos, and added a source command
+    
+    * made a button binding for command
+    
+    * made ending commands so they would return to the base pos
+    
+    * taking note from source works
+
+[33mcommit a192da5d00f78c333fccc380b54aaff5df06684b[m
+Author: aebill14 <97410781+aebill14@users.noreply.github.com>
+Date:   Sat Feb 10 09:49:59 2024 -0600
+
+    cleaned up robotContainer
+
+[33mcommit 48ee1d9222f72d7e80001397daf55fb5e347fe9e[m
+Author: aebill14 <97410781+aebill14@users.noreply.github.com>
+Date:   Fri Feb 9 11:38:45 2024 -0600
+
+    added intake with linebreak sensors (#29)
+    
+    * added intake with linebreak sensors
+    
+    * added a push note out, convey in, command
+    
+    * OMG LINEBREAK WORKS LETSSGOO
+    
+    * removed lines 18-22
+    
+    * updated Command for intaking note
+    
+    * im so tired here is code that I think works, smth smth intake yeah
+
+[33mcommit 0b6f74a61ab9c89c4b5cb4d9cebf895748a4c6b2[m
+Author: aebill14 <97410781+aebill14@users.noreply.github.com>
+Date:   Fri Feb 9 11:25:43 2024 -0600
+
+    Pivot (#33)
+    
+    * updated postions
+    
+    * ajax did this, idk what he did but he did
+
+[33mcommit 32b47b2c181b449de24180d0bc35380fa5f84cdf[m
+Author: aebill14 <97410781+aebill14@users.noreply.github.com>
+Date:   Thu Feb 8 15:22:36 2024 -0600
+
+    updated swerve drive so we can re test module status (#31)
+    
+    * updated swerve drive so we can re test modlue status
+    
+    * have working swerve offsets and numbers
+
+[33mcommit bf30a4146da70b16073584b4785df6c24f254d25[m
+Author: aebill14 <97410781+aebill14@users.noreply.github.com>
+Date:   Mon Feb 5 16:54:37 2024 -0600
+
+    added pathplanner and auto code (#28)
+    
+    * added pathplanner and auto code
+    
+    * updated paths
+
+[33mcommit 4035f2fb86f1f9fac9e98629fbdd707ca8a15eab[m
+Author: aebill14 <97410781+aebill14@users.noreply.github.com>
+Date:   Mon Feb 5 08:45:20 2024 -0600
+
+    updated commands an files for shooting
+
+[33mcommit d3080e9a3907e31e1d38bee104930dc2ed170b10[m
+Author: aebill14 <97410781+aebill14@users.noreply.github.com>
+Date:   Sat Feb 3 10:50:11 2024 -0600
+
+    added 3 zeros
+
+[33mcommit 3fa87a0209c685b233493c899a19ee5c213d71a5[m
+Author: aebill14 <97410781+aebill14@users.noreply.github.com>
+Date:   Sat Feb 3 10:22:11 2024 -0600
+
+    Updated proper setpoints for human player and amp. Added a Human position command as well :)  (#24)
+    
+    * imported numbers for amp and humanplayer
+    
+    * updated setpoints for human player pos, and amp. Added a human position command
+    
+    * sweeped up the trash :broom:
+    
+    * modified files to initialize
+
+[33mcommit 233989658ec5ade847c04ab2dc0697d6bf12e262[m
+Author: aebill14 <97410781+aebill14@users.noreply.github.com>
+Date:   Sat Feb 3 10:14:13 2024 -0600
+
+    imported gunner and driver controls (#27)
+    
+    * imported gunner and driver controls
+    
+    * sweeped up the trash :broom:
+
+[33mcommit db0d40cdd23d35301396625daa40289d09184ce9[m
+Author: aebill14 <97410781+aebill14@users.noreply.github.com>
+Date:   Sat Feb 3 09:22:30 2024 -0600
+
+    linebreak sensor works with commands :) (#26)
+
+[33mcommit ead4f99062e2f624e5da8f0cfe2ceedb68de92b1[m
+Author: aebill14 <97410781+aebill14@users.noreply.github.com>
+Date:   Thu Feb 1 15:43:58 2024 -0600
+
+    this is more of a podium branch, but lots of things were updated (#25)
+
+[33mcommit f38ba79f1cae3638032a2c0512748196f39a1319[m
+Author: aebill14 <97410781+aebill14@users.noreply.github.com>
+Date:   Sat Jan 27 12:22:20 2024 -0600
+
+    Flywheel (#20)
+    
+    * added command for shooting a note in flyWheel
+    
+    * can you see this?
+    
+    * updated the flywheel command to make it have a better move up and down functions
+    
+    * undid the mistake i was supposed to make on another branch
+
+[33mcommit fbb49f83bb3b23120213875ab62856e814182aa2[m
+Author: aebill14 <97410781+aebill14@users.noreply.github.com>
+Date:   Sat Jan 27 12:20:47 2024 -0600
+
+    imported a second controller (#21)
+    
+    * imported a second controller
+    
+    * deleted test code
+
+[33mcommit 3978c3d09e6ea88f934d4454f68cd05c0ce80f7e[m
+Author: aebill14 <97410781+aebill14@users.noreply.github.com>
+Date:   Sat Jan 27 12:19:36 2024 -0600
+
+    upated PID on elevator (#22)
+    
+    * upated PID on elevator
+    
+    * added break mode to elevator
+
+[33mcommit 75c12b3ec7832cc6ce00eabec6fcfaa233d8f850[m
+Author: aebill14 <97410781+aebill14@users.noreply.github.com>
+Date:   Sat Jan 27 12:18:42 2024 -0600
+
+    imported note following, and working enough (#23)
+    
+    * imported note following, and working enough
+    
+    * sweeping up the trash :broom:
+
+[33mcommit 57eae28cda18576a25cce507b8762a6b8b6863d1[m
+Author: aebill14 <97410781+aebill14@users.noreply.github.com>
+Date:   Sat Jan 27 11:28:01 2024 -0600
+
+    added shooting position commands for elevator and pivot (#19)
+    
+    * added shooting position commands for elevator and pivot, not fully finished yet. This is just the start of them, need end commands
+    
+    * updated the files to private variables and changed base position
+    
+    * updated all the files, totally did not forget to do that the first time
+    
+    * pivot and elevator are happy! PID loop for both are working :)
+    
+    * sweeped up unused lines of code :broom:
+
+[33mcommit 202e3bcc10756e4ef7ee3672b9c6b2f2d26f2787[m
+Author: aebill14 <97410781+aebill14@users.noreply.github.com>
+Date:   Sat Jan 27 11:17:58 2024 -0600
+
+    added pathplanner and new PID controls to robot (#15)
+    
+    * added pathplanner and new PID controls to robot
+    
+    * moving robot, and limelight works!
+    
+    * updated limelight code
+
+[33mcommit 0b8889f72a98612a469af9d854e53be139654251[m
+Author: aebill14 <97410781+aebill14@users.noreply.github.com>
+Date:   Thu Jan 25 08:48:08 2024 -0600
+
+    code upload for flyWhell, it should work (#18)
+    
+    * code upload for flyWhell, it should work
+    
+    * encoder is now in use, mwahaha
+    
+    * updated the encoder to final
+
+[33mcommit 53bb215998fbbdea280d29b852b5bdd087d3912b[m
+Author: aebill14 <97410781+aebill14@users.noreply.github.com>
+Date:   Tue Jan 23 18:34:13 2024 -0600
+
+    added code for the pivot (#16)
+
+[33mcommit 7fba4c4226b2eb345b09b08450eee4b173b90796[m
+Author: aebill14 <97410781+aebill14@users.noreply.github.com>
+Date:   Tue Jan 23 18:33:57 2024 -0600
+
+    Elevator code type woo :)  (#17)
+    
+    * added code for the elevator
+    
+    * updated it to have the right code on elevator
+    
+    * code here go brrr
+    
+    * added the right position functions, hope it work
+
+[33mcommit ea5fac356356863743ecfbc4157a887bbf4e6034[m
+Author: aebill14 <97410781+aebill14@users.noreply.github.com>
+Date:   Tue Jan 23 16:51:27 2024 -0600
+
+    updated CanSparkMax Ids to the right numbers, elevator is not included (#14)
+
+[33mcommit ed1da93d143e76c0928860ee6f2da34032e2e04f[m
+Author: aebill14 <97410781+aebill14@users.noreply.github.com>
+Date:   Tue Jan 23 16:50:21 2024 -0600
+
+    deleted extra function
+
+[33mcommit 950fa0bb783930c112a735e32c945c949192af7a[m
+Author: aebill14 <97410781+aebill14@users.noreply.github.com>
+Date:   Tue Jan 23 16:45:44 2024 -0600
+
+    added movement functions for conveyor (#13)
+    
+    * added movement functions for conveyor
+    
+    * updated conveyor with command code and orginised buttons
+    
+    * cleaned out the code base by changing one line
+
+[33mcommit 24c302255122d0e5bd7adf18857815c6756cea27[m
+Author: aebill14 <97410781+aebill14@users.noreply.github.com>
+Date:   Mon Jan 22 09:13:52 2024 -0600
+
+    fixed the kDriverControllerPort bug
+
+[33mcommit 80ceaa47083e820c763aa1239e08d17d3febf857[m
+Author: aebill14 <97410781+aebill14@users.noreply.github.com>
+Date:   Sat Jan 20 13:12:50 2024 -0600
+
+    new library is up and running, this one has a navX device (#9)
+
+[33mcommit 241a018644211c2ecfad58e18c2771d43639db68[m
+Author: aebill14 <97410781+aebill14@users.noreply.github.com>
+Date:   Sat Jan 20 12:54:15 2024 -0600
+
+    created a conveyor subsystem with motor (#11)
+
+[33mcommit 20619c43910c5e51c10173a423504e3948723285[m
+Author: aebill14 <97410781+aebill14@users.noreply.github.com>
+Date:   Sat Jan 20 12:16:02 2024 -0600
+
+    imported absolute encoder and PID controls for the pivot, floor intak… (#8)
+    
+    * imported absolute encoder and PID controls for the pivot, floor intake motor number was updated to the programming board
+    
+    * added piviot, PID and new Absolute Encoder line. Made the skeleton for getting the position of the absolute encoder
+    
+    * cleaned up pivot, removed unless code
+
+[33mcommit 5baa6d2dee7071f303c060510d0d057cfe050df0[m
+Author: aebill14 <97410781+aebill14@users.noreply.github.com>
+Date:   Sat Jan 20 12:09:08 2024 -0600
+
+    added PID and absolute encoder functions in teleop (#12)
+
+[33mcommit 525ba767abef65803dce0757919ff6fd23cdd481[m
+Author: aebill14 <97410781+aebill14@users.noreply.github.com>
+Date:   Sat Jan 20 10:00:35 2024 -0600
+
+    Arm: added an absolute encoder and PID variables  (#10)
+    
+    * added absolute encoder and PID variables in arm
+    
+    * seprated arm from pivot, and added a follow statement
+
+[33mcommit 5c32612fadedf0e4dde24e470d2f79ceb81f968a[m
+Author: aebill14 <97410781+aebill14@users.noreply.github.com>
+Date:   Wed Jan 17 17:09:20 2024 -0600
+
+    added movement functions to floorIntake, no sensors (#7)
+    
+    * added movement functions to floorIntake, no sensors
+    
+    * updated changes in RobotContainer and Fl_IntakeFoward command file
+
+[33mcommit 51ef3df06f46a04a796cde04002f38cb358dabfd[m
+Merge: 72ee25d b2decef
+Author: Jonathan Xu <jonathanj.xu97@gmail.com>
+Date:   Mon Jan 15 15:00:23 2024 -0600
+
+    Merge pull request #6 from Mechanical-Mustaches/jj/gradlew-chmod-x
+    
+    Make `gradlew` executable
+
+[33mcommit b2decefd02826e78b11be4ec084ab6e92dc4531c[m
+Author: Jonathan Xu <jj@hardfin.com>
+Date:   Mon Jan 15 14:59:54 2024 -0600
+
+    Make `gradlew` executable
+
+[33mcommit 72ee25d4b4f2cba99edaab4a0875b1b553e6a865[m
+Author: aebill14 <97410781+aebill14@users.noreply.github.com>
+Date:   Mon Jan 15 14:58:38 2024 -0600
+
+    added revrobotics library (#5)
+
+[33mcommit 202961d47ed49a1d632f7ff6fb253514329668da[m
+Author: aebill14 <97410781+aebill14@users.noreply.github.com>
+Date:   Tue Jan 9 18:40:48 2024 -0600
+
+    code updated with motors for arm (#3)
+
+[33mcommit 881c2b6ce71a70df0373401feec4c7b5cf5a60fb[m
+Author: aebill14 <97410781+aebill14@users.noreply.github.com>
+Date:   Tue Jan 9 18:40:10 2024 -0600
+
+    full skeleton code for the flywheel + the two motors (#4)
+
+[33mcommit 4e2f592a75c2a1e1f94225be9b5e1e8d30e5c20b[m
+Author: aebill14 <97410781+aebill14@users.noreply.github.com>
+Date:   Tue Jan 9 18:31:25 2024 -0600
+
+    Floor Intake Skeleton (#2)
+    
+    * Floor Intake Skeleton
+    
+    * there should code here
+
+[33mcommit f8fe8d5f3fc9830d3ac1aed17c8dd99b97285f65[m
+Author: aebill14 <97410781+aebill14@users.noreply.github.com>
+Date:   Sun Jan 7 13:05:42 2024 -0600
+
+    shooter skeleton (#1)
+
+[33mcommit f6bca3e20273f2b686a8746ab22170a168562d82[m
+Author: aebill14 <97410781+aebill14@users.noreply.github.com>
+Date:   Sun Jan 7 12:31:53 2024 -0600
+
+    first commit
