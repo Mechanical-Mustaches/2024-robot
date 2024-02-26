@@ -32,7 +32,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Amp Note"
+            "pathName": "Amp Note Center"
           }
         },
         {
@@ -44,7 +44,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "sourceNote"
+            "pathName": "Podium Note Center"
           }
         },
         {

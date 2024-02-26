@@ -213,8 +213,9 @@ public class RobotContainer
     autoChooser.setDefaultOption("4 Peice Close Auto", "auto4C");
     autoChooser.addOption("3 Peice Close Amp Side", "Auto3C-A");
     autoChooser.addOption("3 Peice Close Source Side", "Auto3C-S");
+    autoChooser.addOption("3 Peice Bumrush Source Side", "Auto3F-S");
     autoChooser.addOption("3 Peice Bumrush Amp Side", "Auto3F-A");
-    autoChooser.addOption("6 Peice Bumrush Amp Side", "Auto4F-S");
+    autoChooser.addOption("test PID", "test");
     SmartDashboard.putData("Auto Selector", autoChooser);
     return autoChooser.getSelected();
   }
