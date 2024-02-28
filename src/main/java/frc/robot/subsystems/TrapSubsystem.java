@@ -18,8 +18,8 @@ public class TrapSubsystem extends SubsystemBase {
     private double kD = 0;
     private double kIz = 0;
     private double kFF = 0;
-    private double kMaxOutput = 0.1;
-    private double kMinOutput = -0.1;
+    private double kMaxOutput = 1;
+    private double kMinOutput = -1;
 
 
     public TrapSubsystem(){
@@ -42,9 +42,4 @@ public class TrapSubsystem extends SubsystemBase {
     public void trapBasePosition(){
         m_PidController.setReference(0, CANSparkMax.ControlType.kPosition);
     }
-
-
-
-
-    
 }

@@ -132,7 +132,7 @@ public class RobotContainer
     
     /*Gunner Controls 
       (Close Shot)  (Far Shot)  (Amp Shot)  (Fire)
-      (Source)      (Skip Shot) ()          (April Track)
+      (Source)      (Skip Shot) (Fire Trap) (April Track)
       (Climb)       (Climb Alt) (Intake)    (Intake Track)
     */
 
@@ -167,7 +167,7 @@ public class RobotContainer
       //Amp Shot
       m_coDriverController.button(7).whileTrue(new AmpPosition(pivot, elevator, flyWheel));
       m_coDriverController.button(7).onFalse(new BasePosition(pivot, elevator));
-
+ 
       //shoot note trap
       m_coDriverController.button(8).whileTrue(new ConveySpitNote(conveyor));
 
@@ -217,12 +217,12 @@ public class RobotContainer
   private final SendableChooser<String> autoChooser = new SendableChooser<String>();
   
   private String initializeAutoChooser() {
-    autoChooser.setDefaultOption("4 Peice Close Auto", "auto4C");
-    autoChooser.addOption("3 Peice Close Amp Side", "Auto3C-A");
-    autoChooser.addOption("3 Peice Close Source Side", "Auto3C-S");
-    autoChooser.addOption("3 Peice Bumrush Source Side", "Auto3F-S");
-    autoChooser.addOption("3 Peice Bumrush Amp Side", "Auto3F-A");
-    autoChooser.addOption("test PID", "test");
+    autoChooser.setDefaultOption("4 Peice Close Auto", "auto4close");
+    autoChooser.addOption("3 Peice Close Amp Side", "auto3amp");
+    autoChooser.addOption("3 Peice Close Source Side", "auto3source");
+    autoChooser.addOption("3 Peice Bumrush Source Side", "auto3sourcefar");
+    autoChooser.addOption("3 Peice Bumrush Amp Side", "auto3ampfar");
+    autoChooser.addOption("test PID", "pidtest");
     SmartDashboard.putData("Auto Selector", autoChooser);
     return autoChooser.getSelected();
   }

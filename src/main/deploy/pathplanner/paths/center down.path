@@ -8,7 +8,7 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.3,
+        "x": 2.118547862320892,
         "y": 5.5
       },
       "isLocked": false,
@@ -16,16 +16,16 @@
     },
     {
       "anchor": {
-        "x": 3.076223024483964,
-        "y": 5.5
+        "x": 2.716336807081197,
+        "y": 3.9392950823816335
       },
       "prevControl": {
-        "x": 3.076223024483964,
-        "y": 5.6
+        "x": 1.7163368070812006,
+        "y": 3.9392950823816335
       },
       "nextControl": {
-        "x": 3.076223024483964,
-        "y": 5.4
+        "x": 3.023861467149331,
+        "y": 3.9392950823816335
       },
       "isLocked": false,
       "linkedName": null
@@ -36,7 +36,7 @@
         "y": 5.5
       },
       "prevControl": {
-        "x": 2.38,
+        "x": 2.05,
         "y": 5.5
       },
       "nextControl": null,
@@ -49,7 +49,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.0,
+      "waypointRelativePos": 0.05,
       "command": {
         "type": "parallel",
         "data": {
@@ -77,7 +77,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Center Starting",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0
