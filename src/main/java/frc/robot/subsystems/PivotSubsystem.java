@@ -59,9 +59,9 @@ public class PivotSubsystem extends SubsystemBase {
      */
 
      private void setArmPosition(float deg){
-        m_PidController.setReference(deg / 360, CANSparkMax.ControlType.kPosition);
+        m_PidController.setReference((deg-6) / 360, CANSparkMax.ControlType.kPosition);
      }
-
+     //subtract 6 if you are running the "new" cage remove if old cage
      public void pivotBasePosition(){
         setArmPosition(161.64f);
      }

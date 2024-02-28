@@ -22,11 +22,14 @@ import frc.robot.commands.PositionCommands.FarPOSCommand;
 import frc.robot.commands.PositionCommands.HumanPosition;
 import frc.robot.commands.PositionCommands.SkipPosition;
 import frc.robot.commands.PositionCommands.TrapPosition;
+import frc.robot.commands.TrapCommands.TrapBaseCommand;
+import frc.robot.commands.TrapCommands.WipeCommand;
 import frc.robot.subsystems.ConveyorSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.FloorIntakeSubsystem;
 import frc.robot.subsystems.FlyWheelSubsystem;
 import frc.robot.subsystems.PivotSubsystem;
+import frc.robot.subsystems.TrapSubsystem;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.RobotBase;
@@ -61,6 +64,7 @@ public class RobotContainer
   private final FlyWheelSubsystem flyWheel = new FlyWheelSubsystem();
   private final PivotSubsystem pivot = new PivotSubsystem();
   private final ElevatorSubsystem elevator = new ElevatorSubsystem();
+  private final TrapSubsystem trap = new TrapSubsystem();
 
 
 
@@ -120,6 +124,9 @@ public class RobotContainer
     //Driver Controls   
     m_driverController.button(4).onTrue((new InstantCommand(drivebase::zeroGyro)));
     m_driverController.button(5).onTrue((new InstantCommand(drivebase::lock)));  
+
+    m_driverController.button(7).onTrue((new WipeCommand(trap)));
+    m_driverController.button(7).onFalse((new TrapBaseCommand(trap)));
 
 
     
