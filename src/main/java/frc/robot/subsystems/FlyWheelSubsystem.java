@@ -58,7 +58,7 @@ public class FlyWheelSubsystem extends SubsystemBase {
   }
 
   public void closeShot(){
-    m_leftWheel.set(0.7);
+    m_leftWheel.set(1);
   }
   
 

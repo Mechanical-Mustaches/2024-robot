@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.2962452465189287,
-      "y": 5.5
+      "x": 0.75,
+      "y": 4.5
     },
-    "rotation": 0
+    "rotation": -60.0
   },
   "command": {
     "type": "sequential",
@@ -20,7 +20,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "center middle"
+            "pathName": "lower far"
           }
         },
         {
@@ -32,19 +32,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "center down"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Fire"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "escape center"
+            "pathName": "escape lower"
           }
         }
       ]

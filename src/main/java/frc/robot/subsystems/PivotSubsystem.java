@@ -57,7 +57,7 @@ public class PivotSubsystem extends SubsystemBase {
      *  Defense Position (Last resort use w/ limelight maybe?) 
      *  Podium Position
      */
-
+ 
      private void setArmPosition(float deg){
         m_PidController.setReference((deg-6) / 360, CANSparkMax.ControlType.kPosition);
      }
@@ -77,7 +77,7 @@ public class PivotSubsystem extends SubsystemBase {
         setArmPosition(220f);
      }
      public void pivotClimbPosition(){
-        setArmPosition(200f);
+        setArmPosition(215f);
      }
      public void pivotTrapPosition(){
         setArmPosition(328);

@@ -12,6 +12,8 @@ import frc.robot.commands.AutoCommands.AutoFireNoteFirst;
 import frc.robot.commands.AutoCommands.AutoIntakeCommand;
 import frc.robot.commands.ConveyorCommands.ConveyFireCommand;
 import frc.robot.commands.ConveyorCommands.ConveySpitNote;
+import frc.robot.commands.FloorIntakeCommands.FI_IntakeReverseCommand;
+import frc.robot.commands.FloorIntakeCommands.FI_IntakeStop;
 import frc.robot.commands.FlyWheelCommands.CloseShotCommand;
 import frc.robot.commands.FlyWheelCommands.FarShotCommand;
 import frc.robot.commands.PositionCommands.AmpPosition;
@@ -122,12 +124,17 @@ public class RobotContainer
    
 
     //Driver Controls   
+    //Swerve controls
     m_driverController.button(4).onTrue((new InstantCommand(drivebase::zeroGyro)));
     m_driverController.button(5).onTrue((new InstantCommand(drivebase::lock)));  
 
+    //Trap command
     m_driverController.button(7).onTrue((new WipeCommand(trap)));
     m_driverController.button(7).onFalse((new TrapBaseCommand(trap)));
 
+    //Intake Reverse
+    m_driverController.button(6).whileTrue(new FI_IntakeReverseCommand(floorIntake));
+    //m_driverController.button(6).onFalse(new FI_IntakeStop(floorIntake));
 
     
     /*Gunner Controls 
@@ -222,6 +229,10 @@ public class RobotContainer
     autoChooser.addOption("3 Peice Close Source Side", "auto3source");
     autoChooser.addOption("3 Peice Bumrush Source Side", "auto3sourcefar");
     autoChooser.addOption("3 Peice Bumrush Amp Side", "auto3ampfar");
+    autoChooser.addOption("2 Peice Bumrush Source Side", "auto2sourcefar");
+    autoChooser.addOption("2 Peice Bumrush Amp Side", "auto2ampfar");
+    autoChooser.addOption("Preload Source Sude", "preloadsource");
+    autoChooser.addOption("Preload Amp Sude", "preloadamp");
     autoChooser.addOption("test PID", "pidtest");
     SmartDashboard.putData("Auto Selector", autoChooser);
     return autoChooser.getSelected();

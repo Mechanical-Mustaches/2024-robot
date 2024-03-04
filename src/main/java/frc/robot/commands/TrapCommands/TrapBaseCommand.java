@@ -8,10 +8,11 @@ public class TrapBaseCommand extends Command {
 
     public TrapBaseCommand(TrapSubsystem trap){
         this.trap = trap;
+        addRequirements(trap);
     }
 
     @Override
-    public void initialize(){
+    public void execute(){
         trap.trapBasePosition();
     }
 }

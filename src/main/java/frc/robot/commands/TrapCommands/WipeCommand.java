@@ -8,12 +8,14 @@ public class WipeCommand extends Command{
 
     public WipeCommand(TrapSubsystem trap){
         this.trap = trap;
+        addRequirements(trap);
     }
 
     @Override
-    public void initialize(){ 
+    public void execute(){ 
         trap.wipe();
     }
+    
 
    
     
