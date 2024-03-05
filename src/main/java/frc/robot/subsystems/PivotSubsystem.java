@@ -94,7 +94,10 @@ public class PivotSubsystem extends SubsystemBase {
 
     public void pivotDefencePosition(){
          setArmPosition(162f);
+     }
 
+     public void pivotPOS(float POS){
+         setArmPosition(POS);
      }
 }
  
