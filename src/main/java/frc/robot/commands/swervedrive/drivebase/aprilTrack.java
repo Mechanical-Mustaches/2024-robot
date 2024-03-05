@@ -48,7 +48,7 @@ public class AprilTrack extends Command
   @Override
   public void initialize()
   {
-    SmartDashboard.putBoolean("seeNote", false);
+    SmartDashboard.putBoolean("seeApril", false);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -64,7 +64,7 @@ public class AprilTrack extends Command
     
 
     if(LimelightHelpers.getTV("limelight-april")){
-      SmartDashboard.putBoolean("seeNote", true);
+      SmartDashboard.putBoolean("seeApril", true);
       double rotation = pidController.calculate(LimelightHelpers.getTX("limelight-april"), 0.0);
 
       swerve.drive(new Translation2d(xVelocity * swerve.maximumSpeed, yVelocity * swerve.maximumSpeed),
@@ -72,7 +72,7 @@ public class AprilTrack extends Command
                  true);
     }
     else{
-      SmartDashboard.putBoolean("seeNote", false);
+      SmartDashboard.putBoolean("seeApril", false);
       swerve.drive(new Translation2d(xVelocity * swerve.maximumSpeed, yVelocity * swerve.maximumSpeed),
                  angVelocity * controller.config.maxAngularVelocity,
                  true);

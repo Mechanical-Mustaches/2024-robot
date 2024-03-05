@@ -20,6 +20,7 @@ import frc.robot.commands.PositionCommands.ClimbPosition;
 import frc.robot.commands.PositionCommands.ClosePOSCommand;
 import frc.robot.commands.PositionCommands.FarPOSCommand;
 import frc.robot.commands.PositionCommands.HumanPosition;
+import frc.robot.commands.PositionCommands.PivotLimeLightCommand;
 import frc.robot.commands.PositionCommands.SkipPosition;
 import frc.robot.commands.PositionCommands.TrapPosition;
 import frc.robot.subsystems.ConveyorSubsystem;
@@ -171,12 +172,15 @@ public class RobotContainer
       m_coDriverController.button(10).whileTrue(new ConveyFireCommand(conveyor));
 
       //Track April (back limelight) 
-      m_coDriverController.button(11).whileTrue(new RepeatCommand(new AprilTrack(
-      drivebase,
+      m_coDriverController.button(11).whileTrue(new ParallelCommandGroup(
+      new RepeatCommand(new AprilTrack(
+        drivebase,
         () -> -MathUtil.applyDeadband(m_driverController.getRawAxis(1), OperatorConstants.LEFT_Y_DEADBAND),
         () -> -MathUtil.applyDeadband(m_driverController.getRawAxis(0), OperatorConstants.LEFT_X_DEADBAND),
         () -> -m_driverController.getRawAxis(4)
-        )));
+        )),
+      new PivotLimeLightCommand(pivot, flyWheel)
+      ));
 
       //Track Note (front limelight)
       m_coDriverController.button(12).whileTrue(new RepeatCommand(new NoteTrack(
