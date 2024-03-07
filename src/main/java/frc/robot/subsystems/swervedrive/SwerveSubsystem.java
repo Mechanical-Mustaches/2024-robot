@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Config;
+import frc.robot.LimelightHelpers;
 import frc.robot.Constants.AutonConstants;
 import java.io.File;
 import java.util.function.DoubleSupplier;
@@ -45,7 +46,7 @@ public class SwerveSubsystem extends SubsystemBase
   /**
    * Maximum speed of the robot in meters per second, used to limit acceleration.
    */
-  public        double      maximumSpeed = Units.feetToMeters(14.5);
+  public        double      maximumSpeed = Units.feetToMeters(17);
 
   /**
    * Initialize {@link SwerveDrive} with the directory provided.
@@ -62,7 +63,7 @@ public class SwerveSubsystem extends SubsystemBase
     //  In this case the wheel diameter is 4 inches, which must be converted to meters to get meters/second.
     //  The gear ratio is 6.75 motor revolutions per wheel rotation.
     //  The encoder resolution per motor revolution is 1 per motor revolution.
-    double driveConversionFactor = SwerveMath.calculateMetersPerRotation(Units.inchesToMeters(4), 6.75);
+    double driveConversionFactor = SwerveMath.calculateMetersPerRotation(Units.inchesToMeters(3.8), 6.75);
     System.out.println("\"conversionFactor\": {");
     System.out.println("\t\"angle\": " + angleConversionFactor + ",");
     System.out.println("\t\"drive\": " + driveConversionFactor);
@@ -111,11 +112,11 @@ public class SwerveSubsystem extends SubsystemBase
                                          // Translation PID constants
                                          AutonConstants.ANGLE_PID,
                                          // Rotation PID constants
-                                         5.3,
+                                         5.4,
                                          // Max module speed, in m/s
                                          swerveDrive.swerveDriveConfiguration.getDriveBaseRadiusMeters(),
                                          // Drive base radius in meters. Distance from robot center to furthest module.
-                                         new ReplanningConfig()
+                                         new ReplanningConfig(false,true)
                                          // Default path replanning config. See the API for the options here
         ),
         () -> {
@@ -302,11 +303,13 @@ public class SwerveSubsystem extends SubsystemBase
   @Override
   public void periodic()
   {
+    //addVisionReading();
   }
 
   @Override
   public void simulationPeriodic()
   {
+    addFakeVisionReading();
   }
 
   /**
@@ -495,6 +498,18 @@ public class SwerveSubsystem extends SubsystemBase
    */
   public void addFakeVisionReading()
   {
-    swerveDrive.addVisionMeasurement(new Pose2d(3, 3, Rotation2d.fromDegrees(65)), Timer.getFPGATimestamp());
+    swerveDrive.addVisionMeasurement(new Pose2d(3, 3, swerveDrive.field.getRobotPose().getRotation()), Timer.getFPGATimestamp());
+  }
+
+  public void addVisionReading()
+  {
+    if(LimelightHelpers.getTV("limelight-april")) {
+      System.out.println("Limelight data updated!");
+    swerveDrive.addVisionMeasurement(
+      new Pose2d(LimelightHelpers.getBotPose2d_wpiBlue("limelight-april").getX(), 
+                 LimelightHelpers.getBotPose2d_wpiBlue("limelight-april").getY(), 
+                 swerveDrive.field.getRobotPose().getRotation()), 
+                 Timer.getFPGATimestamp() - LimelightHelpers.getBotPose("limelight-april")[6]);
+    }
   }
 }

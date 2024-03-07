@@ -44,9 +44,9 @@ import edu.wpi.first.wpilibj2.command.RepeatCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.swervedrive.drivebase.TeleopDrive;
-import frc.robot.commands.swervedrive.drivebase.AprilTrack;
+import frc.robot.commands.swervedrive.drivebase.aprilTrack;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
-import frc.robot.commands.swervedrive.drivebase.NoteTrack; 
+import frc.robot.commands.swervedrive.drivebase.noteTrack; 
 import java.io.File;
 import com.pathplanner.lib.auto.NamedCommands;
 
@@ -136,6 +136,8 @@ public class RobotContainer
     m_driverController.button(6).whileTrue(new FI_IntakeReverseCommand(floorIntake));
     //m_driverController.button(6).onFalse(new FI_IntakeStop(floorIntake));
 
+    m_driverController.button(1).whileTrue((new InstantCommand(drivebase::addFakeVisionReading)));  
+
     
     /*Gunner Controls 
       (Close Shot)  (Far Shot)  (Amp Shot)  (Fire)
@@ -185,7 +187,7 @@ public class RobotContainer
       m_coDriverController.button(10).whileTrue(new ConveyFireCommand(conveyor));
 
       //Track April (back limelight) 
-      m_coDriverController.button(11).whileTrue(new RepeatCommand(new AprilTrack(
+      m_coDriverController.button(11).whileTrue(new RepeatCommand(new aprilTrack(
       drivebase,
         () -> -MathUtil.applyDeadband(m_driverController.getRawAxis(1), OperatorConstants.LEFT_Y_DEADBAND),
         () -> -MathUtil.applyDeadband(m_driverController.getRawAxis(0), OperatorConstants.LEFT_X_DEADBAND),
@@ -193,7 +195,7 @@ public class RobotContainer
         )));
 
       //Track Note (front limelight)
-      m_coDriverController.button(12).whileTrue(new RepeatCommand(new NoteTrack(
+      m_coDriverController.button(12).whileTrue(new RepeatCommand(new noteTrack(
       drivebase,
         () -> -MathUtil.applyDeadband(m_driverController.getRawAxis(1), OperatorConstants.LEFT_Y_DEADBAND),
         () -> -MathUtil.applyDeadband(m_driverController.getRawAxis(0), OperatorConstants.LEFT_X_DEADBAND),
