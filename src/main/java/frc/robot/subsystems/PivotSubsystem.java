@@ -17,13 +17,13 @@ public class PivotSubsystem extends SubsystemBase {
 
 
 
-    private double kP = 4;
+    private double kP = 2; //4 .3 .15
     private double kI = 0;
     private double kD = 0;
     private double kIz = 0;
     private double kFF = 0;
-    private double kMaxOutput = 0.3;
-    private double kMinOutput = -0.15;
+    private double kMaxOutput = 0.6;
+    private double kMinOutput = -0.25;
 
 
     public PivotSubsystem(){
@@ -57,11 +57,11 @@ public class PivotSubsystem extends SubsystemBase {
      *  Defense Position (Last resort use w/ limelight maybe?) 
      *  Podium Position
      */
-
+ 
      private void setArmPosition(float deg){
-        m_PidController.setReference(deg / 360, CANSparkMax.ControlType.kPosition);
+        m_PidController.setReference((deg-6) / 360, CANSparkMax.ControlType.kPosition);
      }
-
+     //subtract 6 if you are running the "new" cage remove if old cage
      public void pivotBasePosition(){
         setArmPosition(161.64f);
      }
@@ -80,12 +80,12 @@ public class PivotSubsystem extends SubsystemBase {
         setArmPosition(215f);
      }
      public void pivotTrapPosition(){
-        setArmPosition(220);
+        setArmPosition(328);
      }
 
      public void pivotPodiumPosition(){
         //setArmPosition((float)SmartDashboard.getNumber("pivotPOS", 220));
-        setArmPosition(186f);
+        setArmPosition(190f); //186
      }
 
      public void pivotSubWooferPosition(){

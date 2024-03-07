@@ -12,6 +12,8 @@ import frc.robot.commands.AutoCommands.AutoFireNoteFirst;
 import frc.robot.commands.AutoCommands.AutoIntakeCommand;
 import frc.robot.commands.ConveyorCommands.ConveyFireCommand;
 import frc.robot.commands.ConveyorCommands.ConveySpitNote;
+import frc.robot.commands.FloorIntakeCommands.FI_IntakeReverseCommand;
+import frc.robot.commands.FloorIntakeCommands.FI_IntakeStop;
 import frc.robot.commands.FlyWheelCommands.CloseShotCommand;
 import frc.robot.commands.FlyWheelCommands.FarShotCommand;
 import frc.robot.commands.PositionCommands.AmpPosition;
@@ -22,11 +24,14 @@ import frc.robot.commands.PositionCommands.FarPOSCommand;
 import frc.robot.commands.PositionCommands.HumanPosition;
 import frc.robot.commands.PositionCommands.SkipPosition;
 import frc.robot.commands.PositionCommands.TrapPosition;
+import frc.robot.commands.TrapCommands.TrapBaseCommand;
+import frc.robot.commands.TrapCommands.WipeCommand;
 import frc.robot.subsystems.ConveyorSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.FloorIntakeSubsystem;
 import frc.robot.subsystems.FlyWheelSubsystem;
 import frc.robot.subsystems.PivotSubsystem;
+import frc.robot.subsystems.TrapSubsystem;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.RobotBase;
@@ -61,6 +66,7 @@ public class RobotContainer
   private final FlyWheelSubsystem flyWheel = new FlyWheelSubsystem();
   private final PivotSubsystem pivot = new PivotSubsystem();
   private final ElevatorSubsystem elevator = new ElevatorSubsystem();
+  private final TrapSubsystem trap = new TrapSubsystem();
 
 
 
@@ -118,14 +124,22 @@ public class RobotContainer
    
 
     //Driver Controls   
+    //Swerve controls
     m_driverController.button(4).onTrue((new InstantCommand(drivebase::zeroGyro)));
     m_driverController.button(5).onTrue((new InstantCommand(drivebase::lock)));  
 
+    //Trap command
+    m_driverController.button(7).onTrue((new WipeCommand(trap)));
+    m_driverController.button(7).onFalse((new TrapBaseCommand(trap)));
+
+    //Intake Reverse
+    m_driverController.button(6).whileTrue(new FI_IntakeReverseCommand(floorIntake));
+    //m_driverController.button(6).onFalse(new FI_IntakeStop(floorIntake));
 
     
     /*Gunner Controls 
       (Close Shot)  (Far Shot)  (Amp Shot)  (Fire)
-      (Source)      (Skip Shot) ()          (April Track)
+      (Source)      (Skip Shot) (Fire Trap) (April Track)
       (Climb)       (Climb Alt) (Intake)    (Intake Track)
     */
 
@@ -160,8 +174,8 @@ public class RobotContainer
       //Amp Shot
       m_coDriverController.button(7).whileTrue(new AmpPosition(pivot, elevator, flyWheel));
       m_coDriverController.button(7).onFalse(new BasePosition(pivot, elevator));
-
-      //Reserved for Future Implementation
+ 
+      //shoot note trap
       m_coDriverController.button(8).whileTrue(new ConveySpitNote(conveyor));
 
       //Intake (no limelight)
@@ -210,11 +224,16 @@ public class RobotContainer
   private final SendableChooser<String> autoChooser = new SendableChooser<String>();
   
   private String initializeAutoChooser() {
-    autoChooser.setDefaultOption("4 Peice Close Auto", "auto4C");
-    autoChooser.addOption("3 Peice Close Amp Side", "Auto3C-A");
-    autoChooser.addOption("3 Peice Close Source Side", "Auto3C-S");
-    autoChooser.addOption("3 Peice Bumrush Amp Side", "Auto3F-A");
-    autoChooser.addOption("6 Peice Bumrush Amp Side", "Auto4F-S");
+    autoChooser.setDefaultOption("4 Peice Close Auto", "auto4close");
+    autoChooser.addOption("3 Peice Close Amp Side", "auto3amp");
+    autoChooser.addOption("3 Peice Close Source Side", "auto3source");
+    autoChooser.addOption("3 Peice Bumrush Source Side", "auto3sourcefar");
+    autoChooser.addOption("3 Peice Bumrush Amp Side", "auto3ampfar");
+    autoChooser.addOption("2 Peice Bumrush Source Side", "auto2sourcefar");
+    autoChooser.addOption("2 Peice Bumrush Amp Side", "auto2ampfar");
+    autoChooser.addOption("Preload Source Sude", "preloadsource");
+    autoChooser.addOption("Preload Amp Sude", "preloadamp");
+    autoChooser.addOption("test PID", "pidtest");
     SmartDashboard.putData("Auto Selector", autoChooser);
     return autoChooser.getSelected();
   }

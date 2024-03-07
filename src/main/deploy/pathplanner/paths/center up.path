@@ -3,57 +3,57 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.75,
-        "y": 6.6
+        "x": 1.3,
+        "y": 5.5
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.7499999999999996,
-        "y": 6.6
+        "x": 2.3,
+        "y": 5.5
       },
       "isLocked": false,
-      "linkedName": "Sub_Amp_Side"
+      "linkedName": "Sub"
     },
     {
       "anchor": {
-        "x": 3.1162997664341194,
-        "y": 7.13941317606946
+        "x": 3.319389387593941,
+        "y": 7.168544384482133
       },
       "prevControl": {
-        "x": 3.5531193202302487,
-        "y": 7.251157713087074
+        "x": 2.8622366249471836,
+        "y": 6.312598786335012
       },
       "nextControl": {
-        "x": 2.6739441950061837,
-        "y": 7.026252448494872
+        "x": 3.7765421502406986,
+        "y": 8.024489982629255
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 0.75,
-        "y": 6.6
+        "x": 1.3,
+        "y": 5.5
       },
       "prevControl": {
-        "x": 1.7275090189278128,
-        "y": 6.738206960123193
+        "x": 2.6287969163616056,
+        "y": 5.446926533663493
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Sub_Amp_Side"
+      "linkedName": "Sub"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.25,
-      "rotationDegrees": 20.0,
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": 60.0,
       "rotateFast": false
     },
     {
-      "waypointRelativePos": 1.4,
-      "rotationDegrees": 20.0,
-      "rotateFast": false
+      "waypointRelativePos": 1.2,
+      "rotationDegrees": 60.0,
+      "rotateFast": true
     }
   ],
   "constraintZones": [],
@@ -77,21 +77,21 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 4.0,
-    "maxAcceleration": 2.0,
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 60.0,
+    "rotation": 0.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Upper Starting",
+  "folder": "Center Starting",
   "previewStartingState": {
-    "rotation": 60.0,
+    "rotation": 0,
     "velocity": 0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

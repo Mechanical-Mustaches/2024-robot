@@ -31,12 +31,16 @@ public class FloorIntakeSubsystem extends SubsystemBase {
   }
 
   public void intakeForward(){
-    m_floorIntake.set(0.9);
+    m_floorIntake.set(1);
   
   }
 
   public void intakeStop(){
     m_floorIntake.set(0);
+  }
+
+  public void intakeReverse(){
+    m_floorIntake.set(-0.8);
   }
 
   public boolean isNotePresent(){

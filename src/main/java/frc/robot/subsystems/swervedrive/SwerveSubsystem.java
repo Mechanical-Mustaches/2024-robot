@@ -45,7 +45,7 @@ public class SwerveSubsystem extends SubsystemBase
   /**
    * Maximum speed of the robot in meters per second, used to limit acceleration.
    */
-  public        double      maximumSpeed = Units.feetToMeters(17.6);
+  public        double      maximumSpeed = Units.feetToMeters(14.5);
 
   /**
    * Initialize {@link SwerveDrive} with the directory provided.
@@ -80,7 +80,8 @@ public class SwerveSubsystem extends SubsystemBase
       throw new RuntimeException(e);
     }
     swerveDrive.setHeadingCorrection(false); // Heading correction should only be used while controlling the robot via angle.
-    swerveDrive.setCosineCompensator(!SwerveDriveTelemetry.isSimulation); // Disables cosine compensation for simulations since it causes discrepancies not seen in real life.
+    //swerveDrive.setCosineCompensator(!SwerveDriveTelemetry.isSimulation); // Disables cosine compensation for simulations since it causes discrepancies not seen in real life.
+    swerveDrive.setCosineCompensator(false);
     setupPathPlanner();
   }
 
@@ -110,14 +111,14 @@ public class SwerveSubsystem extends SubsystemBase
                                          // Translation PID constants
                                          AutonConstants.ANGLE_PID,
                                          // Rotation PID constants
-                                         4.5,
+                                         5.3,
                                          // Max module speed, in m/s
                                          swerveDrive.swerveDriveConfiguration.getDriveBaseRadiusMeters(),
                                          // Drive base radius in meters. Distance from robot center to furthest module.
                                          new ReplanningConfig()
                                          // Default path replanning config. See the API for the options here
         ),
-        () -> { 
+        () -> {
           // Boolean supplier that controls when the path will be mirrored for the red alliance
           // This will flip the path being followed to the red side of the field.
           // THE ORIGIN WILL REMAIN ON THE BLUE SIDE

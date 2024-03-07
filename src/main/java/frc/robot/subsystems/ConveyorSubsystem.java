@@ -16,9 +16,9 @@ public class ConveyorSubsystem extends SubsystemBase {
     }
 
     public void conveyInward(){
-        m_conveyor.set(-0.8);
+        m_conveyor.set(-0.7); //0.5
     }
-    public void conveyTrap(){
+    public void conveyTrap(){ 
         m_conveyor.set(1);
     }
 
@@ -27,11 +27,11 @@ public class ConveyorSubsystem extends SubsystemBase {
     }
 
     public void conveyFromSource(){
-        m_conveyor.set(-0.1);
+        m_conveyor.set(-0.5);
         // 0.2
     }
 
     public void conveyMoveBack(){
-        m_conveyor.set(0.1);
+        m_conveyor.set(0.2);
     }
 }

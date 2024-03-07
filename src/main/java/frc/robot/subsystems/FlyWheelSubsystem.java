@@ -11,7 +11,6 @@ public class FlyWheelSubsystem extends SubsystemBase {
     private CANSparkMax m_leftWheel = new CANSparkMax(11, MotorType.kBrushless);
     private CANSparkMax m_rightWheel = new CANSparkMax(12, MotorType.kBrushless);
     private final SparkLimitSwitch lineBreak = m_leftWheel.getForwardLimitSwitch(SparkLimitSwitch.Type.kNormallyOpen); 
-    private double setpoint;
 
   public FlyWheelSubsystem() {
     m_rightWheel.follow(m_leftWheel, true);
@@ -59,7 +58,7 @@ public class FlyWheelSubsystem extends SubsystemBase {
   }
 
   public void closeShot(){
-    m_leftWheel.set(0.7);
+    m_leftWheel.set(1);
   }
   
 
@@ -69,7 +68,7 @@ public class FlyWheelSubsystem extends SubsystemBase {
 
   public void sourceNomNom(){
     //m_leftWheel.set(-0.7);
-    m_leftWheel.set(-0.5);
+    m_leftWheel.set(-0.3);
   }
 
 
