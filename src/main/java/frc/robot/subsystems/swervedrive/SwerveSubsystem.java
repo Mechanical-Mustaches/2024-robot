@@ -303,13 +303,13 @@ public class SwerveSubsystem extends SubsystemBase
   @Override
   public void periodic()
   {
-    //addVisionReading();
+    addVisionReading();
   }
 
   @Override
   public void simulationPeriodic()
   {
-    addFakeVisionReading();
+    //addFakeVisionReading();
   }
 
   /**
@@ -505,11 +505,14 @@ public class SwerveSubsystem extends SubsystemBase
   {
     if(LimelightHelpers.getTV("limelight-april")) {
       System.out.println("Limelight data updated!");
+
+      Pose2d limelightPose = LimelightHelpers.getBotPose2d_wpiBlue("limelight-april");
+      System.out.println(limelightPose.getX() + ", " + limelightPose.getY());
+
     swerveDrive.addVisionMeasurement(
-      new Pose2d(LimelightHelpers.getBotPose2d_wpiBlue("limelight-april").getX(), 
-                 LimelightHelpers.getBotPose2d_wpiBlue("limelight-april").getY(), 
+      new Pose2d(limelightPose.getX(), limelightPose.getY(), 
                  swerveDrive.field.getRobotPose().getRotation()), 
                  Timer.getFPGATimestamp() - LimelightHelpers.getBotPose("limelight-april")[6]);
     }
   }
-}
+};
