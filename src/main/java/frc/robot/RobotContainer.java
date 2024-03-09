@@ -126,17 +126,13 @@ public class RobotContainer
     //Driver Controls   
     //Swerve controls
     m_driverController.button(4).onTrue((new InstantCommand(drivebase::zeroGyro)));
-    m_driverController.button(5).onTrue((new InstantCommand(drivebase::lock)));  
 
     //Trap command
     m_driverController.button(7).onTrue((new WipeCommand(trap)));
     m_driverController.button(7).onFalse((new TrapBaseCommand(trap)));
 
     //Intake Reverse
-    m_driverController.button(6).whileTrue(new FI_IntakeReverseCommand(floorIntake));
-    //m_driverController.button(6).onFalse(new FI_IntakeStop(floorIntake));
-
-    m_driverController.button(1).whileTrue((new InstantCommand(drivebase::addFakeVisionReading)));  
+    // m_driverController.button(6).whileTrue(new FI_IntakeReverseCommand(floorIntake));
 
     
     /*Gunner Controls 
