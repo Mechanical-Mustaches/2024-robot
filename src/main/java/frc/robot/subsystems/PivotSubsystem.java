@@ -17,13 +17,13 @@ public class PivotSubsystem extends SubsystemBase {
 
 
 
-    private double kP = 2; //4 .3 .15
+    private double kP = 4; //4 .3 .15
     private double kI = 0;
     private double kD = 0;
     private double kIz = 0;
     private double kFF = 0;
-    private double kMaxOutput = 0.6;
-    private double kMinOutput = -0.25;
+    private double kMaxOutput = 0.3;
+    private double kMinOutput = -0.15; //0.15
 
 
     public PivotSubsystem(){
@@ -59,7 +59,7 @@ public class PivotSubsystem extends SubsystemBase {
      */
  
      private void setArmPosition(float deg){
-        m_PidController.setReference((deg-10) / 360, CANSparkMax.ControlType.kPosition);
+        m_PidController.setReference((deg-6) / 360, CANSparkMax.ControlType.kPosition);
      }
      //subtract 6 if you are running the "new" cage remove if old cage
      public void pivotBasePosition(){

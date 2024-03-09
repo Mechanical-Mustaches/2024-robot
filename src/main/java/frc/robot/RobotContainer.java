@@ -202,7 +202,8 @@ public class RobotContainer
   }
 
   public void initialize(){
-    new BasePosition(pivot, elevator);
+    pivot.pivotBasePosition();
+    elevator.basePosition();
     flyWheel.rampDown();
   }
 
