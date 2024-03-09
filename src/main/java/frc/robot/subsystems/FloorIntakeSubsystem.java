@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class FloorIntakeSubsystem extends SubsystemBase {
     /** Creates a new FloorIntakeSubsystem. */
     private CANSparkMax m_floorIntake = new CANSparkMax(9, MotorType.kBrushless);
+    private CANSparkMax m_floorIntake_helper = new CANSparkMax(25, MotorType.kBrushless);
     
     private final SparkLimitSwitch lineBreak = m_floorIntake.getForwardLimitSwitch(SparkLimitSwitch.Type.kNormallyOpen); 
 
@@ -18,6 +19,8 @@ public class FloorIntakeSubsystem extends SubsystemBase {
   public FloorIntakeSubsystem() {
     SmartDashboard.putBoolean("intakeLB", true);
     m_floorIntake.setIdleMode(IdleMode.kCoast);
+    m_floorIntake_helper.setIdleMode(IdleMode.kCoast);
+    m_floorIntake_helper.follow(m_floorIntake, true);
   }
 
   @Override
