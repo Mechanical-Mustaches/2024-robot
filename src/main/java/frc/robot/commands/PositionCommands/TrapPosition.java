@@ -15,7 +15,7 @@ public class TrapPosition extends Command {
 
     @Override
     public void initialize(){
-        pivot.pivotTrapPosition();
+        pivot.pivotClimbPosition();
         elevator.basePosition();
     }
 

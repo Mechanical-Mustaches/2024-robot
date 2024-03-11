@@ -16,6 +16,7 @@ import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.Nat;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
@@ -56,7 +57,7 @@ public class SwerveSubsystem extends SubsystemBase
   /**
    * Maximum speed of the robot in meters per second, used to limit acceleration.
    */
-  public        double      maximumSpeed = Units.feetToMeters(17);
+  public        double      maximumSpeed = 5.3;
 
   /**
    * Initialize {@link SwerveDrive} with the directory provided.
@@ -124,7 +125,7 @@ public class SwerveSubsystem extends SubsystemBase
                                          // Translation PID constants
                                          AutonConstants.ANGLE_PID,
                                          // Rotation PID constants
-                                         5.4,
+                                         5.3,
                                          // Max module speed, in m/s
                                          swerveDrive.swerveDriveConfiguration.getDriveBaseRadiusMeters(),
                                          // Drive base radius in meters. Distance from robot center to furthest module.
@@ -316,7 +317,7 @@ public class SwerveSubsystem extends SubsystemBase
   public void periodic()
   {
     history.recordGyroData();
-    addVisionReading();
+    //addVisionReading();
   }
 
   @Override
@@ -509,22 +510,38 @@ public class SwerveSubsystem extends SubsystemBase
   /**
    * Add a fake vision reading for testing purposes.
    */
+  private Pose2d lastPose = new Pose2d(0.0, 0.0, Rotation2d.fromDegrees(0));
 
   public void addVisionReading()
   {
-    if(LimelightHelpers.getTV("limelight-april")) {
-    //if(true) {
-      Pose2d limelightPose = LimelightHelpers.getBotPose2d_wpiBlue("limelight-april");
-      double llLatency = LimelightHelpers.getLatency_Capture("limelight-april")/1000 + LimelightHelpers.getLatency_Pipeline("limelight-april")/1000;
-      //double llLatency = 0.25;
 
-     
+    LimelightHelpers.PoseEstimate limelightPose = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight-april");
+    if(LimelightHelpers.getTV("limelight-april") && !lastPose.equals(limelightPose.pose)) {
+      lastPose = limelightPose.pose;
+      
+      SmartDashboard.putNumber("# of tags", limelightPose.tagCount);
+      SmartDashboard.putNumber("tag span", limelightPose.tagSpan);
+      SmartDashboard.putNumber("tag dist", limelightPose.avgTagDist);
+      SmartDashboard.putNumber("tag area", limelightPose.avgTagArea);
 
-    swerveDrive.addVisionMeasurement(
-      new Pose2d(limelightPose.getX(), limelightPose.getY(), 
-                 history.fetchInterpolatedGyroData(llLatency)),
-                 Timer.getFPGATimestamp()- llLatency
-                 );
+      if(limelightPose.tagCount < 2) {
+        return;
+      }
+
+
+      if(limelightPose.avgTagDist > 5) {
+        return;
+      }
+
+      System.out.println(limelightPose.pose.getX() + ", " + limelightPose.pose.getY());
+      Pose2d computedPose = new Pose2d(limelightPose.pose.getX(), limelightPose.pose.getY(), 
+                 history.fetchInterpolatedGyroData(limelightPose.timestampSeconds));
+
+      swerveDrive.addVisionMeasurement(computedPose, 
+                                        limelightPose.timestampSeconds, 
+                                        new Matrix<N3,N1>(Nat.N3(),Nat.N1(),new double[]{0.2,0.2,0.01}));
+
+      
     }
   }
 };

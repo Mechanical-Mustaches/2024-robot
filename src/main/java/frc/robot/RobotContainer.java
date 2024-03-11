@@ -132,7 +132,9 @@ public class RobotContainer
     m_driverController.button(7).onFalse((new TrapBaseCommand(trap)));
 
     //Intake Reverse
-    // m_driverController.button(6).whileTrue(new FI_IntakeReverseCommand(floorIntake));
+     m_driverController.button(5).whileTrue(new FI_IntakeReverseCommand(floorIntake));
+
+     m_driverController.button(6).whileTrue(new ConveyFireCommand(conveyor));
 
     
     /*Gunner Controls 
@@ -153,7 +155,7 @@ public class RobotContainer
 
       //Climb
       m_coDriverController.button(3).whileTrue(new ClimbPosition(pivot, elevator));
-      m_coDriverController.button(3).onFalse(new BasePosition(pivot, elevator));
+      m_coDriverController.button(3).onFalse(new TrapPosition(pivot, elevator));
 
       //Far Shot
       m_coDriverController.button(4).whileTrue(new ParallelCommandGroup(
@@ -230,6 +232,7 @@ public class RobotContainer
     autoChooser.addOption("3 Peice Bumrush Amp Side", "auto3ampfar");
     autoChooser.addOption("2 Peice Bumrush Source Side", "auto2sourcefar");
     autoChooser.addOption("2 Peice Bumrush Amp Side", "auto2ampfar");
+    autoChooser.addOption("3 Peice Bumrush Source Far", "auto4farsource");
     autoChooser.addOption("Preload Source Sude", "preloadsource");
     autoChooser.addOption("Preload Amp Sude", "preloadamp");
     autoChooser.addOption("test PID", "pidtest");

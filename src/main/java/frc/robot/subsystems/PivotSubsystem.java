@@ -16,14 +16,14 @@ public class PivotSubsystem extends SubsystemBase {
     private final SparkPIDController m_PidController;
 
 
-
-    private double kP = 4; //4 .3 .15
+ 
+    private double kP = 2.5; //4
     private double kI = 0;
     private double kD = 0;
     private double kIz = 0;
     private double kFF = 0;
-    private double kMaxOutput = 0.3;
-    private double kMinOutput = -0.15; //0.15
+    private double kMaxOutput = 0.6; //0.4
+    private double kMinOutput = -0.25; //0.15
 
 
     public PivotSubsystem(){
@@ -39,7 +39,7 @@ public class PivotSubsystem extends SubsystemBase {
         m_PidController.setFF(kFF);
         m_PidController.setOutputRange(kMinOutput, kMaxOutput);
 
-        //SmartDashboard.putNumber("pivotPOS", 161.64);
+        SmartDashboard.putNumber("pivotPOS", 161.64);
 
     }
          @Override
@@ -63,7 +63,7 @@ public class PivotSubsystem extends SubsystemBase {
      }
      //subtract 6 if you are running the "new" cage remove if old cage
      public void pivotBasePosition(){
-        setArmPosition(161.64f);
+        setArmPosition(157f); //161.64
      }
 
      public void pivotAmpPosition(){
@@ -74,7 +74,7 @@ public class PivotSubsystem extends SubsystemBase {
          setArmPosition(170f);//168
      }
      public void pivotSkipPosition(){
-        setArmPosition(220f);
+        setArmPosition(190f);
      }
      public void pivotClimbPosition(){
         setArmPosition(215f);
@@ -85,11 +85,11 @@ public class PivotSubsystem extends SubsystemBase {
 
      public void pivotPodiumPosition(){
         //setArmPosition((float)SmartDashboard.getNumber("pivotPOS", 220));
-        setArmPosition(190f); //186
-     }
+        setArmPosition(195f); //190     
+      }
 
      public void pivotSubWooferPosition(){
-         setArmPosition(162);
+         setArmPosition(170);
      }
 
     public void pivotDefencePosition(){

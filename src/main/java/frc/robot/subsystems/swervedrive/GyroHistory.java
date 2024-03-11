@@ -26,9 +26,8 @@ public class GyroHistory {
     }
 
 
-    public Rotation2d fetchInterpolatedGyroData(double llLatency) {
+    public Rotation2d fetchInterpolatedGyroData(double wantedTimestamp) {
 
-    double wantedTimestamp = Timer.getFPGATimestamp() - llLatency;
     int bestID = -1;
     double bestDiff = Double.MAX_VALUE; // Initialize with maximum value
 
