@@ -74,7 +74,7 @@ public class SwerveSubsystem extends SubsystemBase
     //  In this case the wheel diameter is 4 inches, which must be converted to meters to get meters/second.
     //  The gear ratio is 6.75 motor revolutions per wheel rotation.
     //  The encoder resolution per motor revolution is 1 per motor revolution.
-    double driveConversionFactor = SwerveMath.calculateMetersPerRotation(Units.inchesToMeters(3.8), 6.75);
+    double driveConversionFactor = SwerveMath.calculateMetersPerRotation(Units.inchesToMeters(3.9), 6.75);
     System.out.println("\"conversionFactor\": {");
     System.out.println("\t\"angle\": " + angleConversionFactor + ",");
     System.out.println("\t\"drive\": " + driveConversionFactor);
@@ -129,7 +129,7 @@ public class SwerveSubsystem extends SubsystemBase
                                          // Max module speed, in m/s
                                          swerveDrive.swerveDriveConfiguration.getDriveBaseRadiusMeters(),
                                          // Drive base radius in meters. Distance from robot center to furthest module.
-                                         new ReplanningConfig(false,true)
+                                         new ReplanningConfig(true,true)
                                          // Default path replanning config. See the API for the options here
         ),
         () -> {

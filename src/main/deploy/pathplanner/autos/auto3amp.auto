@@ -20,7 +20,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "center middle"
+            "pathName": "center up"
           }
         },
         {
@@ -32,7 +32,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "center up"
+            "pathName": "center middle"
           }
         },
         {
