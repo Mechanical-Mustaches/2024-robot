@@ -24,8 +24,6 @@ import frc.robot.commands.PositionCommands.FarPOSCommand;
 import frc.robot.commands.PositionCommands.HumanPosition;
 import frc.robot.commands.PositionCommands.SkipPosition;
 import frc.robot.commands.PositionCommands.TrapPosition;
-import frc.robot.commands.TrapCommands.TrapBaseCommand;
-import frc.robot.commands.TrapCommands.WipeCommand;
 import frc.robot.subsystems.ConveyorSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.FloorIntakeSubsystem;
@@ -126,10 +124,6 @@ public class RobotContainer
     //Driver Controls   
     //Swerve controls
     m_driverController.button(4).onTrue((new InstantCommand(drivebase::zeroGyro)));
-
-    //Trap command
-    m_driverController.button(7).onTrue((new WipeCommand(trap)));
-    m_driverController.button(7).onFalse((new TrapBaseCommand(trap)));
 
     //Intake Reverse
      m_driverController.button(5).whileTrue(new FI_IntakeReverseCommand(floorIntake));
