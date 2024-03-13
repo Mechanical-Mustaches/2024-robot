@@ -1,5 +1,6 @@
 package frc.robot.commands.ConveyorCommands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.LimelightHelpers;
 import frc.robot.subsystems.ConveyorSubsystem;
@@ -28,9 +29,5 @@ public class ConveyorMoveBack extends Command {
     @Override
     public void end(boolean i){
         conveyor.stopConvey();
-        LimelightHelpers.setLEDMode_ForceOff("limelight-april");
     }
-
-
-    
 }
