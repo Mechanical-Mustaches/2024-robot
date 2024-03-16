@@ -18,15 +18,33 @@
           }
         },
         {
-          "type": "wait",
+          "type": "path",
           "data": {
-            "waitTime": 4.0
+            "pathName": "sideNoteClose"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Fire"
           }
         },
         {
           "type": "path",
           "data": {
             "pathName": "upper far"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Fire"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "uppar 4"
           }
         },
         {

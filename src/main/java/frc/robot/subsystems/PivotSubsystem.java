@@ -63,7 +63,7 @@ public class PivotSubsystem extends SubsystemBase {
      }
      //subtract 6 if you are running the "new" cage remove if old cage
      public void pivotBasePosition(){
-        setArmPosition(157f); //161.64
+        setArmPosition(155f); //157
      }
 
      public void pivotAmpPosition(){
@@ -85,7 +85,7 @@ public class PivotSubsystem extends SubsystemBase {
 
      public void pivotPodiumPosition(){
         //setArmPosition((float)SmartDashboard.getNumber("pivotPOS", 220));
-        setArmPosition(195f); //190     
+        setArmPosition(198f); //190     
       }
 
      public void pivotSubWooferPosition(){

@@ -222,11 +222,13 @@ public class RobotContainer
     autoChooser.addOption("3 Peice Close Source Side", "auto3source");
     autoChooser.addOption("3 Peice Bumrush Source Side", "auto3sourcefar");
     autoChooser.addOption("3 Peice Bumrush Amp Side", "auto3ampfar");
+    autoChooser.addOption("3.5 Peice Bumrush Amp Side", "auto3.5ampfar");
     autoChooser.addOption("2 Peice Bumrush Source Side", "auto2sourcefar");
     autoChooser.addOption("2 Peice Bumrush Amp Side", "auto2ampfar");
     autoChooser.addOption("3 Peice Bumrush Source Far", "auto4farsource");
     autoChooser.addOption("Preload Source Sude", "preloadsource");
     autoChooser.addOption("Preload Amp Sude", "preloadamp");
+    autoChooser.addOption("mess5 :)", "mess5");
     autoChooser.addOption("test PID", "pidtest");
     SmartDashboard.putData("Auto Selector", autoChooser);
     return autoChooser.getSelected();

@@ -317,7 +317,7 @@ public class SwerveSubsystem extends SubsystemBase
   public void periodic()
   {
     history.recordGyroData();
-    //addVisionReading();
+    addVisionReading();
   }
 
   @Override
@@ -538,8 +538,9 @@ public class SwerveSubsystem extends SubsystemBase
                  history.fetchInterpolatedGyroData(limelightPose.timestampSeconds));
 
       swerveDrive.addVisionMeasurement(computedPose, 
-                                        limelightPose.timestampSeconds, 
-                                        new Matrix<N3,N1>(Nat.N3(),Nat.N1(),new double[]{0.2,0.2,0.01}));
+                                        limelightPose.timestampSeconds//, 
+                                        // Matrix<N3,N1>(Nat.N3(),Nat.N1(),new double[]{1,1,0.01})
+                                        );
 
       
     }
