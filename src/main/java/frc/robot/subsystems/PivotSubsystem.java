@@ -63,7 +63,7 @@ public class PivotSubsystem extends SubsystemBase {
      }
      //subtract 6 if you are running the "new" cage remove if old cage
      public void pivotBasePosition(){
-        setArmPosition(155f); //157
+        setArmPosition(157f); //155
      }
 
      public void pivotAmpPosition(){
