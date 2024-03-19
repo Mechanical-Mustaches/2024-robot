@@ -13,7 +13,6 @@ import frc.robot.commands.AutoCommands.AutoIntakeCommand;
 import frc.robot.commands.ConveyorCommands.ConveyFireCommand;
 import frc.robot.commands.ConveyorCommands.ConveySpitNote;
 import frc.robot.commands.FloorIntakeCommands.FI_IntakeReverseCommand;
-import frc.robot.commands.FloorIntakeCommands.FI_IntakeStop;
 import frc.robot.commands.FlyWheelCommands.CloseShotCommand;
 import frc.robot.commands.FlyWheelCommands.FarShotCommand;
 import frc.robot.commands.PositionCommands.AmpPosition;
@@ -95,9 +94,9 @@ public class RobotContainer
 
     TeleopDrive simClosedFieldRel = new TeleopDrive(
       drivebase,
-       () -> m_driverController.getRawAxis(1),
-       () -> m_driverController.getRawAxis(0),
-       () -> m_driverController.getRawAxis(4), () -> true);
+       () -> -m_driverController.getRawAxis(1),
+       () -> -m_driverController.getRawAxis(0),
+       () -> -m_driverController.getRawAxis(4), () -> true);
 
     TeleopDrive closedFieldRel = new TeleopDrive(
         drivebase,
