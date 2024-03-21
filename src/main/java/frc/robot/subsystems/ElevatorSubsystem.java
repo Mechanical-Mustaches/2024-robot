@@ -68,7 +68,7 @@ public class ElevatorSubsystem extends SubsystemBase {
      }
 
      public void humanPosition(){
-        setElevatorHight(2.0);//3
+        setElevatorHight(2.0);
      }
 
      public void trapPosition(){

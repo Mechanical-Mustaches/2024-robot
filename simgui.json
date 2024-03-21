@@ -11,13 +11,11 @@
       }
     },
     "RoboRIO": {
+      "6V Rail": {
+        "open": true
+      },
       "RoboRIO Input": {
         "open": true
-      }
-    },
-    "Timing": {
-      "window": {
-        "visible": false
       }
     }
   },
@@ -68,6 +66,11 @@
     },
     "transitory": {
       "SmartDashboard": {
+        "Field": {
+          "double[]##v_/SmartDashboard/Field/Robot": {
+            "open": true
+          }
+        },
         "open": true
       }
     }
@@ -85,8 +88,5 @@
       }
     },
     "visible": true
-  },
-  "NetworkTables View": {
-    "visible": false
   }
 }

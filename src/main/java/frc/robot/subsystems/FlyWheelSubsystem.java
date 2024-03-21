@@ -12,24 +12,9 @@ public class FlyWheelSubsystem extends SubsystemBase {
     private CANSparkMax m_leftWheel = new CANSparkMax(11, MotorType.kBrushless);
     private CANSparkMax m_rightWheel = new CANSparkMax(12, MotorType.kBrushless);
     private final SparkLimitSwitch lineBreak = m_leftWheel.getForwardLimitSwitch(SparkLimitSwitch.Type.kNormallyOpen); 
-    int timer = 0;
 
   public FlyWheelSubsystem() {
     m_rightWheel.follow(m_leftWheel, true);    
-  }
-
-  @Override
-  public void periodic() {
-    SmartDashboard.putNumber("flywheelSetpoint", m_leftWheel.get());
-  }
-
-  @Override
-  public void simulationPeriodic() {
-    
-  }
-  
-  public double getPercentSetpoint(){
-    return m_leftWheel.get();
   }
 
   /*
@@ -49,7 +34,6 @@ public class FlyWheelSubsystem extends SubsystemBase {
 
   public boolean isNoteSeen(){
     return lineBreak.isPressed();
-   // return SmartDashboard.getBoolean("flywheelLB", false);
   }
 
   public void ampShot(){

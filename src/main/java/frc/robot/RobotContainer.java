@@ -22,7 +22,8 @@ import frc.robot.commands.PositionCommands.ClosePOSCommand;
 import frc.robot.commands.PositionCommands.FarPOSCommand;
 import frc.robot.commands.PositionCommands.HumanPosition;
 import frc.robot.commands.PositionCommands.SkipPosition;
-import frc.robot.commands.PositionCommands.TrapPosition;
+import frc.robot.commands.PositionCommands.DownClimbPosition;
+import frc.robot.commands.PositionCommands.testPosition;
 import frc.robot.subsystems.ConveyorSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.FloorIntakeSubsystem;
@@ -36,11 +37,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.RepeatCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.swervedrive.drivebase.TeleopDrive;
-import frc.robot.commands.swervedrive.drivebase.aprilTrack;
+import frc.robot.commands.swervedrive.drivebase.liveShot;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import frc.robot.commands.swervedrive.drivebase.noteTrack; 
 import java.io.File;
@@ -84,9 +86,6 @@ public class RobotContainer
    */
   public RobotContainer()
   {
-    
-
-      
     // Configure the trigger bindings
     configureBindings();
     initializeAutoChooser();
@@ -146,7 +145,7 @@ public class RobotContainer
 
       //Climb
       m_coDriverController.button(3).whileTrue(new ClimbPosition(pivot, elevator));
-      m_coDriverController.button(3).onFalse(new TrapPosition(pivot, elevator));
+      m_coDriverController.button(3).onFalse(new DownClimbPosition(pivot, elevator));
 
       //Far Shot
       m_coDriverController.button(4).whileTrue(new ParallelCommandGroup(
@@ -158,8 +157,8 @@ public class RobotContainer
       m_coDriverController.button(5).whileTrue(new SkipPosition(pivot, elevator, flyWheel));
       m_coDriverController.button(5).onFalse(new BasePosition(pivot, elevator));
   
-      //Trap Score
-      m_coDriverController.button(6).whileTrue(new TrapPosition(pivot, elevator));
+      //Dynamic Testing
+      m_coDriverController.button(6).whileTrue(new testPosition(pivot, elevator, flyWheel));
       m_coDriverController.button(6).onFalse(new BasePosition(pivot, elevator));
       
       //Amp Shot
@@ -175,16 +174,15 @@ public class RobotContainer
       //Fire
       m_coDriverController.button(10).whileTrue(new ConveyFireCommand(conveyor));
 
-      //Track April (back limelight) 
-      m_coDriverController.button(11).whileTrue(new RepeatCommand(new aprilTrack(
-      drivebase,
+      //liveShot (back limelight) 
+      m_driverController.button(11).whileTrue(new RepeatCommand(new liveShot(
+      drivebase, pivot, flyWheel,
         () -> -MathUtil.applyDeadband(m_driverController.getRawAxis(1), OperatorConstants.LEFT_Y_DEADBAND),
-        () -> -MathUtil.applyDeadband(m_driverController.getRawAxis(0), OperatorConstants.LEFT_X_DEADBAND),
-        () -> -m_driverController.getRawAxis(4)
+        () -> -MathUtil.applyDeadband(m_driverController.getRawAxis(0), OperatorConstants.LEFT_X_DEADBAND)
         )));
 
       //Track Note (front limelight)
-      m_coDriverController.button(12).whileTrue(new RepeatCommand(new noteTrack(
+      m_driverController.button(12).whileTrue(new RepeatCommand(new noteTrack(
       drivebase,
         () -> -MathUtil.applyDeadband(m_driverController.getRawAxis(1), OperatorConstants.LEFT_Y_DEADBAND),
         () -> -MathUtil.applyDeadband(m_driverController.getRawAxis(0), OperatorConstants.LEFT_X_DEADBAND),
@@ -196,15 +194,14 @@ public class RobotContainer
 
   public void initialize(){
     pivot.pivotBasePosition();
-    elevator.basePosition();
-    flyWheel.rampDown();
   }
 
     // Register Named Commands (Pathplanner)
   private void inititalizePathPlannerCommands() {
     NamedCommands.registerCommand("Fire", new AutoFireNote(conveyor, flyWheel));
-    NamedCommands.registerCommand("FireFirst", new AutoFireNoteFirst(conveyor, flyWheel));
+    NamedCommands.registerCommand("FireFirst", new AutoFireNoteFirst(conveyor, flyWheel, drivebase));
     NamedCommands.registerCommand("Intake", new AutoIntakeCommand(floorIntake, conveyor, elevator, pivot, flyWheel));
+    NamedCommands.registerCommand("print", new PrintCommand("marker hit!"));
   }
 
   /**

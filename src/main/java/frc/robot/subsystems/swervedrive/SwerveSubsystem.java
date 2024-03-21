@@ -4,28 +4,20 @@
 
 package frc.robot.subsystems.swervedrive;
 
-import java.util.ArrayList;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.path.PathConstraints;
 import com.pathplanner.lib.path.PathPlannerPath;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.ReplanningConfig;
-
-import edu.wpi.first.math.Matrix;
-import edu.wpi.first.math.Nat;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
-import edu.wpi.first.math.numbers.N1;
-import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -33,7 +25,6 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Config;
 import frc.robot.LimelightHelpers;
 import frc.robot.Constants.AutonConstants;
 import java.io.File;
-import java.util.Arrays;
 import java.util.function.DoubleSupplier;
 import swervelib.SwerveController;
 import swervelib.SwerveDrive;
@@ -81,7 +72,7 @@ public class SwerveSubsystem extends SubsystemBase
     System.out.println("}");
 
     // Configure the Telemetry before creating the SwerveDrive to avoid unnecessary objects being created.
-    SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH;
+    SwerveDriveTelemetry.verbosity = TelemetryVerbosity.MACHINE;
     try
     {
       swerveDrive = new SwerveParser(directory).createSwerveDrive(maximumSpeed);
@@ -129,7 +120,7 @@ public class SwerveSubsystem extends SubsystemBase
                                          // Max module speed, in m/s
                                          swerveDrive.swerveDriveConfiguration.getDriveBaseRadiusMeters(),
                                          // Drive base radius in meters. Distance from robot center to furthest module.
-                                         new ReplanningConfig(false,true)
+                                         new ReplanningConfig(false,false)
                                          // Default path replanning config. See the API for the options here
         ),
         () -> {
@@ -152,6 +143,7 @@ public class SwerveSubsystem extends SubsystemBase
   public Command getAutonomousCommand(String pathName)
   {
     // Create a path following command using AutoBuilder. This will also trigger event markers.
+    resetOdometry(PathPlannerAuto.getStaringPoseFromAutoFile(pathName));
     return new PathPlannerAuto(pathName);
   }
 
@@ -537,10 +529,7 @@ public class SwerveSubsystem extends SubsystemBase
       Pose2d computedPose = new Pose2d(limelightPose.pose.getX(), limelightPose.pose.getY(), 
                  history.fetchInterpolatedGyroData(limelightPose.timestampSeconds));
 
-      swerveDrive.addVisionMeasurement(computedPose, 
-                                        limelightPose.timestampSeconds//, 
-                                        // Matrix<N3,N1>(Nat.N3(),Nat.N1(),new double[]{1,1,0.01})
-                                        );
+      swerveDrive.addVisionMeasurement(computedPose, limelightPose.timestampSeconds);
 
       
     }
