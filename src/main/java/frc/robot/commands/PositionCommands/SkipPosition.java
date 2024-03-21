@@ -22,7 +22,7 @@ public class SkipPosition extends Command{
     public void initialize(){
        pivot.pivotSkipPosition();
        flywheel.farShot();
-       elevator.basePosition();
+       elevator.ampPosition();
     }
 
     @Override

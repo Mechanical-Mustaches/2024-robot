@@ -8,8 +8,6 @@ import com.revrobotics.SparkPIDController;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
-import frc.robot.Constants.pivotConstants;
 
 public class PivotSubsystem extends SubsystemBase {
     
@@ -18,14 +16,14 @@ public class PivotSubsystem extends SubsystemBase {
     private final SparkPIDController m_PidController;
 
 
- 
-    private double kP = 2.5; //4
+
+    private double kP = 2; //4 .3 .15
     private double kI = 0;
     private double kD = 0;
     private double kIz = 0;
     private double kFF = 0;
-    private double kMaxOutput = 0.6; //0.4
-    private double kMinOutput = -0.25; //0.15
+    private double kMaxOutput = 0.6;
+    private double kMinOutput = -0.25;
 
 
     public PivotSubsystem(){
@@ -40,9 +38,15 @@ public class PivotSubsystem extends SubsystemBase {
         m_PidController.setIZone(kIz);
         m_PidController.setFF(kFF);
         m_PidController.setOutputRange(kMinOutput, kMaxOutput);
-        SmartDashboard.setDefaultNumber("pos", 0);
-    }
 
+        //SmartDashboard.putNumber("pivotPOS", 161.64);
+
+    }
+         @Override
+      public void periodic()
+      {
+         SmartDashboard.putNumber("pivot Encoer", encoder.getPosition()*360);
+      }
      /*
      * Pivot States:
      *  Base Position
@@ -55,61 +59,42 @@ public class PivotSubsystem extends SubsystemBase {
      */
  
      private void setArmPosition(float deg){
-         m_PidController.setReference((deg) / 360, CANSparkMax.ControlType.kPosition);
-         SmartDashboard.putNumber("pivot setpoint", (deg));
+        m_PidController.setReference((deg-6) / 360, CANSparkMax.ControlType.kPosition);
      }
-
+     //subtract 6 if you are running the "new" cage remove if old cage
      public void pivotBasePosition(){
-        setArmPosition(pivotConstants.basePosition);
+        setArmPosition(161.64f);
      }
 
      public void pivotAmpPosition(){
-        setArmPosition(254f);
+        setArmPosition(260f);
       }
 
      public void pivotHumanPosition(){
-         setArmPosition(164f);
+         setArmPosition(170f);//168
      }
      public void pivotSkipPosition(){
-        setArmPosition(184f);
+        setArmPosition(220f);
      }
      public void pivotClimbPosition(){
-        setArmPosition(209f);
+        setArmPosition(215f);
      }
      public void pivotTrapPosition(){
-        setArmPosition(322);
+        setArmPosition(328);
      }
 
      public void pivotPodiumPosition(){
-        setArmPosition(192f);
-      }
+        //setArmPosition((float)SmartDashboard.getNumber("pivotPOS", 220));
+        setArmPosition(190f); //186
+     }
 
      public void pivotSubWooferPosition(){
-         setArmPosition(164f);
+         setArmPosition(162);
      }
 
     public void pivotDefencePosition(){
-         setArmPosition(156f);
+         setArmPosition(162f);
+
      }
-
-    public void pivotTestPosition(){
-        double output =SmartDashboard.getNumber("pos", pivotConstants.basePosition);
-
-        output = Math.max(output, pivotConstants.basePosition);
-        double deg = Math.min(output, 210);
-        setArmPosition((float)deg);
-     }
-
-    public void dynamicShot(double Distance){
-      
-      //equation from google sheets for our line of best fit
-      double output = Distance*10 +150;
-
-      //give output an upper and lower bound to not break the pivot
-      output = Math.max(output, pivotConstants.basePosition);
-      double deg = Math.min(output, 210);
-
-      setArmPosition((float)deg);
-    }
 }
  

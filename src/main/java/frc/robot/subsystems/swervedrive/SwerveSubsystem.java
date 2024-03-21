@@ -1,4 +1,4 @@
-// Coeryright (c) FIRST and other WPILib contributors.
+// Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
@@ -18,11 +18,10 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Config;
-import frc.robot.LimelightHelpers;
 import frc.robot.Constants.AutonConstants;
 import java.io.File;
 import java.util.function.DoubleSupplier;
@@ -43,12 +42,10 @@ public class SwerveSubsystem extends SubsystemBase
    * Swerve drive object.
    */
   private final SwerveDrive swerveDrive;
-
-  private final GyroHistory history;
   /**
    * Maximum speed of the robot in meters per second, used to limit acceleration.
    */
-  public        double      maximumSpeed = 5.3;
+  public        double      maximumSpeed = Units.feetToMeters(14.5);
 
   /**
    * Initialize {@link SwerveDrive} with the directory provided.
@@ -65,14 +62,14 @@ public class SwerveSubsystem extends SubsystemBase
     //  In this case the wheel diameter is 4 inches, which must be converted to meters to get meters/second.
     //  The gear ratio is 6.75 motor revolutions per wheel rotation.
     //  The encoder resolution per motor revolution is 1 per motor revolution.
-    double driveConversionFactor = SwerveMath.calculateMetersPerRotation(Units.inchesToMeters(3.9), 6.75);
+    double driveConversionFactor = SwerveMath.calculateMetersPerRotation(Units.inchesToMeters(4), 6.75);
     System.out.println("\"conversionFactor\": {");
     System.out.println("\t\"angle\": " + angleConversionFactor + ",");
     System.out.println("\t\"drive\": " + driveConversionFactor);
     System.out.println("}");
 
     // Configure the Telemetry before creating the SwerveDrive to avoid unnecessary objects being created.
-    SwerveDriveTelemetry.verbosity = TelemetryVerbosity.MACHINE;
+    SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH;
     try
     {
       swerveDrive = new SwerveParser(directory).createSwerveDrive(maximumSpeed);
@@ -86,7 +83,6 @@ public class SwerveSubsystem extends SubsystemBase
     //swerveDrive.setCosineCompensator(!SwerveDriveTelemetry.isSimulation); // Disables cosine compensation for simulations since it causes discrepancies not seen in real life.
     swerveDrive.setCosineCompensator(false);
     setupPathPlanner();
-    history = new GyroHistory(swerveDrive);
   }
 
   /**
@@ -98,7 +94,6 @@ public class SwerveSubsystem extends SubsystemBase
   public SwerveSubsystem(SwerveDriveConfiguration driveCfg, SwerveControllerConfiguration controllerCfg)
   {
     swerveDrive = new SwerveDrive(driveCfg, controllerCfg, maximumSpeed);
-    history = new GyroHistory(swerveDrive);
   }
 
   /**
@@ -120,7 +115,7 @@ public class SwerveSubsystem extends SubsystemBase
                                          // Max module speed, in m/s
                                          swerveDrive.swerveDriveConfiguration.getDriveBaseRadiusMeters(),
                                          // Drive base radius in meters. Distance from robot center to furthest module.
-                                         new ReplanningConfig(false,false)
+                                         new ReplanningConfig()
                                          // Default path replanning config. See the API for the options here
         ),
         () -> {
@@ -143,7 +138,6 @@ public class SwerveSubsystem extends SubsystemBase
   public Command getAutonomousCommand(String pathName)
   {
     // Create a path following command using AutoBuilder. This will also trigger event markers.
-    resetOdometry(PathPlannerAuto.getStaringPoseFromAutoFile(pathName));
     return new PathPlannerAuto(pathName);
   }
 
@@ -308,14 +302,11 @@ public class SwerveSubsystem extends SubsystemBase
   @Override
   public void periodic()
   {
-    history.recordGyroData();
-    addVisionReading();
   }
 
   @Override
   public void simulationPeriodic()
   {
-    //addFakeVisionReading();
   }
 
   /**
@@ -502,36 +493,8 @@ public class SwerveSubsystem extends SubsystemBase
   /**
    * Add a fake vision reading for testing purposes.
    */
-  private Pose2d lastPose = new Pose2d(0.0, 0.0, Rotation2d.fromDegrees(0));
-
-  public void addVisionReading()
+  public void addFakeVisionReading()
   {
-
-    LimelightHelpers.PoseEstimate limelightPose = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight-april");
-    if(LimelightHelpers.getTV("limelight-april") && !lastPose.equals(limelightPose.pose)) {
-      lastPose = limelightPose.pose;
-      
-      SmartDashboard.putNumber("# of tags", limelightPose.tagCount);
-      SmartDashboard.putNumber("tag span", limelightPose.tagSpan);
-      SmartDashboard.putNumber("tag dist", limelightPose.avgTagDist);
-      SmartDashboard.putNumber("tag area", limelightPose.avgTagArea);
-
-      if(limelightPose.tagCount < 2) {
-        return;
-      }
-
-
-      if(limelightPose.avgTagDist > 5) {
-        return;
-      }
-
-      System.out.println(limelightPose.pose.getX() + ", " + limelightPose.pose.getY());
-      Pose2d computedPose = new Pose2d(limelightPose.pose.getX(), limelightPose.pose.getY(), 
-                 history.fetchInterpolatedGyroData(limelightPose.timestampSeconds));
-
-      swerveDrive.addVisionMeasurement(computedPose, limelightPose.timestampSeconds);
-
-      
-    }
+    swerveDrive.addVisionMeasurement(new Pose2d(3, 3, Rotation2d.fromDegrees(65)), Timer.getFPGATimestamp());
   }
-};
+}

@@ -27,6 +27,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     public ElevatorSubsystem(){ 
         m_elevator.setInverted(true);
+        m_elevator_helper.setInverted(true);
         elevatorEncoder.setPosition(0);
         m_PidController.setFeedbackDevice(elevatorEncoder);
         m_elevator.setIdleMode(IdleMode.kBrake);
@@ -38,7 +39,7 @@ public class ElevatorSubsystem extends SubsystemBase {
         m_PidController.setIZone(kIz);
         m_PidController.setFF(kFF);
         m_PidController.setOutputRange(kMinOutput, kMaxOutput);
-        m_elevator_helper.follow(m_elevator, true);
+        m_elevator_helper.follow(m_elevator, false);
 
     }
 
@@ -68,7 +69,7 @@ public class ElevatorSubsystem extends SubsystemBase {
      }
 
      public void humanPosition(){
-        setElevatorHight(2.0);
+        setElevatorHight(2.0);//3
      }
 
      public void trapPosition(){

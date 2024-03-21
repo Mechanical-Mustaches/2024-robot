@@ -25,4 +25,11 @@ public class ClosePOSCommand extends Command {
         pivot.pivotBasePosition();
         elevator.basePosition();
     }
+
+    
+
+
+
+
+
 }

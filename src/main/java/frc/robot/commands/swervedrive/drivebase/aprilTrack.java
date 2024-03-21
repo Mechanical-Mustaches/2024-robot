@@ -18,7 +18,7 @@ import swervelib.SwerveController;
 /**
  * An example command that uses an example subsystem.
  */
-public class NoteTrack extends Command
+public class AprilTrack extends Command
 {
 
   private final SwerveSubsystem  swerve;
@@ -33,7 +33,7 @@ public class NoteTrack extends Command
    *
    * @param swerve The subsystem used by this command.
    */
-  public NoteTrack(SwerveSubsystem swerve, DoubleSupplier vX, DoubleSupplier vY, DoubleSupplier omega)
+  public AprilTrack(SwerveSubsystem swerve, DoubleSupplier vX, DoubleSupplier vY, DoubleSupplier omega)
   {
     this.swerve = swerve;
     this.vX = vX;
@@ -59,17 +59,19 @@ public class NoteTrack extends Command
     double yVelocity   = Math.pow(vY.getAsDouble(), 3);
     double angVelocity = Math.pow(omega.getAsDouble(), 3);
     SmartDashboard.putNumber("vX", xVelocity);
-    SmartDashboard.putNumber("vY", yVelocity);    
-   
-    if(LimelightHelpers.getTV("limelight-note")){
+    SmartDashboard.putNumber("vY", yVelocity);
+
+    
+
+    if(LimelightHelpers.getTV("limelight-april")){
       SmartDashboard.putBoolean("seeNote", true);
-      double rotation = pidController.calculate(LimelightHelpers.getTX("limelight-note"), 0.0);
+      double rotation = pidController.calculate(LimelightHelpers.getTX("limelight-april"), 0.0);
 
       swerve.drive(new Translation2d(xVelocity * swerve.maximumSpeed, yVelocity * swerve.maximumSpeed),
                  rotation*3,
                  true);
-    } 
-    else{ 
+    }
+    else{
       SmartDashboard.putBoolean("seeNote", false);
       swerve.drive(new Translation2d(xVelocity * swerve.maximumSpeed, yVelocity * swerve.maximumSpeed),
                  angVelocity * controller.config.maxAngularVelocity,

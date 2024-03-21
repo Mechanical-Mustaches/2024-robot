@@ -55,8 +55,4 @@ public final class Constants
     public static final double TURN_CONSTANT = 6;
 
   }
-    public static final class pivotConstants
-  {
-    public static final float basePosition = 151;
-  }
 }
