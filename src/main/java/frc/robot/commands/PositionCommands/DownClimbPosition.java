@@ -4,25 +4,24 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.PivotSubsystem;
 
-public class ClosePOSCommand extends Command {
+public class DownClimbPosition extends Command {
     private final PivotSubsystem pivot;
     private final ElevatorSubsystem elevator;
 
-    public ClosePOSCommand(PivotSubsystem pivot, ElevatorSubsystem elevator){
+    public DownClimbPosition(PivotSubsystem pivot, ElevatorSubsystem elevator){
         this.pivot = pivot;
         this.elevator = elevator;
-
     }
 
     @Override
     public void initialize(){
-        pivot.pivotSubWooferPosition();
-        elevator.subWooferPosition();
+        pivot.pivotClimbPosition();
+        elevator.basePosition();
     }
 
     @Override
-    public void end(boolean i){
-        pivot.pivotBasePosition();
-        elevator.basePosition();
+    public boolean isFinished(){
+        return true;
     }
+    
 }

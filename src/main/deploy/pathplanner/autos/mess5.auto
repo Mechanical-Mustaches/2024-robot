@@ -3,9 +3,9 @@
   "startingPose": {
     "position": {
       "x": 0.75,
-      "y": 6.6
+      "y": 4.5
     },
-    "rotation": 60.0
+    "rotation": -60.0
   },
   "command": {
     "type": "sequential",
@@ -18,21 +18,9 @@
           }
         },
         {
-          "type": "wait",
-          "data": {
-            "waitTime": 4.0
-          }
-        },
-        {
           "type": "path",
           "data": {
-            "pathName": "upper far"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Fire"
+            "pathName": "mess"
           }
         }
       ]

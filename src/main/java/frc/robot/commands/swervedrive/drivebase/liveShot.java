@@ -9,87 +9,91 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.LimelightHelpers;
+import frc.robot.subsystems.FlyWheelSubsystem;
+import frc.robot.subsystems.PivotSubsystem;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.util.function.DoubleSupplier;
-
-
-import swervelib.SwerveController;
 
 /**
  * An example command that uses an example subsystem.
  */
-public class noteTrack extends Command
+public class liveShot extends Command
 {
 
   private final SwerveSubsystem  swerve;
+  private final PivotSubsystem  pivot;
+  private final FlyWheelSubsystem  flywheel;
   private final PIDController pidController = new PIDController(0.025, 0, 0);
   private final DoubleSupplier   vX;
   private final DoubleSupplier   vY;
-  private final DoubleSupplier   omega;
-  private final SwerveController controller;
+  private double speakerXloc = 0;
+  private double speakerYloc = 5.5;
+  private boolean isRedAlliance = (DriverStation.getAlliance().isPresent() ? DriverStation.getAlliance().get() == DriverStation.Alliance.Red : false);
+
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param swerve The subsystem used by this command.
    */
-  public noteTrack(SwerveSubsystem swerve, DoubleSupplier vX, DoubleSupplier vY, DoubleSupplier omega)
+  public liveShot(SwerveSubsystem swerve, PivotSubsystem pivot, FlyWheelSubsystem flywheel, DoubleSupplier vX, DoubleSupplier vY)
   {
     this.swerve = swerve;
+    this.pivot = pivot;
+    this.flywheel = flywheel;
     this.vX = vX;
     this.vY = vY;    
-    this.omega = omega;
-    this.controller = swerve.getSwerveController();
-    // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(swerve);
+    pidController.enableContinuousInput(-180, 180);
+
+    addRequirements(swerve, pivot, flywheel);
   }
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize()
-  {
-    SmartDashboard.putBoolean("seeNote", false);
+  { 
+    if(isRedAlliance){
+      speakerXloc = 16.54;
+    }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute()
   {
+    //get joystick values for drivetrain
     double xVelocity   = Math.pow(vX.getAsDouble(), 3);
     double yVelocity   = Math.pow(vY.getAsDouble(), 3);
-    double angVelocity = Math.pow(omega.getAsDouble(), 3);
-    
-    var alliance = DriverStation.getAlliance();
-    
-    if(alliance.isPresent() ? alliance.get() == DriverStation.Alliance.Red : false){
+
+    if(isRedAlliance){
       yVelocity = -1*yVelocity;
       xVelocity = -1*xVelocity;
     }
 
-    
-   
-    if(LimelightHelpers.getTV("limelight-note")){
-      SmartDashboard.putBoolean("seeNote", true);
-      double rotation = pidController.calculate(LimelightHelpers.getTX("limelight-note"), 0.0);
+    double deltaX = swerve.getPose().getX() - speakerXloc;
+    double deltaY = swerve.getPose().getY() - speakerYloc;
+    double hypo = Math.sqrt(Math.pow(deltaX, 2)+Math.pow(deltaY, 2));
+    double degOffset =  Math.atan(deltaY/deltaX)*180/Math.PI;
 
-      swerve.drive(new Translation2d(xVelocity * swerve.maximumSpeed, yVelocity * swerve.maximumSpeed),
-                 rotation*3,
-                 true);
-    } 
-    else{ 
-      SmartDashboard.putBoolean("seeNote", false);
-      swerve.drive(new Translation2d(xVelocity * swerve.maximumSpeed, yVelocity * swerve.maximumSpeed),
-                 angVelocity * controller.config.maxAngularVelocity,
-                 true);
-    } 
+    if(isRedAlliance){
+      degOffset = degOffset+180;
+    }
 
+    double rotation = pidController.calculate(swerve.getHeading().getDegrees(), degOffset);
+
+    swerve.drive(new Translation2d(xVelocity * swerve.maximumSpeed, yVelocity * swerve.maximumSpeed),
+                rotation*5,
+                true);
+    SmartDashboard.putNumber("Speaker Distance: ", hypo);
+    flywheel.farShot();
+    pivot.dynamicShot(hypo);
   }
-  
+   
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted)
   {
+    flywheel.rampDown();
+    pivot.pivotBasePosition();
   }
 
   // Returns true when the command should end.

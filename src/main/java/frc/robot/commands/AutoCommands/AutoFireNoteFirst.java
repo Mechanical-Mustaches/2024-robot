@@ -3,6 +3,7 @@ package frc.robot.commands.AutoCommands;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ConveyorSubsystem;
 import frc.robot.subsystems.FlyWheelSubsystem;
+import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 
 public class AutoFireNoteFirst extends Command{
     ConveyorSubsystem convey;
@@ -12,9 +13,10 @@ public class AutoFireNoteFirst extends Command{
     int timer = 0;
     int waitTimer = 75; //in theory a 1.5 second timer
 
-    public AutoFireNoteFirst(ConveyorSubsystem convey, FlyWheelSubsystem flywheel){
+    public AutoFireNoteFirst(ConveyorSubsystem convey, FlyWheelSubsystem flywheel, SwerveSubsystem swerve){
         this.convey = convey;
         this.flywheel = flywheel;
+        addRequirements(convey, flywheel, swerve);
     }
 
     @Override

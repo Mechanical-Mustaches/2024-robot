@@ -19,7 +19,6 @@ public class IntakingNoteCommand extends SequentialCommandGroup{
                 (new BasePosition(pivot, elevator)),   
                 (new ConveyLineBreak(conveyor, flywheel, floorIntake)),
                 (new ConveyorMoveBack(conveyor, flywheel))
-                
         );
        
     }

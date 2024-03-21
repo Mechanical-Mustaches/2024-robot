@@ -20,18 +20,6 @@
         {
           "type": "path",
           "data": {
-            "pathName": "center middle"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Fire"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
             "pathName": "center down"
           }
         },
@@ -44,7 +32,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "escape center"
+            "pathName": "center middle"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Fire"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Escape Center"
           }
         }
       ]

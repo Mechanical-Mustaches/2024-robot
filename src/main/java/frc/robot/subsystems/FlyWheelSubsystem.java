@@ -5,6 +5,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkLimitSwitch;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.LimelightHelpers;
 
 public class FlyWheelSubsystem extends SubsystemBase {    
  /** Creates a new FlyWheelSubsystem. */
@@ -13,24 +14,7 @@ public class FlyWheelSubsystem extends SubsystemBase {
     private final SparkLimitSwitch lineBreak = m_leftWheel.getForwardLimitSwitch(SparkLimitSwitch.Type.kNormallyOpen); 
 
   public FlyWheelSubsystem() {
-    m_rightWheel.follow(m_leftWheel, true);
-
-    SmartDashboard.putBoolean("flywheelLB", false);
-    
-  }
-
-  @Override
-  public void periodic() {
-    SmartDashboard.putNumber("flywheelSetpoint", m_leftWheel.get());
-  }
-
-  @Override
-  public void simulationPeriodic() {
-    
-  }
-  
-  public double getPercentSetpoint(){
-    return m_leftWheel.get();
+    m_rightWheel.follow(m_leftWheel, true);    
   }
 
   /*
@@ -50,25 +34,28 @@ public class FlyWheelSubsystem extends SubsystemBase {
 
   public boolean isNoteSeen(){
     return lineBreak.isPressed();
-   // return SmartDashboard.getBoolean("flywheelLB", false);
   }
 
   public void ampShot(){
-    m_leftWheel.set(0.2);
+    m_leftWheel.set(0.4); //0.2;
+    LimelightHelpers.setLEDMode_ForceOff("limelight-april");
   }
 
   public void closeShot(){
     m_leftWheel.set(1);
+    LimelightHelpers.setLEDMode_ForceOff("limelight-april");
   }
   
 
   public void farShot(){
     m_leftWheel.set(1);
+    LimelightHelpers.setLEDMode_ForceOff("limelight-april");
   }
 
   public void sourceNomNom(){
     //m_leftWheel.set(-0.7);
     m_leftWheel.set(-0.3);
+    LimelightHelpers.setLEDMode_ForceOff("limelight-april");
   }
 
 

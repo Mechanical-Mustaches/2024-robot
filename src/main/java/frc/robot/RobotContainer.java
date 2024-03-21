@@ -13,7 +13,6 @@ import frc.robot.commands.AutoCommands.AutoIntakeCommand;
 import frc.robot.commands.ConveyorCommands.ConveyFireCommand;
 import frc.robot.commands.ConveyorCommands.ConveySpitNote;
 import frc.robot.commands.FloorIntakeCommands.FI_IntakeReverseCommand;
-import frc.robot.commands.FloorIntakeCommands.FI_IntakeStop;
 import frc.robot.commands.FlyWheelCommands.CloseShotCommand;
 import frc.robot.commands.FlyWheelCommands.FarShotCommand;
 import frc.robot.commands.PositionCommands.AmpPosition;
@@ -23,15 +22,13 @@ import frc.robot.commands.PositionCommands.ClosePOSCommand;
 import frc.robot.commands.PositionCommands.FarPOSCommand;
 import frc.robot.commands.PositionCommands.HumanPosition;
 import frc.robot.commands.PositionCommands.SkipPosition;
-import frc.robot.commands.PositionCommands.TrapPosition;
-import frc.robot.commands.TrapCommands.TrapBaseCommand;
-import frc.robot.commands.TrapCommands.WipeCommand;
+import frc.robot.commands.PositionCommands.DownClimbPosition;
+import frc.robot.commands.PositionCommands.testPosition;
 import frc.robot.subsystems.ConveyorSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.FloorIntakeSubsystem;
 import frc.robot.subsystems.FlyWheelSubsystem;
 import frc.robot.subsystems.PivotSubsystem;
-import frc.robot.subsystems.TrapSubsystem;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.RobotBase;
@@ -40,13 +37,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.RepeatCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.swervedrive.drivebase.TeleopDrive;
-import frc.robot.commands.swervedrive.drivebase.AprilTrack;
+import frc.robot.commands.swervedrive.drivebase.liveShot;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
-import frc.robot.commands.swervedrive.drivebase.NoteTrack; 
+import frc.robot.commands.swervedrive.drivebase.noteTrack; 
 import java.io.File;
 import com.pathplanner.lib.auto.NamedCommands;
 
@@ -66,7 +64,6 @@ public class RobotContainer
   private final FlyWheelSubsystem flyWheel = new FlyWheelSubsystem();
   private final PivotSubsystem pivot = new PivotSubsystem();
   private final ElevatorSubsystem elevator = new ElevatorSubsystem();
-  private final TrapSubsystem trap = new TrapSubsystem();
 
 
 
@@ -89,9 +86,6 @@ public class RobotContainer
    */
   public RobotContainer()
   {
-    
-
-      
     // Configure the trigger bindings
     configureBindings();
     initializeAutoChooser();
@@ -99,9 +93,9 @@ public class RobotContainer
 
     TeleopDrive simClosedFieldRel = new TeleopDrive(
       drivebase,
-       () -> m_driverController.getRawAxis(1),
-       () -> m_driverController.getRawAxis(0),
-       () -> m_driverController.getRawAxis(4), () -> true);
+       () -> -m_driverController.getRawAxis(1),
+       () -> -m_driverController.getRawAxis(0),
+       () -> -m_driverController.getRawAxis(4), () -> true);
 
     TeleopDrive closedFieldRel = new TeleopDrive(
         drivebase,
@@ -126,15 +120,11 @@ public class RobotContainer
     //Driver Controls   
     //Swerve controls
     m_driverController.button(4).onTrue((new InstantCommand(drivebase::zeroGyro)));
-    m_driverController.button(5).onTrue((new InstantCommand(drivebase::lock)));  
-
-    //Trap command
-    m_driverController.button(7).onTrue((new WipeCommand(trap)));
-    m_driverController.button(7).onFalse((new TrapBaseCommand(trap)));
 
     //Intake Reverse
-    m_driverController.button(6).whileTrue(new FI_IntakeReverseCommand(floorIntake));
-    //m_driverController.button(6).onFalse(new FI_IntakeStop(floorIntake));
+     m_driverController.button(5).whileTrue(new FI_IntakeReverseCommand(floorIntake));
+
+     m_driverController.button(6).whileTrue(new ConveyFireCommand(conveyor));
 
     
     /*Gunner Controls 
@@ -155,7 +145,7 @@ public class RobotContainer
 
       //Climb
       m_coDriverController.button(3).whileTrue(new ClimbPosition(pivot, elevator));
-      m_coDriverController.button(3).onFalse(new BasePosition(pivot, elevator));
+      m_coDriverController.button(3).onFalse(new DownClimbPosition(pivot, elevator));
 
       //Far Shot
       m_coDriverController.button(4).whileTrue(new ParallelCommandGroup(
@@ -167,8 +157,8 @@ public class RobotContainer
       m_coDriverController.button(5).whileTrue(new SkipPosition(pivot, elevator, flyWheel));
       m_coDriverController.button(5).onFalse(new BasePosition(pivot, elevator));
   
-      //Trap Score
-      m_coDriverController.button(6).whileTrue(new TrapPosition(pivot, elevator));
+      //Dynamic Testing
+      m_coDriverController.button(6).whileTrue(new testPosition(pivot, elevator, flyWheel));
       m_coDriverController.button(6).onFalse(new BasePosition(pivot, elevator));
       
       //Amp Shot
@@ -184,16 +174,15 @@ public class RobotContainer
       //Fire
       m_coDriverController.button(10).whileTrue(new ConveyFireCommand(conveyor));
 
-      //Track April (back limelight) 
-      m_coDriverController.button(11).whileTrue(new RepeatCommand(new AprilTrack(
-      drivebase,
+      //liveShot (back limelight) 
+      m_driverController.button(11).whileTrue(new RepeatCommand(new liveShot(
+      drivebase, pivot, flyWheel,
         () -> -MathUtil.applyDeadband(m_driverController.getRawAxis(1), OperatorConstants.LEFT_Y_DEADBAND),
-        () -> -MathUtil.applyDeadband(m_driverController.getRawAxis(0), OperatorConstants.LEFT_X_DEADBAND),
-        () -> -m_driverController.getRawAxis(4)
+        () -> -MathUtil.applyDeadband(m_driverController.getRawAxis(0), OperatorConstants.LEFT_X_DEADBAND)
         )));
 
       //Track Note (front limelight)
-      m_coDriverController.button(12).whileTrue(new RepeatCommand(new NoteTrack(
+      m_driverController.button(12).whileTrue(new RepeatCommand(new noteTrack(
       drivebase,
         () -> -MathUtil.applyDeadband(m_driverController.getRawAxis(1), OperatorConstants.LEFT_Y_DEADBAND),
         () -> -MathUtil.applyDeadband(m_driverController.getRawAxis(0), OperatorConstants.LEFT_X_DEADBAND),
@@ -204,15 +193,15 @@ public class RobotContainer
   }
 
   public void initialize(){
-    new BasePosition(pivot, elevator);
-    flyWheel.rampDown();
+    pivot.pivotBasePosition();
   }
 
     // Register Named Commands (Pathplanner)
   private void inititalizePathPlannerCommands() {
     NamedCommands.registerCommand("Fire", new AutoFireNote(conveyor, flyWheel));
-    NamedCommands.registerCommand("FireFirst", new AutoFireNoteFirst(conveyor, flyWheel));
+    NamedCommands.registerCommand("FireFirst", new AutoFireNoteFirst(conveyor, flyWheel, drivebase));
     NamedCommands.registerCommand("Intake", new AutoIntakeCommand(floorIntake, conveyor, elevator, pivot, flyWheel));
+    NamedCommands.registerCommand("print", new PrintCommand("marker hit!"));
   }
 
   /**
@@ -229,15 +218,18 @@ public class RobotContainer
     autoChooser.addOption("3 Peice Close Source Side", "auto3source");
     autoChooser.addOption("3 Peice Bumrush Source Side", "auto3sourcefar");
     autoChooser.addOption("3 Peice Bumrush Amp Side", "auto3ampfar");
+    autoChooser.addOption("3.5 Peice Bumrush Amp Side", "auto3.5ampfar");
     autoChooser.addOption("2 Peice Bumrush Source Side", "auto2sourcefar");
     autoChooser.addOption("2 Peice Bumrush Amp Side", "auto2ampfar");
+    autoChooser.addOption("3 Peice Bumrush Source Far", "auto4farsource");
     autoChooser.addOption("Preload Source Sude", "preloadsource");
     autoChooser.addOption("Preload Amp Sude", "preloadamp");
+    autoChooser.addOption("mess5 :)", "mess5");
     autoChooser.addOption("test PID", "pidtest");
     SmartDashboard.putData("Auto Selector", autoChooser);
     return autoChooser.getSelected();
   }
-
+ 
   public Command getAutonomousCommand()
   {
     return drivebase.getAutonomousCommand(initializeAutoChooser());
