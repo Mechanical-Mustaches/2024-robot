@@ -16,17 +16,19 @@ public class PivotSubsystem extends SubsystemBase {
     private final CANSparkMax m_pivot = new CANSparkMax(14, MotorType.kBrushless);
     private final SparkAbsoluteEncoder encoder = m_pivot.getAbsoluteEncoder(SparkAbsoluteEncoder.Type.kDutyCycle); 
     private final SparkPIDController m_PidController;
-
-
  
-    private double kP = 2.5; //4
-    private double kI = 0;
-    private double kD = 0;
-    private double kIz = 0;
-    private double kFF = 0;
-    private double kMaxOutput = 0.6; //0.4
-    private double kMinOutput = -0.25; //0.15
+    private double kP = 6; //7.2
+    private double kI = 0.019;
+    private double kD = 150;
 
+    private double ampkP = 2.5;
+    private double ampkI = 0;
+    private double ampkD = 0;
+
+    private double kIz = 0.5;
+    private double kFF = 0;
+    private double kMaxOutput = 0.5; //0.4
+    private double kMinOutput = -0.1;
 
     public PivotSubsystem(){
         m_pivot.restoreFactoryDefaults();
@@ -39,8 +41,16 @@ public class PivotSubsystem extends SubsystemBase {
         m_PidController.setD(kD);
         m_PidController.setIZone(kIz);
         m_PidController.setFF(kFF);
+
+        m_PidController.setP(ampkP,1);
+        m_PidController.setI(ampkI,1);
+        m_PidController.setD(ampkD,1);
+        m_PidController.setIZone(kIz,1);
+        m_PidController.setFF(kFF,1);
+        
         m_PidController.setOutputRange(kMinOutput, kMaxOutput);
         SmartDashboard.setDefaultNumber("pos", 0);
+        m_PidController.setIMaxAccum(1, 0);
     }
 
      /*
@@ -53,9 +63,18 @@ public class PivotSubsystem extends SubsystemBase {
      *  Defense Position (Last resort use w/ limelight maybe?) 
      *  Podium Position
      */
- 
+    @Override
+    public void periodic() {
+        SmartDashboard.putNumber("Pivot Ebcider Valye", encoder.getPosition()*360);
+    }
+
      private void setArmPosition(float deg){
-         m_PidController.setReference((deg) / 360, CANSparkMax.ControlType.kPosition);
+        int slot = 0;
+        if (deg > 200) {
+            slot = 1;
+        }
+         m_PidController.setReference((deg) / 360, CANSparkMax.ControlType.kPosition, slot);
+         m_PidController.setIAccum(0);
          SmartDashboard.putNumber("pivot setpoint", (deg));
      }
 
@@ -81,11 +100,11 @@ public class PivotSubsystem extends SubsystemBase {
      }
 
      public void pivotPodiumPosition(){
-        setArmPosition(192f);
+        setArmPosition(190f);
       }
 
      public void pivotSubWooferPosition(){
-         setArmPosition(164f);
+         setArmPosition(154);
      }
 
     public void pivotDefencePosition(){
@@ -100,16 +119,32 @@ public class PivotSubsystem extends SubsystemBase {
         setArmPosition((float)deg);
      }
 
-    public void dynamicShot(double Distance){
+    public void dynamicShot(double Distance, double angledeg, boolean isRed){
       
       //equation from google sheets for our line of best fit
-      double output = Distance*10 +150;
+      double degOffset = 0;
+      if(isRed) {
+        degOffset = 180;
+      }
+      double angle = Math.abs(angledeg-degOffset)/360;
+      SmartDashboard.putNumber("LiveShot Computed Angle", angle);
+      //double output = 157 +8.43*Distance - 0.271*Math.pow(Distance, 2); //pretty okay one without angle comp
+      //double output = 125.6497 + 27.444*Distance - (3.185*Distance*Distance) + (1.119*angle) + (61.84*angle*angle) +1; //first attempt at including angle
+      double output = 125.76785857794536 + Distance * 27.252600857688766 + Math.pow(Distance, 2) * -3.1428771404934173 + angle * 8.92498259473741 + 1;
+
+      if(Distance > 4.336) {
+        output = 186;
+      }
 
       //give output an upper and lower bound to not break the pivot
       output = Math.max(output, pivotConstants.basePosition);
       double deg = Math.min(output, 210);
 
       setArmPosition((float)deg);
+    }
+
+    public boolean getAtSetpoint(double threshould) {
+        return encoder.getPosition()*360 > threshould-5;
     }
 }
  

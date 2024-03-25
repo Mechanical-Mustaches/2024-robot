@@ -51,9 +51,11 @@ public class liveShot extends Command
   @Override
   public void initialize()
   { 
+    isRedAlliance = (DriverStation.getAlliance().isPresent() ? DriverStation.getAlliance().get() == DriverStation.Alliance.Red : false);
     if(isRedAlliance){
       speakerXloc = 16.54;
     }
+    System.out.println(isRedAlliance);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -63,29 +65,26 @@ public class liveShot extends Command
     //get joystick values for drivetrain
     double xVelocity   = Math.pow(vX.getAsDouble(), 3);
     double yVelocity   = Math.pow(vY.getAsDouble(), 3);
-
-    if(isRedAlliance){
-      yVelocity = -1*yVelocity;
-      xVelocity = -1*xVelocity;
-    }
-
     double deltaX = swerve.getPose().getX() - speakerXloc;
     double deltaY = swerve.getPose().getY() - speakerYloc;
     double hypo = Math.sqrt(Math.pow(deltaX, 2)+Math.pow(deltaY, 2));
     double degOffset =  Math.atan(deltaY/deltaX)*180/Math.PI;
 
     if(isRedAlliance){
+      yVelocity = -1*yVelocity;
+      xVelocity = -1*xVelocity;
       degOffset = degOffset+180;
     }
 
     double rotation = pidController.calculate(swerve.getHeading().getDegrees(), degOffset);
 
     swerve.drive(new Translation2d(xVelocity * swerve.maximumSpeed, yVelocity * swerve.maximumSpeed),
-                rotation*5,
+                rotation*3,
                 true);
-    SmartDashboard.putNumber("Speaker Distance: ", hypo);
+    SmartDashboard.putNumber("LiveShot Distance: ", hypo);
+    SmartDashboard.putNumber("LiveShot Raw Angle", degOffset);
     flywheel.farShot();
-    pivot.dynamicShot(hypo);
+    pivot.dynamicShot(hypo, degOffset, isRedAlliance);
   }
    
   // Called once the command ends or is interrupted.

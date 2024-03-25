@@ -1,5 +1,6 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.ConveyorSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
@@ -16,7 +17,8 @@ public class IntakingNoteCommand extends SequentialCommandGroup{
         ElevatorSubsystem elevator, PivotSubsystem pivot, FlyWheelSubsystem flywheel){
         
         addCommands(
-                (new BasePosition(pivot, elevator)),   
+                (new BasePosition(pivot, elevator)),  
+                (new InstantCommand(flywheel::rampDown)), 
                 (new ConveyLineBreak(conveyor, flywheel, floorIntake)),
                 (new ConveyorMoveBack(conveyor, flywheel))
         );

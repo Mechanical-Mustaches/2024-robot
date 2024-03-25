@@ -3,6 +3,8 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkLimitSwitch;
+import com.revrobotics.CANSparkBase.IdleMode;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.LimelightHelpers;
@@ -15,6 +17,10 @@ public class FlyWheelSubsystem extends SubsystemBase {
 
   public FlyWheelSubsystem() {
     m_rightWheel.follow(m_leftWheel, true);    
+    m_rightWheel.enableVoltageCompensation(12);
+    m_leftWheel.enableVoltageCompensation(12);
+    m_rightWheel.setIdleMode(IdleMode.kCoast);
+    m_leftWheel.setIdleMode(IdleMode.kCoast);
   }
 
   /*
@@ -22,14 +28,17 @@ public class FlyWheelSubsystem extends SubsystemBase {
    *  Podium Speed: 70%
    *  193in Speed: 
    */
+  private void setSpeed(double percent){
+    m_leftWheel.set(percent);
+    SmartDashboard.putNumber("flywheel percent", percent);
+  }
   
   public void rampUp(){
-    m_leftWheel.set(0.5);
+    setSpeed(0.5);
   }
 
   public void rampDown(){
-   //m_leftWheel.set(0.3);
-   m_leftWheel.set(0);
+   setSpeed(0);
   }
 
   public boolean isNoteSeen(){
@@ -37,24 +46,23 @@ public class FlyWheelSubsystem extends SubsystemBase {
   }
 
   public void ampShot(){
-    m_leftWheel.set(0.4); //0.2;
+    setSpeed(0.4); //0.2;
     LimelightHelpers.setLEDMode_ForceOff("limelight-april");
   }
 
   public void closeShot(){
-    m_leftWheel.set(1);
+    setSpeed(1);
     LimelightHelpers.setLEDMode_ForceOff("limelight-april");
   }
   
-
   public void farShot(){
-    m_leftWheel.set(1);
+    setSpeed(1);
     LimelightHelpers.setLEDMode_ForceOff("limelight-april");
   }
 
   public void sourceNomNom(){
     //m_leftWheel.set(-0.7);
-    m_leftWheel.set(-0.3);
+    setSpeed(-0.3);
     LimelightHelpers.setLEDMode_ForceOff("limelight-april");
   }
 

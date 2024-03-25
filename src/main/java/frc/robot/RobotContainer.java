@@ -7,6 +7,7 @@ package frc.robot;
 import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.IntakingNoteCommand;
+import frc.robot.commands.SmartShot;
 import frc.robot.commands.AutoCommands.AutoFireNote;
 import frc.robot.commands.AutoCommands.AutoFireNoteFirst;
 import frc.robot.commands.AutoCommands.AutoIntakeCommand;
@@ -99,9 +100,9 @@ public class RobotContainer
 
     TeleopDrive closedFieldRel = new TeleopDrive(
         drivebase,
-        () -> -MathUtil.applyDeadband(m_driverController.getRawAxis(1), OperatorConstants.LEFT_Y_DEADBAND),
-        () -> -MathUtil.applyDeadband(m_driverController.getRawAxis(0), OperatorConstants.LEFT_X_DEADBAND),
-        () -> -m_driverController.getRawAxis(4), () -> true);
+        () -> -MathUtil.applyDeadband(m_driverController.getRawAxis(5), OperatorConstants.LEFT_Y_DEADBAND),
+        () -> -MathUtil.applyDeadband(m_driverController.getRawAxis(4), OperatorConstants.LEFT_X_DEADBAND),
+        () -> -m_driverController.getRawAxis(0), () -> true);
 
     drivebase.setDefaultCommand(!RobotBase.isSimulation() ? closedFieldRel : simClosedFieldRel);
   }
@@ -158,7 +159,7 @@ public class RobotContainer
       m_coDriverController.button(5).onFalse(new BasePosition(pivot, elevator));
   
       //Dynamic Testing
-      m_coDriverController.button(6).whileTrue(new testPosition(pivot, elevator, flyWheel));
+      m_coDriverController.button(6).whileTrue(new testPosition(flyWheel, pivot, elevator));
       m_coDriverController.button(6).onFalse(new BasePosition(pivot, elevator));
       
       //Amp Shot
@@ -175,19 +176,25 @@ public class RobotContainer
       m_coDriverController.button(10).whileTrue(new ConveyFireCommand(conveyor));
 
       //liveShot (back limelight) 
-      m_driverController.button(11).whileTrue(new RepeatCommand(new liveShot(
-      drivebase, pivot, flyWheel,
-        () -> -MathUtil.applyDeadband(m_driverController.getRawAxis(1), OperatorConstants.LEFT_Y_DEADBAND),
-        () -> -MathUtil.applyDeadband(m_driverController.getRawAxis(0), OperatorConstants.LEFT_X_DEADBAND)
-        )));
+      // m_driverController.button(1).whileTrue(new RepeatCommand(new liveShot(
+      // drivebase, pivot, flyWheel,
+      //   () -> -MathUtil.applyDeadband(m_driverController.getRawAxis(1), OperatorConstants.LEFT_Y_DEADBAND),
+      //   () -> -MathUtil.applyDeadband(m_driverController.getRawAxis(0), OperatorConstants.LEFT_X_DEADBAND)
+      //   )));
+
+      m_coDriverController.button(11).whileTrue(new SmartShot(floorIntake, drivebase, elevator, flyWheel, pivot,
+       () -> -MathUtil.applyDeadband(m_driverController.getRawAxis(5), OperatorConstants.LEFT_X_DEADBAND),
+       () -> -MathUtil.applyDeadband(m_driverController.getRawAxis(4), OperatorConstants.LEFT_Y_DEADBAND)));
 
       //Track Note (front limelight)
-      m_driverController.button(12).whileTrue(new RepeatCommand(new noteTrack(
+      m_coDriverController.button(12).whileTrue(new RepeatCommand(new noteTrack(
       drivebase,
-        () -> -MathUtil.applyDeadband(m_driverController.getRawAxis(1), OperatorConstants.LEFT_Y_DEADBAND),
-        () -> -MathUtil.applyDeadband(m_driverController.getRawAxis(0), OperatorConstants.LEFT_X_DEADBAND),
-        () -> -m_driverController.getRawAxis(4)
+        () -> -MathUtil.applyDeadband(m_driverController.getRawAxis(5), OperatorConstants.LEFT_Y_DEADBAND),
+        () -> -MathUtil.applyDeadband(m_driverController.getRawAxis(4), OperatorConstants.LEFT_X_DEADBAND),
+        () -> -m_driverController.getRawAxis(1)
         )));
+
+      
       m_coDriverController.button(12).whileTrue(new IntakingNoteCommand(floorIntake, conveyor, elevator, pivot, flyWheel));
     
   }
@@ -213,7 +220,7 @@ public class RobotContainer
   private final SendableChooser<String> autoChooser = new SendableChooser<String>();
   
   private String initializeAutoChooser() {
-    autoChooser.setDefaultOption("4 Peice Close Auto", "auto4close");
+    autoChooser.setDefaultOption("4 Peice Close Auto", "auto4close"); 
     autoChooser.addOption("3 Peice Close Amp Side", "auto3amp");
     autoChooser.addOption("3 Peice Close Source Side", "auto3source");
     autoChooser.addOption("3 Peice Bumrush Source Side", "auto3sourcefar");

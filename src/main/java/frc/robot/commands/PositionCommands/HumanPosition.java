@@ -24,8 +24,8 @@ public class HumanPosition extends Command {
 
     @Override 
     public void initialize(){
-        pivot.pivotHumanPosition();
-        elevator.humanPosition();
+        //pivot.pivotHumanPosition();
+        //elevator.humanPosition();
         hasNote = false;
         safteyCheck = false;
 
