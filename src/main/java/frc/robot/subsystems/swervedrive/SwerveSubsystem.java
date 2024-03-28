@@ -10,11 +10,16 @@ import com.pathplanner.lib.path.PathConstraints;
 import com.pathplanner.lib.path.PathPlannerPath;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.ReplanningConfig;
+
+import edu.wpi.first.math.Matrix;
+import edu.wpi.first.math.Nat;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.numbers.N1;
+import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -27,6 +32,9 @@ import frc.robot.LimelightHelpers;
 import frc.robot.Constants.AutonConstants;
 import java.io.File;
 import java.util.function.DoubleSupplier;
+
+import org.ejml.simple.SimpleMatrix;
+
 import swervelib.SwerveController;
 import swervelib.SwerveDrive;
 import swervelib.SwerveDriveTest;
@@ -526,11 +534,18 @@ public class SwerveSubsystem extends SubsystemBase
         return;
       }
 
-      System.out.println(limelightPose.pose.getX() + ", " + limelightPose.pose.getY());
+      //System.out.println(limelightPose.pose.getX() + ", " + limelightPose.pose.getY());
       Pose2d computedPose = new Pose2d(limelightPose.pose.getX(), limelightPose.pose.getY(), 
                  history.fetchInterpolatedGyroData(limelightPose.timestampSeconds));
 
-      swerveDrive.addVisionMeasurement(computedPose, limelightPose.timestampSeconds);
+      if(DriverStation.isAutonomous()) {
+        swerveDrive.addVisionMeasurement(computedPose, limelightPose.timestampSeconds);
+        //System.out.println("AUTO!");
+      } else {
+        double[] Stds = {0.1,0.1,1};
+        swerveDrive.addVisionMeasurement(computedPose, limelightPose.timestampSeconds, new Matrix<N3,N1>(Nat.N3(),Nat.N1(),Stds));
+      }
+      
 
       
     }

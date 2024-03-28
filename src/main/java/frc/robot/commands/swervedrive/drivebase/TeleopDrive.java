@@ -8,6 +8,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.LimelightHelpers;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
@@ -48,14 +49,15 @@ public class TeleopDrive extends Command
   @Override
   public void initialize()
   {
+    LimelightHelpers.setPipelineIndex("limelight-april", 0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute()
   {
-    double xVelocity   = Math.pow(vX.getAsDouble(), 3);
-    double yVelocity   = Math.pow(vY.getAsDouble(), 3);
+    double xVelocity   = vX.getAsDouble();
+    double yVelocity   = vY.getAsDouble();
     double angVelocity = Math.pow(omega.getAsDouble(), 3);
 
     var alliance = DriverStation.getAlliance();

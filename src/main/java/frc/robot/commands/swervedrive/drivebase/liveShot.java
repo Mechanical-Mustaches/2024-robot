@@ -63,8 +63,8 @@ public class liveShot extends Command
   public void execute()
   {
     //get joystick values for drivetrain
-    double xVelocity   = Math.pow(vX.getAsDouble(), 3);
-    double yVelocity   = Math.pow(vY.getAsDouble(), 3);
+    double xVelocity   = vX.getAsDouble();
+    double yVelocity   = vY.getAsDouble();
     double deltaX = swerve.getPose().getX() - speakerXloc;
     double deltaY = swerve.getPose().getY() - speakerYloc;
     double hypo = Math.sqrt(Math.pow(deltaX, 2)+Math.pow(deltaY, 2));

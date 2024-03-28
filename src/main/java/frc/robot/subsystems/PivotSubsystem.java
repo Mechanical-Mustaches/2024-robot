@@ -130,7 +130,8 @@ public class PivotSubsystem extends SubsystemBase {
       SmartDashboard.putNumber("LiveShot Computed Angle", angle);
       //double output = 157 +8.43*Distance - 0.271*Math.pow(Distance, 2); //pretty okay one without angle comp
       //double output = 125.6497 + 27.444*Distance - (3.185*Distance*Distance) + (1.119*angle) + (61.84*angle*angle) +1; //first attempt at including angle
-      double output = 125.76785857794536 + Distance * 27.252600857688766 + Math.pow(Distance, 2) * -3.1428771404934173 + angle * 8.92498259473741 + 1;
+      //double output = 125.76785857794536 + Distance * 27.252600857688766 + Math.pow(Distance, 2) * -3.1428771404934173 + angle * 8.92498259473741 + 0.9;
+      double output = 125.55246220859223 + Distance * 30.479217634813665 + Math.pow(Distance, 2) * -3.9385528567845647 + angle * -9.990768684068321 + Math.pow(angle, 2) * 16.174554817622628 + 3.25;
 
       if(Distance > 4.336) {
         output = 186;
@@ -141,6 +142,11 @@ public class PivotSubsystem extends SubsystemBase {
       double deg = Math.min(output, 210);
 
       setArmPosition((float)deg);
+    // double output =SmartDashboard.getNumber("pos", pivotConstants.basePosition);
+
+    //     output = Math.max(output, pivotConstants.basePosition);
+    //     double deg = Math.min(output, 210);
+    //     setArmPosition((float)deg);
     }
 
     public boolean getAtSetpoint(double threshould) {

@@ -100,9 +100,9 @@ public class RobotContainer
 
     TeleopDrive closedFieldRel = new TeleopDrive(
         drivebase,
-        () -> -MathUtil.applyDeadband(m_driverController.getRawAxis(5), OperatorConstants.LEFT_Y_DEADBAND),
-        () -> -MathUtil.applyDeadband(m_driverController.getRawAxis(4), OperatorConstants.LEFT_X_DEADBAND),
-        () -> -m_driverController.getRawAxis(0), () -> true);
+        () -> -MathUtil.applyDeadband(m_driverController.getRawAxis(1), OperatorConstants.LEFT_Y_DEADBAND),
+        () -> -MathUtil.applyDeadband(m_driverController.getRawAxis(0), OperatorConstants.LEFT_X_DEADBAND),
+        () -> -m_driverController.getRawAxis(4), () -> true);
 
     drivebase.setDefaultCommand(!RobotBase.isSimulation() ? closedFieldRel : simClosedFieldRel);
   }
@@ -183,15 +183,15 @@ public class RobotContainer
       //   )));
 
       m_coDriverController.button(11).whileTrue(new SmartShot(floorIntake, drivebase, elevator, flyWheel, pivot,
-       () -> -MathUtil.applyDeadband(m_driverController.getRawAxis(5), OperatorConstants.LEFT_X_DEADBAND),
-       () -> -MathUtil.applyDeadband(m_driverController.getRawAxis(4), OperatorConstants.LEFT_Y_DEADBAND)));
+       () -> -MathUtil.applyDeadband(m_driverController.getRawAxis(1), OperatorConstants.LEFT_X_DEADBAND),
+       () -> -MathUtil.applyDeadband(m_driverController.getRawAxis(0), OperatorConstants.LEFT_Y_DEADBAND)));
 
       //Track Note (front limelight)
       m_coDriverController.button(12).whileTrue(new RepeatCommand(new noteTrack(
       drivebase,
-        () -> -MathUtil.applyDeadband(m_driverController.getRawAxis(5), OperatorConstants.LEFT_Y_DEADBAND),
-        () -> -MathUtil.applyDeadband(m_driverController.getRawAxis(4), OperatorConstants.LEFT_X_DEADBAND),
-        () -> -m_driverController.getRawAxis(1)
+        () -> -MathUtil.applyDeadband(m_driverController.getRawAxis(1), OperatorConstants.LEFT_Y_DEADBAND),
+        () -> -MathUtil.applyDeadband(m_driverController.getRawAxis(0), OperatorConstants.LEFT_X_DEADBAND),
+        () -> -m_driverController.getRawAxis(4)
         )));
 
       
